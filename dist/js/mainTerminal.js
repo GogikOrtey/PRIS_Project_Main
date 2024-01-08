@@ -704,12 +704,24 @@ function removeActiveClass(parentId) {
     }
 }
 
+// // Показывает указанный блок
+// function ShowBlock(nameBlock) {
+//     let block = document.getElementById(nameBlock);
+
+//     block.style.display = 'grid';       
+//     block.scrollIntoView({behavior: "smooth"});
+//     console.log("Фокус на блок: " + nameBlock);
+// }
+
 // Показывает указанный блок
 function ShowBlock(nameBlock) {
-    let block = document.getElementById(nameBlock);
+    setTimeout(function() {
+        let block = document.getElementById(nameBlock);
 
-    block.style.display = 'grid';       
-    block.scrollIntoView({behavior: "smooth"});
+        block.style.display = 'grid';       
+        block.scrollIntoView({behavior: "smooth"});
+        console.log("Фокус на блок: " + nameBlock);
+    }, 1);
 }
 
 // Служебные переменные
@@ -1391,7 +1403,11 @@ function docWrite_01(text, data) {
     document.querySelector('.result-cards').style.display = 'grid';   
 
     document.querySelector('.butt-final-2').style.display = 'flex';
-    if(window.innerWidth > 650) document.querySelector('.butt-final-2').scrollIntoView({behavior: "smooth"});
+    if(window.innerWidth > 650) { 
+        if(isFocusCardBlock === false) {
+            document.querySelector('.butt-final-2').scrollIntoView({behavior: "smooth"});
+        }        
+    }
 
     console.log("Отправляем вот такую строку:" + text); 
 
@@ -1439,7 +1455,9 @@ function SetNamePlants(plantNames_mass) {
 
     console.log("b_OncePlant = " + b_OncePlant);
 
-    if(b_OncePlant != 1) { // Несколько растений
+    if((b_OncePlant != 1) || (isDuoColorReqActive === true)) { // Несколько растений
+
+        //console.log("allCountOfRequ = " + allCountOfRequ);
 
         // Присваиваем каждой карточке название растения из массива
         spans.forEach((span, index) => {
@@ -1474,12 +1492,18 @@ function SetNamePlants(plantNames_mass) {
     
     } else { // Только одно растение // if(b_OncePlant == 0 || 1)
         spans.forEach((span, index) => {     
-            if(index != 1) span.parentElement.style.display = 'none';
+            span.parentElement.style.display = 'none';
         });
+
+        spansNew = Array.from(spans);
+
+        spansNew.sort(function(a, b) {
+            return 0.5 - Math.random();
+        });        
 
         document.querySelector('.upper-block-3').style.setProperty("grid-template-columns", "1fr");
 
-        span = spans[1];
+        span = spansNew[1];
 
         let namePl = plantNames_mass[0].plant_name;
         span.textContent = namePl
@@ -1528,19 +1552,27 @@ function ReloadPageButtonProc() {
 // ------------------------------------------ // 
 
 let allCountOfRequ = 0; // Общее количество запросов к БД
+let isFocusCardBlock = false;
+let isDuoColorReqActive = false;
+
 
 // 2й запрос к БД - выборка по всем выбранным цветам, без учёта других параметров
 // Выполняется, если первый запрос вернул пустой результат
 function Requ_2_OnlyGettingColor() {
     if(colors['green'] == true) {
+
         console.log("Выбран зелёный цвет, говорим, что результатов нету");
         isGreenZeroRequest = true;
         document.querySelector('.zero-reauest').style.display = 'grid';
         document.querySelector('.loadd').style.display = 'none';
         document.querySelector('.result-cards').style.display = 'none';
+
     } else if(allCountOfRequ < 2) {    
         console.log("Посылаем новый запрос, только с цветами");
+
+        isDuoColorReqActive = true;
         allCountOfRequ = 2;
+
         document.querySelector('.loadd').style.display = 'grid';
 
         let addStr1 = "";
@@ -1586,6 +1618,9 @@ function Requ_2_OnlyGettingColor() {
         document.querySelector('.block-request .req p').textContent = strRequare;
 
         document.querySelector('.reauest-2-only-color').style.display = 'block';
+        document.querySelector('.nav-menu-bar').scrollIntoView({behavior: "smooth"});
+        isFocusCardBlock = true;
+
         document.querySelector('.result-cards .spsp').style.display = 'none';
 
         SQL_RQ_FromSwever(strRequare);        
