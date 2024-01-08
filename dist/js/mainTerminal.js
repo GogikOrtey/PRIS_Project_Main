@@ -556,7 +556,7 @@ function CheckCorrectInput3() {
         var value = e.target.value;
         var errorElement = document.querySelector('.err-inp-3');
         
-        if (value == "" || isNaN(value) || value < 10 || value > 90) {
+        if (value == "" || isNaN(value) || value < 20 || value > 90) {
             errorElement.style.display = 'block';
             isHumCorrect = false;
             a_2_1_input_AVGHum = 0;

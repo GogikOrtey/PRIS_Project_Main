@@ -26,10 +26,14 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     document.querySelector('.load-more').addEventListener('click', function() {
+        LoadMoreFn();
+    });
+
+    function LoadMoreFn() {
         limitter = 24;
         showCards(data_Plants);      
         document.querySelector('#main-2').style.display = 'flex';  
-    });
+    }
 
     let GoToMainPage = document.querySelector('.go-back-to-main');
     
@@ -113,15 +117,39 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Перезагружаю страницу, если нажата кнопка "Пройти ещё раз"
     //ReloadPageButtonProc();
+
+    // --------------------------------------------------------------------- //
+    // Подгружаю новые карточки, если пользователь долистал до низа страницы //
+    // --------------------------------------------------------------------- // 
+
+    window.onscroll = function() {
+        var offset = window.pageYOffset + window.innerHeight;
+        var height = document.body.offsetHeight;
+    
+        if (offset >= height - 150) {
+            console.log('Вы достигли 150 пикселей от низа страницы или ниже');
+            // Ваш код здесь
+
+            if(boolIsFinalLoad !== true) {
+                if(isOwerDownLoad <= 0) {
+                    isOwerDownLoad = 5;
+                    LoadMoreFn();
+                }
+            }
+        }
+    };
 });
 
+let isOwerDownLoad = 0;
+
+setInterval(function() {
+    if(isOwerDownLoad > 0) isOwerDownLoad--;
+}, 10);
 
 function AllReq() {
     console.log("Отправляем на сервер запрос: " + strRequare);
     SQL_RQ_FromSwever(strRequare);
 }
-
-
 
 
 // ------------------------------------------ //
@@ -230,8 +258,6 @@ function SQL_RQ_FromSwever(sql_2) {
 
                 var data = JSON.parse(data_inp);
 
-                
-
                 JSON_Parser_OnConsole(data);    // Сначала выводим полученный из БД ответ, в консоль
                 JSON_Parser_OnHTMLPage(data);   // Затем, обрабатываем, для вывода на страницу, в карточках
 
@@ -244,18 +270,13 @@ function SQL_RQ_FromSwever(sql_2) {
     // Вывод полученного ответа от БД в консоль
     function JSON_Parser_OnConsole(data) {
         for (var i = 0; i < data.length; i++) {
-            console.log(data[i]); // Выводим каждую строку в консоль
+            //console.log(data[i]); // Выводим каждую строку в консоль
         }
     }
 
     // Обработка полученного ответа от БД, для вывода в карточки
     function JSON_Parser_OnHTMLPage(data) {
         var plantNames = ""; 
-
-        // // Перемешиваем получившийся массив в случайном порядке
-        // data.sort(function(a, b) {
-        //     return 0.5 - Math.random();
-        // });        
 
         plantNames = OnPageWeu_02(data);
 
@@ -266,20 +287,6 @@ function SQL_RQ_FromSwever(sql_2) {
         } else {
             data_Plants = data;
             showCards(data);
-
-            //docWrite_01(plantNames, data);
-
-            // //document.querySelector('.block-request .answ p').innerText = plantNames;
-            // let block = document.querySelector('.block-request .answ');
-            // block.innerHTML = ''; // Очистка содержимого блока
-            // data.forEach(name => {
-            //     let p = document.createElement('p');
-            //     p.innerText = "Растение " + name.plant_name;
-            //     block.appendChild(p);
-            // });
-            // let p = document.createElement('p');
-            // p.innerText = "Всего названий: " + data.length;
-            // block.appendChild(p);
         }  
     }    
 }
@@ -370,41 +377,6 @@ function showCards(data) {
     loadedCards += limitter;    
 }
 
-
-
-
-
-// function ShowAllCards(data) {
-//     // Получаем элемент, в который будем добавлять карточки
-//     let container = document.querySelector('.card-holder');
-
-//     let limitter = 18;
-//     let intCounter = 0;
-
-//     // Проходим по каждому элементу в массиве данных
-//     data.forEach(item => {
-//         if(intCounter < limitter) {
-//             // Создаем элементы для карточки
-//             let card = document.createElement('div');
-//             let img = document.createElement('img');
-//             let span = document.createElement('span');
-            
-//             // Устанавливаем атрибуты и содержимое для элементов
-//             card.className = 'card';
-//             img.src = `img/all-plants-photo/Растение ${item.plant_name}.jpg`;
-//             span.textContent = item.plant_name;
-            
-//             // Добавляем img и span в card
-//             card.appendChild(img);
-//             card.appendChild(span);
-            
-//             // Добавляем card в container
-//             container.appendChild(card);
-//             intCounter++;
-//         }
-//     });
-// }
-
 // Показываем блок карточек, и выводим их в нужном порядке
 function docWrite_01(text, data) {
     document.querySelector('.loadd').style.display = 'none';
@@ -436,171 +408,3 @@ function randomImgPlantsCard() {
         img.src = imageNames[index];
     });
 }
-
-// Перезагружаю страницу, если нажата кнопка "Пройти ещё раз"
-// [Эта процедура вызывается после загрузки всей DOM-модели страницы, в самом верху этого скрипта]
-function ReloadPageButtonProc() {
-    document.querySelector('.butt-final-2').addEventListener('click', function() {
-        location.reload();
-    });    
-}
-
-// ------------------------------------------ //
-// 	             2й запрос к БД:              //
-// ------------------------------------------ // 
-
-let allCountOfRequ = 0; // Общее количество запросов к БД
-
-// 2й запрос к БД - выборка по всем выбранным цветам, без учёта других параметров
-// Выполняется, если первый запрос вернул пустой результат
-function Requ_2_OnlyGettingColor() {
-    if(colors['green'] == true) {
-        console.log("Выбран зелёный цвет, говорим, что результатов нету");
-        isGreenZeroRequest = true;
-        document.querySelector('.zero-reauest').style.display = 'grid';
-        document.querySelector('.loadd').style.display = 'none';
-        document.querySelector('.result-cards').style.display = 'none';
-    } else if(allCountOfRequ < 2) {    
-        console.log("Посылаем новый запрос, только с цветами");
-        allCountOfRequ = 2;
-        document.querySelector('.loadd').style.display = 'grid';
-
-        let addStr1 = "";
-    
-        if(colors['red'] == true) {
-            addStr1 += "plant_color_description LIKE '%расный%' OR ";
-        } 
-        if(colors['orange'] == true) {
-            addStr1 += "plant_color_description LIKE '%ранжевый%' OR ";
-        } 
-        if(colors['yellow'] == true) {
-            addStr1 += "plant_color_description LIKE '%ёлтый%' OR ";
-        } 
-        if(colors['lightBlue'] == true) {
-            addStr1 += "plant_color_description LIKE '%олубой%' OR ";
-        } 
-        if(colors['blue'] == true) {
-            addStr1 += "plant_color_description LIKE '%иний%' OR ";
-        } 
-        if(colors['violet'] == true) {
-            addStr1 += "plant_color_description LIKE '%иолетовый%' OR ";
-        } 
-        if(colors['pink'] == true) {
-            addStr1 += "plant_color_description LIKE '%озовый%' OR ";
-        } 
-        if(colors['silver'] == true) {
-            addStr1 += "plant_color_description LIKE '%еребристый%' OR ";
-        } 
-        if(colors['multicolor'] == true) {
-            addStr1 += "plant_color_description LIKE '%азноцветный%' OR ";
-        }         
-    
-        addStr1 = addStr1.trim(); // Удаляю пробелы в конце строки
-    
-        if (addStr1.endsWith(' OR')) {
-            addStr1 = addStr1.slice(0, -3); // Удаляю OR, если он вылез в коне запроса
-        }
-
-        let strRequare = "SELECT plant_name FROM MainTable WHERE ";
-        strRequare += addStr1;
-        
-        //let SQL_Rq = CreateSQLequest();
-        document.querySelector('.block-request .req p').textContent = strRequare;
-
-        document.querySelector('.reauest-2-only-color').style.display = 'block';
-        document.querySelector('.result-cards .spsp').style.display = 'none';
-
-        SQL_RQ_FromSwever(strRequare);        
-    }
-}
-
-
-// ...
-// Прячет все блоки, и обнуляет все переменные
-// function HideAll() {
-//     a_1_MinTempInHome = 0
-//     a_1_input_MinTempInHome = 0
-//     a_2_AVGTempInRegion = 0
-//     a_2_input_AVGTempInRegion = 0
-//     a_2_1_AVGHum = 0
-//     a_2_1_input_AVGHum = 0
-//     b_OncePlant = 0
-//     c_AFlowers = 0
-//     c_3_SelectAColor = ""
-//     d_IsPlod = 0
-//     e_StandOnWindow = 0
-//     e_1_ASunLight = 0
-//     f_GenerateAOxugen = 0
-//     g_AFreeProstr = 0
-//     h_NoControl = 0
-
-//     removeActiveClass('block-a-1');
-//     removeActiveClass('block-a-2');
-//     removeActiveClass('block-a-2-1');
-//     removeActiveClass('block-b');
-//     removeActiveClass('block-c');
-//     removeActiveClass('block-c-3');
-//     removeActiveClass('block-d');
-//     removeActiveClass('block-e');
-//     removeActiveClass('block-e-1');
-//     removeActiveClass('block-f');
-//     removeActiveClass('block-g');
-//     removeActiveClass('block-h');
-
-//     document.getElementById('block-a-1').style.display = 'none';
-//     document.getElementById('block-a-2').style.display = 'none';
-//     document.getElementById('block-a-2-1').style.display = 'none';
-//     document.getElementById('block-b').style.display = 'none';
-//     document.getElementById('block-c').style.display = 'none';
-//     document.getElementById('block-c-3').style.display = 'none';
-//     document.getElementById('block-d').style.display = 'none';
-//     document.getElementById('block-e').style.display = 'none';
-//     document.getElementById('block-e-1').style.display = 'none';
-//     document.getElementById('block-f').style.display = 'none';
-//     document.getElementById('block-g').style.display = 'none';
-//     document.getElementById('block-gh').style.display = 'none';
-// }
-
-// function debugPrint(){
-//     console.log("----------");
-//     console.log("Debug Print:");
-//     console.log(`a_InHome: ${a_InHome}`);
-//     if (a_InHome == 1) {
-//         console.log(`a_1_MinTempInHome: ${a_1_MinTempInHome}`);
-//         if (a_1_MinTempInHome == 1) {
-//             console.log(`a_1_input_MinTempInHome: ${a_1_input_MinTempInHome}`);
-//         }
-//     } else {
-//         console.log(`a_2_AVGTempInRegion: ${a_2_AVGTempInRegion}`);
-//         if (a_2_AVGTempInRegion == 1) {
-//             console.log(`a_2_input_AVGTempInRegion: ${a_2_input_AVGTempInRegion}`);
-//         }
-//         console.log(`a_2_1_AVGHum: ${a_2_1_AVGHum}`);
-//         if (a_2_1_AVGHum == 1) {
-//             console.log(`a_2_1_input_AVGHum: ${a_2_1_input_AVGHum}`);
-//         }
-//     }
-    
-//     console.log(`b_OncePlant: ${b_OncePlant}`);
-    
-//     console.log(`c_AFlowers: ${c_AFlowers}`);
-//     if (c_AFlowers == 3) {
-//         console.log(`c_3_SelectAColor: ${c_3_SelectAColor}`);
-//     }
-    
-//     console.log(`d_IsPlod: ${d_IsPlod}`);
-    
-//     console.log(`e_StandOnWindow: ${e_StandOnWindow}`);
-//     if (e_StandOnWindow == 1) {
-//         console.log(`e_1_ASunLight: ${e_1_ASunLight}`);
-//     }
-    
-//     console.log(`f_GenerateAOxugen: ${f_GenerateAOxugen}`);
-    
-//     console.log(`g_AFreeProstr: ${g_AFreeProstr}`);
-    
-//     console.log(`h_NoControl: ${h_NoControl}`);    
-// }
-
-
-// Передаю набор переменных в финальное окошко
