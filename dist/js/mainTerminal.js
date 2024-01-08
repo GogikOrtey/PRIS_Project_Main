@@ -321,6 +321,11 @@ function SetButtonSelection() {
         document.querySelector('.my-input-3').value = '';
         isHumCorrect = false;
     });
+    document.querySelector('.my-input-2').addEventListener('click', () => {
+        const input = document.querySelector('.my-input-2 input');
+        input.focus();
+        input.click();
+    });
     document.querySelector('.my-input-2').addEventListener('input', function(e) {
         // Если значение поля ввода изменилось:
         isTempCorrect = false;
@@ -341,6 +346,11 @@ function SetButtonSelection() {
         // Если значение поля ввода изменилось:
         CheckCorrectInput1();
     });
+    document.querySelector('.my-input-1').addEventListener('click', () => {
+        const input = document.querySelector('.my-input-1 input');
+        input.focus();
+        input.click();
+      });
     document.querySelector('#block-a-1 .answ-block-2').addEventListener('click', function() {
         a_2_AVGTempInRegion = 2
         isTempCorrect = true
@@ -358,6 +368,11 @@ function SetButtonSelection() {
         // Если значение поля ввода изменилось:
         CheckCorrectInput3();
     });
+    document.querySelector('.my-input-3').addEventListener('click', () => {
+        const input = document.querySelector('.my-input-3 input');
+        input.focus();
+        input.click();
+      });
     document.querySelector('#block-a-2-1 .answ-block-2-s').addEventListener('click', function() {
         a_2_1_AVGHum = 2
         isHumCorrect = true

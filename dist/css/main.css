@@ -1136,13 +1136,24 @@ body {
     padding: 0px;
   }
   .card-holder .card {
-    color: #f00;
-    height: 170px;
+    height: 160px;
     width: 115px;
+    padding: 0px;
+    padding-top: 5px;
+    grid-template-rows: 75% 25%;
   }
   .card-holder .card span {
     font-size: 14px;
     margin-top: 8px;
+    margin: 10px;
+    padding-top: 0px;
+    margin-top: 0px;
+    height: 100%;
+  }
+  .card-holder .card img {
+    margin: 0px;
+    width: 90%;
+    height: 90%;
   }
 }
 @media (max-width: 400px) {
@@ -1151,6 +1162,53 @@ body {
   }
   .hhid {
     font-size: 4.5vw;
+  }
+  .content-nav-menu span {
+    font-size: 16px;
+  }
+  header {
+    position: relative;
+  }
+  header .hhhh2 p {
+    margin-top: 0px;
+  }
+  header .head-bottom-line {
+    position: absolute;
+    bottom: 0px;
+  }
+  header .hhhh2 p {
+    font-size: 26px;
+  }
+  .card-holder {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 3px;
+    grid-row-gap: 0px;
+    padding: 0px;
+  }
+  .card-holder .card {
+    height: 140px;
+    width: 100px;
+    padding: 0px;
+    padding-top: 5px;
+    grid-template-rows: 75% 25%;
+  }
+  .card-holder .card span {
+    font-size: 12px;
+    margin-top: 8px;
+    margin: 10px;
+    padding-top: 0px;
+    margin-top: 0px;
+    height: 100%;
+  }
+  .card-holder .card img {
+    margin: 0px;
+    width: 90%;
+    height: 90%;
+  }
+  .simple-text-block p,
+  .simple-text-block span,
+  .simple-text-block a {
+    font-size: 3.5vw;
   }
 }
 @media (min-width: 650px) and (max-width: 950px) {
@@ -1199,5 +1257,18 @@ body {
   header .head-bottom-line {
     position: absolute;
     bottom: 0px;
+  }
+  .hhhh2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hhhh2 p {
+    height: 100px;
+    line-height: 80px;
+    margin: auto;
+    padding: 0px;
+    font-size: 28px;
+    text-align: center;
   }
 }

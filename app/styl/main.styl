@@ -1530,6 +1530,22 @@ body
 	.go-back-to-main 
 		width 90%
 
+	// .card-holder
+	// 	grid-template-columns: repeat(auto-fill, minmax(115px, 1fr));
+	// 	//bord()
+	// 	gap: 3px;
+	// 	grid-row-gap: 0px;
+	// 	padding 0px
+	// 	.card
+	// 		//margin 0px
+	// 		//color red
+	// 		height 170px
+	// 		width 115px
+	// 		span
+	// 			font-size: 14px
+	// 			margin-top 8px
+	// 			//bord()
+
 	.card-holder
 		grid-template-columns: repeat(auto-fill, minmax(115px, 1fr));
 		//bord()
@@ -1538,13 +1554,27 @@ body
 		padding 0px
 		.card
 			//margin 0px
-			color red
-			height 170px
+			//color red
+			height 160px
 			width 115px
+			padding 0px
+			padding-top 5px
+			grid-template-rows: 75% 25%
+			
 			span
 				font-size: 14px
 				margin-top 8px
 				//bord()
+				margin 10px
+				padding-top 0px
+				margin-top 0px
+				height 100%
+			img
+				//bord()
+				margin 0px
+				width 90%
+				height 90%
+
 
 
 
@@ -1555,6 +1585,55 @@ body
 			font-size: 21px
 	.hhid
 		font-size: 4.5vw
+	.content-nav-menu
+		span
+			font-size: 16px
+	header
+		position: relative;
+		.hhhh2
+			p
+				margin-top 0px
+		.head-bottom-line
+			position: absolute;
+			bottom: 0px;
+		.hhhh2
+			//font-size: 20px
+			p
+				//color red
+				font-size: 26px
+
+	.card-holder
+		grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+		//bord()
+		gap: 3px;
+		grid-row-gap: 0px;
+		padding 0px
+		.card
+			//margin 0px
+			//color red
+			height 140px
+			width 100px
+			padding 0px
+			padding-top 5px
+			grid-template-rows: 75% 25%
+			
+			span
+				font-size: 12px
+				margin-top 8px
+				//bord()
+				margin 10px
+				padding-top 0px
+				margin-top 0px
+				height 100%
+			img
+				//bord()
+				margin 0px
+				width 90%
+				height 90%
+	.simple-text-block
+		p, span, a
+			//color red
+			font-size: 3.5vw
 
 
 @media (min-width: 650px) and (max-width: 950px)
@@ -1608,4 +1687,19 @@ body
 		.head-bottom-line
 			position: absolute;
 			bottom: 0px;
+
+	.hhhh2
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		p
+			//color red
+			height  100px
+			line-height: 80px;
+			//bord()
+			margin auto
+			padding 0px
+			//display block
+			font-size: 28px
+			text-align: center;
 
