@@ -558,3 +558,50 @@ body
 	display: inline
 	margin 0px
 	padding 0px
+
+// ----------------------------- //
+// 		 Финальная кнопка:	     //
+// ----------------------------- // 
+
+.butt-final
+	width 90%
+	height 80px
+	background white
+	margin-bottom 35px
+	margin-top 0px
+	border-radius: 15px
+	text-align: center
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+.butt-final:hover
+	background bg-blue
+.butt-final:active
+	font-weight: bold
+	border 3px solid black
+
+
+.block-request  
+	width 90%
+	height 400px
+	background white
+	//margin 10px
+	margin-top 0px
+	display: grid
+	grid-template-rows: auto auto
+	border-radius: 15px
+
+.req, .answ 
+	bord()
+	border-radius: 13px
+	margin: 25px
+	padding 5px 7px
+
+// Широкие экраны (десктоп)
+@media (min-width: 950px) 
+	.butt-final
+		width: 870px
+		//color red
+	.block-request  
+		width: 870px

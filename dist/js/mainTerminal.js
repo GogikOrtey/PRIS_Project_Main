@@ -106,6 +106,9 @@ document.addEventListener('DOMContentLoaded', function() {
       element.style.display = 'none';
     });
 
+    document.getElementsByClassName('butt-final')[0].style.display = 'none';
+    document.getElementsByClassName('block-request')[0].style.display = 'none';
+
     // Для кнопки старта прописываем событие по нажатию
     document.querySelector('.butt-start').addEventListener('click', function() {
         // По нажатию кнопки Старт, скрываем один блок, и показываем другой:
@@ -114,6 +117,24 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('block-a').style.display = 'grid';
         document.getElementsByClassName('descr-qu-1-grad')[0].style.display = 'none';
         isStart = true;
+    });
+
+    // Для кнопки старта прописываем событие по нажатию
+    document.querySelector('.butt-final').addEventListener('click', function() {
+        // По нажатию кнопки Старт, скрываем один блок, и показываем другой:
+
+        if(mainCounter == 10) {
+            mainCounter = -1;
+            document.getElementsByClassName('block-request')[0].style.display = 'block';
+            document.getElementsByClassName('butt-final')[0].style.display = 'none';
+            debugPrint_2();
+
+            elements.forEach(element => {
+                element.style.display = 'none';
+            });
+
+            console.log("Final*");
+        }
     });
 
     // Добавляю событие: При нажатии на любую кнопку
@@ -258,6 +279,36 @@ document.addEventListener('DOMContentLoaded', function() {
         h_NoControl = 3
     });
 
+
+    // var block = document.getElementById('block-a');
+    // var buttons = block.querySelectorAll('.answ-block-1, .answ-block-2');
+
+
+    // for (var i = 0; i < buttons.length; i++) {
+    //     buttons[i].addEventListener('click', function() {
+    //         setTimeout(() => {
+    //             mainCounter = 1
+                
+    //             a_1_MinTempInHome = 0
+    //             a_1_input_MinTempInHome = 0
+    //             a_2_AVGTempInRegion = 0
+    //             a_2_input_AVGTempInRegion = 0
+    //             a_2_1_AVGHum = 0
+    //             a_2_1_input_AVGHum = 0
+    //             b_OncePlant = 0
+    //             c_AFlowers = 0
+    //             c_3_SelectAColor = ""
+    //             d_IsPlod = 0
+    //             e_StandOnWindow = 0
+    //             e_1_ASunLight = 0
+    //             f_GenerateAOxugen = 0
+    //             g_AFreeProstr = 0
+    //             h_NoControl = 0
+
+    //             CheckAllBlocks();
+    //         }, 2);
+    //     });
+//}
 });
 
 let isStart = false;
@@ -276,13 +327,23 @@ function CheckAllBlocks(){
 
     if(mainCounter >= 1) {
         if (a_InHome == 2) {
+            // Улица
             document.getElementById('block-a-1').style.display = 'grid';
             document.getElementById('block-a-2').style.display = 'none';
+            removeActiveClass('block-a-2');
             a_1_MinTempInHome = 0;
+            a_2_1_AVGHum = 0;
             mainCounter = 4;
+            document.getElementById('block-a-2-1').style.display = 'none';
+            removeActiveClass('block-a-2-1');
+            document.getElementById('block-b').style.display = 'none';
+            removeActiveClass('block-b');
+
         } else if(a_InHome == 1) {
+            // Дом
             document.getElementById('block-a-1').style.display = 'none';
             document.getElementById('block-a-2').style.display = 'grid';
+            removeActiveClass('block-a-1');
             a_2_AVGTempInRegion = 0;
             mainCounter = 2;
         }
@@ -290,6 +351,12 @@ function CheckAllBlocks(){
         a_InHome = 0;
         document.getElementById('block-a-1').style.display = 'none';
         document.getElementById('block-a-2').style.display = 'none';
+        removeActiveClass('block-a-1');
+        removeActiveClass('block-a-2');
+        document.getElementById('block-a-2-1').style.display = 'none';
+        removeActiveClass('block-a-2-1');
+        document.getElementById('block-b').style.display = 'none';
+        removeActiveClass('block-b');
     }
 
     if(mainCounter >= 2) {
@@ -298,10 +365,12 @@ function CheckAllBlocks(){
             mainCounter = 3;
         } else {
             document.getElementById('block-a-2-1').style.display = 'none';
+            removeActiveClass('block-a-2-1');
             a_2_1_AVGHum = 0;
         }
     } else {
         document.getElementById('block-a-2-1').style.display = 'none';
+        removeActiveClass('block-a-2-1');
         a_2_1_AVGHum = 0;
     }
 
@@ -314,10 +383,12 @@ function CheckAllBlocks(){
             mainCounter = 4;
         } else {
             document.getElementById('block-b').style.display = 'none';
+            removeActiveClass('block-b');
             b_OncePlant = 0;
         }
     } else {
         document.getElementById('block-b').style.display = 'none';
+        removeActiveClass('block-b');
         b_OncePlant = 0;
     }
 
@@ -327,10 +398,12 @@ function CheckAllBlocks(){
             mainCounter = 6;
         } else {
             document.getElementById('block-c').style.display = 'none';
+            removeActiveClass('block-c');
             c_AFlowers = 0;
         }
     } else {
         document.getElementById('block-c').style.display = 'none';
+        removeActiveClass('block-c');
         c_AFlowers = 0;
     }
 
@@ -342,10 +415,12 @@ function CheckAllBlocks(){
             // Здесь нужно будет верно обработать ввод цветов
         } else {
             document.getElementById('block-c-3').style.display = 'none';
+            removeActiveClass('block-c-3');
             //mainCounter = 6;
         }
     } else {
         document.getElementById('block-c-3').style.display = 'none';
+        removeActiveClass('block-c-3');
     }
 
     if(mainCounter >= 6) {
@@ -354,10 +429,12 @@ function CheckAllBlocks(){
             mainCounter = 7;
         } else {
             document.getElementById('block-d').style.display = 'none';
+            removeActiveClass('block-d');
             d_IsPlod = 0;
         }
     } else {
         document.getElementById('block-d').style.display = 'none';
+        removeActiveClass('block-d');
         d_IsPlod = 0;
     }
 
@@ -367,6 +444,7 @@ function CheckAllBlocks(){
                 document.getElementById('block-e').style.display = 'grid';
             } else {
                 document.getElementById('block-e').style.display = 'none';
+                removeActiveClass('block-e');
                 e_StandOnWindow = 0;
             }
     
@@ -374,6 +452,7 @@ function CheckAllBlocks(){
                 document.getElementById('block-e-1').style.display = 'grid';
             } else {
                 document.getElementById('block-e-1').style.display = 'none';
+                removeActiveClass('block-e-1');
                 e_1_ASunLight = 0;
             }
     
@@ -381,6 +460,7 @@ function CheckAllBlocks(){
                 document.getElementById('block-f').style.display = 'grid';
             } else {
                 document.getElementById('block-f').style.display = 'none';
+                removeActiveClass('block-f');
                 f_GenerateAOxugen = 0;
             }
     
@@ -389,9 +469,15 @@ function CheckAllBlocks(){
                 mainCounter = 8;
             } else {
                 document.getElementById('block-g').style.display = 'none';
+                removeActiveClass('block-g');
                 g_AFreeProstr = 0;
             }
         } else {
+            removeActiveClass('block-e');
+            removeActiveClass('block-e-1');
+            removeActiveClass('block-f');
+            removeActiveClass('block-g');
+
             e_StandOnWindow = 0;
             e_1_ASunLight = 0;
             f_GenerateAOxugen = 0;
@@ -407,25 +493,43 @@ function CheckAllBlocks(){
             mainCounter = 9;
         } else {
             document.getElementById('block-h').style.display = 'none';
+            removeActiveClass('block-h');
             h_NoControl = 0;
         }
     } else {
         document.getElementById('block-h').style.display = 'none';
+        removeActiveClass('block-h');
         h_NoControl = 0;
     }
 
     if(mainCounter >= 9) {
-        // Тут добавить кнопочку, по типу "Подобрать растение"
         if(h_NoControl != 0) {
-            //document.getElementById('block-h').style.display = 'grid';
-            console.log("I'ts Final!!!");
             mainCounter = 10;
-            debugPrint();
-        } else {
-            //document.getElementById('block-h').style.display = 'none';
+            document.getElementsByClassName('butt-final')[0].style.display = 'flex';
         }
+
+        // if(h_NoControl != 0) {
+        //     //document.getElementById('block-h').style.display = 'grid';
+        //     document.getElementsByClassName('butt-final')[0].style.display = 'flex';
+        //     document.getElementsByClassName('block-request')[0].style.display = 'block';
+        //     //console.log("I'ts Final!!!");
+        //     mainCounter = 10;
+        //     //debugPrint();
+        // } else {
+        //     document.getElementsByClassName('butt-final')[0].style.display = 'none';
+        //     document.getElementsByClassName('block-request')[0].style.display = 'none';
+        //     //document.getElementById('block-h').style.display = 'none';
+        // }
     }
 }
+
+function removeActiveClass(parentId) {
+    let elements = document.getElementById(parentId).querySelectorAll('.butt-answ');
+    for(let i=0; i<elements.length; i++){
+        elements[i].classList.remove('active');
+    }
+}
+
 
 // Когда вопросы скрываются, их перемменные не обнуляются
 
@@ -468,4 +572,53 @@ function debugPrint(){
     console.log(`g_AFreeProstr: ${g_AFreeProstr}`);
     
     console.log(`h_NoControl: ${h_NoControl}`);    
+}
+
+
+function debugPrint_2(){
+    let output = "Текст запроса: [Тестовый]\n";
+    output += "Debug Print:\n";
+    output += `a_InHome: ${a_InHome}\n`;
+    if (a_InHome == 1) {
+        output += `a_1_MinTempInHome: ${a_1_MinTempInHome}\n`;
+        if (a_1_MinTempInHome == 1) {
+            output += `a_1_input_MinTempInHome: ${a_1_input_MinTempInHome}\n`;
+        }
+    } else {
+        output += `a_2_AVGTempInRegion: ${a_2_AVGTempInRegion}\n`;
+        if (a_2_AVGTempInRegion == 1) {
+            output += `a_2_input_AVGTempInRegion: ${a_2_input_AVGTempInRegion}\n`;
+        }
+        output += `a_2_1_AVGHum: ${a_2_1_AVGHum}\n`;
+        if (a_2_1_AVGHum == 1) {
+            output += `a_2_1_input_AVGHum: ${a_2_1_input_AVGHum}\n`;
+        }
+    }
+    
+    output += `b_OncePlant: ${b_OncePlant}\n`;
+    
+    output += `c_AFlowers: ${c_AFlowers}\n`;
+    if (c_AFlowers == 3) {
+        output += `c_3_SelectAColor: ${c_3_SelectAColor}\n`;
+    }
+    
+    output += `d_IsPlod: ${d_IsPlod}\n`;
+    
+    output += `e_StandOnWindow: ${e_StandOnWindow}\n`;
+    if (e_StandOnWindow == 1) {
+        output += `e_1_ASunLight: ${e_1_ASunLight}\n`;
+    }
+    
+    output += `f_GenerateAOxugen: ${f_GenerateAOxugen}\n`;
+    
+    output += `g_AFreeProstr: ${g_AFreeProstr}\n`;
+    
+    output += `h_NoControl: ${h_NoControl}\n`;    
+
+    // Вставляем текст в элемент с тегом p
+    // let pElement = document.createElement('p');
+    // pElement.textContent = output;
+    //document.getElementsByClassName('block-request')[0].appendChild(pElement);
+    document.querySelector('.block-request .req p').textContent = output;
+
 }
