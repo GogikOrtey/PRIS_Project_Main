@@ -276,7 +276,7 @@ function OnPageWeu_02(data) {
 
 function ShowAllCards(data) {
     // Получаем элемент, в который будем добавлять карточки
-    let container = document.q uerySelector('.card-holder');
+    let container = document.querySelector('.card-holder');
 
     let limitter = 18;
     let intCounter = 0;

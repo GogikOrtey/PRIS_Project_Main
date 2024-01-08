@@ -336,6 +336,10 @@ body {
   text-align: center;
   margin-top: 2px;
 }
+.butt-info span,
+.butt-all-pants span {
+  width: 70%;
+}
 .butt-info:hover {
   border: solid 4px #2078fc;
 }
@@ -361,6 +365,12 @@ body {
   display: inline;
   margin: 0px;
   padding: 0px;
+}
+.nav-nav-menu img {
+  height: 32px;
+  width: auto;
+  display: inline-block;
+  box-shadow: none;
 }
 .butt-final,
 .butt-final-2,
@@ -961,7 +971,6 @@ body {
   align-self: start;
 }
 .card-holder {
-  border: solid #000 1px;
   display: block;
 }
 .card1 {
@@ -988,15 +997,99 @@ body {
 .card1 .other {
   margin-top: 10px;
   display: grid;
-  grid-template-columns: 65% 35%;
+  grid-template-columns: 60% 40%;
 }
 .card1 .other img {
   align-self: end;
   justify-self: start;
   margin: auto 0px;
-  height: 100%;
+  height: auto;
   width: 100%;
+}
+.card1 .other .haract {
+  display: grid;
+  grid-template-rows: 25px auto;
+  padding: 5px;
+  padding-left: 10px;
+  padding-top: 0px;
+}
+.card1 .other .haract .klimat {
+  text-align: center;
+}
+.card1 .other .haract img {
+  height: 25px;
+  width: auto;
+  display: inline-block;
+  box-shadow: none;
+}
+.card1 .other .haract .other-har {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto auto auto;
+  justify-items: center;
+  align-items: center;
+}
+.card1 .other .haract .other-har span {
+  font-size: 16px;
+  padding-right: 5px;
+  margin: 0px;
+}
+.card1 .other .haract .other-har img {
+  margin: auto;
 }
 .card1:hover {
   box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.4);
+}
+.obozn-1 {
+  text-align: left;
+  align-items: left;
+  display: block;
+  padding-left: 30px;
+}
+.obozn-1 .ssrr {
+  text-align: center;
+}
+.obozn-1 img {
+  height: 25px;
+  width: auto;
+  display: inline-block;
+  box-shadow: none;
+}
+.obozn-1 .add-info-22 {
+  background: #000;
+}
+.add-info-2 {
+  right: 10px;
+  top: 10px;
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+  border-radius: 5px;
+  background: #f0f0f0;
+}
+.add-info-2 .dfrd {
+  width: 2000px;
+  height: 2000px;
+}
+.add-info-2 span {
+  font-size: 16px;
+}
+.add-info-2:hover {
+  background: #e6e6e6;
+}
+.add-info-2::after {
+  content: 'Это подсказка';
+  display: none;
+}
+.add-info-2:hover::after,
+.add-info-2:active::after {
+  display: block;
+  position: absolute;
+  top: -45px;
+  right: 15px;
+  background: #fff;
+  border-radius: 7px;
+  padding: 5px;
+  width: 200px;
+  border: solid 2px #afafaf;
 }

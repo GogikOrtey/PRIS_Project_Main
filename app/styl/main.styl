@@ -584,6 +584,8 @@ body
 		//bord()
 		//height 100%
 		margin-top 2px
+	span
+		width 70%
 
 .butt-info:hover, .butt-all-pants:hover
 	//letter-spacing: 0.025em;
@@ -614,6 +616,13 @@ body
 	display: inline
 	margin 0px
 	padding 0px
+
+.nav-nav-menu
+	img
+		height 32px
+		width auto
+		display: inline-block
+		box-shadow: none
 
 // ----------------------------- //
 // 		 Финальная кнопка:	     //
@@ -1126,7 +1135,7 @@ body
 // .decr-nav-menu 
 // 	display: none
 
-.content-nav-menu
+.content-nav-menu //-----------------------------------------------------<
 	display: none
 
 .none-style
@@ -1302,7 +1311,7 @@ body
 // Широкие экраны:
 
 .card-holder
-	bord()
+	//bord()
 	//all: unset
 	display: block
 
@@ -1329,20 +1338,106 @@ body
 		margin-top 10px
 		//bord()
 		display: grid
-		grid-template-columns: 65% 35%
+		grid-template-columns: 60% 40%
 		img			
 			align-self: end;
 			justify-self: start;
 			margin auto 0px
-			height 100%
+			height auto
 			width 100%
 			//max-width: 60%
 		.haract
+			display: grid
+			grid-template-rows: 25px auto
 			//bord()
+			padding 5px
+			padding-left 10px
+			padding-top 0px
+			.klimat
+				text-align: center
+				//bord()
+			img
+				height 25px
+				width auto
+				display: inline-block
+				box-shadow: none
+			.other-har 
+				display: grid
+				grid-template-columns: 1fr 1fr
+				grid-template-rows: auto auto auto auto
+				justify-items: center;
+				align-items: center;
+				span
+					font-size: 16px
+					padding-right: 5px
+					margin 0px
+				img
+					margin: auto
+
 			
 
 .card1:hover
 	box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.4)
+
+
+.obozn-1
+	text-align: left 
+	align-items: left;
+	display: block
+	padding-left 30px
+	//position: relative;
+	.ssrr
+		text-align: center
+	img
+		height 25px
+		width auto
+		display: inline-block
+		box-shadow: none
+
+	.add-info-22
+		background #000
+
+.add-info-2
+	//position: absolute;
+	right: 10px;
+	top 10px
+	width 30px
+	height 30px
+	padding: 5px
+	border-radius: 5px
+	background #f0f0f0
+	.dfrd
+		width 2000px
+		height 2000px
+	span
+		font-size: 16px
+
+.add-info-2:hover
+	background #e6e6e6
+
+.add-info-2::after 
+	content: 'Это подсказка';
+	display: none;
+
+.add-info-2:hover::after, .add-info-2:active::after
+	display: block
+	//color red
+	//bord()
+	position: absolute;
+	top: -45px;
+	right 15px
+	background white
+	border-radius: 7px
+	padding 5px
+	width 200px
+	border solid 2px rgb(175, 175, 175)
+
+
+
+
+
+
+
 
 // // Широкие экраны (десктоп)
 // @media (min-width: 950px) 
