@@ -123,9 +123,9 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('.butt-final').addEventListener('click', function() {
         // По нажатию кнопки Старт, скрываем один блок, и показываем другой:
 
-        if(mainCounter == 10) {
-            mainCounter = -1;
-            document.getElementsByClassName('block-request')[0].style.display = 'block';
+        if(_mainCounter == 10) {
+            _mainCounter = -1;
+            document.getElementsByClassName('block-request')[0].style.display = 'grid';
             document.getElementsByClassName('butt-final')[0].style.display = 'none';
             debugPrint_2();
 
@@ -384,86 +384,88 @@ document.addEventListener('DOMContentLoaded', function() {
 //     }
 // }
 
+let _mainCounter = 0;               // Счётчик состояний
+
 let isStart = false;
 let isTempCorrect = false;
 let isHumCorrect = false;
 let isColorCucsSelected = false;
-let mainCounter = 0;
+
 let isRevertQuwerty = 0;
 let RQ_2 = 0;
 
+// Скрывает указанный блок
+function HideBlock(nameBlock) {
+    document.getElementById(nameBlock).style.display = 'none'; // Скрываю весь блок со страницы
+    removeActiveClass(nameBlock); // Убираю выделение у последней нажатой кнопки в этом блоке
+}
 
-// Здесь очень костыльным методом написана логика отображения блоков
-// У меня не было свободного времени, что бы разработать хорошую схему взаимодействия
-// По этому я набросал всё как-то вот так:
+// Показывает указанный блок
+function ShowBlock(nameBlock) {
+    let block = document.getElementById(nameBlock);
+
+    block.style.display = 'grid';       
+    block.scrollIntoView({behavior: "smooth"});
+}
 
 // Перераспределение блоков
 // Процедура вызывается после нажатия на кнопку в любом блоке
 function CheckAllBlocks(){
-    //CheckAllBlocks_2();
 
     if(isStart == true) {
-        mainCounter = 1;
+        _mainCounter = 1;
     }
-    console.log("Update all blocks")
 
-    if(mainCounter >= 1) {
-        if (a_InHome == 2) {
+    console.log("Update all blocks")
+    
+
+    if(_mainCounter >= 1) {
+        if(a_InHome == 1) {
+            // Дом
+
+            HideBlock('block-a-1');             
+            ShowBlock('block-a-2');
+
+            a_2_AVGTempInRegion = 0;
+            _mainCounter = 2;
+
+            if(isRevertQuwerty>0) isRevertQuwerty--;
+        } else if (a_InHome == 2) {
             // Улица
-            document.getElementById('block-a-1').style.display = 'grid';
-            document.getElementById('block-a-2').style.display = 'none';
-            removeActiveClass('block-a-2');
+
+            ShowBlock('block-a-1');
+            HideBlock('block-a-2');
+
             a_1_MinTempInHome = 0;
             a_2_1_AVGHum = 0;
-            mainCounter = 3;
+            _mainCounter = 3;
+
             isRevertQuwerty = 2;
             RQ_2 = 2;
 
-            removeActiveClass('block-e');
-            removeActiveClass('block-e-1');
-            removeActiveClass('block-f');
-            removeActiveClass('block-g');
-
-            e_StandOnWindow = 0;
-            e_1_ASunLight = 0;
-            f_GenerateAOxugen = 0;
-            g_AFreeProstr = 0;
-
-        } else if(a_InHome == 1) {
-            // Дом
-            document.getElementById('block-a-1').style.display = 'none';
-            document.getElementById('block-a-2').style.display = 'grid';
-            removeActiveClass('block-a-1');
-            a_2_AVGTempInRegion = 0;
-            mainCounter = 2;
-            if(isRevertQuwerty>0) isRevertQuwerty--;
         }
     } else {
         a_InHome = 0;
-        document.getElementById('block-a-1').style.display = 'none';
-        document.getElementById('block-a-2').style.display = 'none';
-        removeActiveClass('block-a-1');
-        removeActiveClass('block-a-2');
 
+        HideBlock('block-a-2');
+        HideBlock('block-a-1');
     }
 
-    if(mainCounter >= 2 && isRevertQuwerty <= 0) {
+    if(_mainCounter >= 2 && isRevertQuwerty <= 0) {
         if(isTempCorrect == true && a_InHome == 1) {
-            document.getElementById('block-a-2-1').style.display = 'grid';
-            mainCounter = 3;
+            ShowBlock('block-a-2-1');
+            _mainCounter = 3;
             if(RQ_2 > 0) RQ_2--;
         } else {
-            document.getElementById('block-a-2-1').style.display = 'none';
-            removeActiveClass('block-a-2-1');
+            HideBlock('block-a-2-1');
             a_2_1_AVGHum = 0;
         }
     } else {
-        document.getElementById('block-a-2-1').style.display = 'none';
-        removeActiveClass('block-a-2-1');
+        HideBlock('block-a-2-1');
         a_2_1_AVGHum = 0;
     }
 
-    if(mainCounter >= 3) {
+    if(_mainCounter >= 3) {
         if(
             a_InHome == 2
             // (a_InHome == 2 &&
@@ -484,135 +486,133 @@ function CheckAllBlocks(){
             
             
             {
-            document.getElementById('block-b').style.display = 'grid';
-            mainCounter = 4;
+            ShowBlock('block-b');
+            _mainCounter = 4;
         } else {
-            document.getElementById('block-b').style.display = 'none';
-            removeActiveClass('block-b');
+            HideBlock('block-b');
             b_OncePlant = 0;
         }
     } else {
-        document.getElementById('block-b').style.display = 'none';
-        removeActiveClass('block-b');
+        HideBlock('block-b');
         b_OncePlant = 0;
     }
 
-    if(mainCounter >= 4) {
+    if(_mainCounter >= 4) {
         if(b_OncePlant != 0) {
-            document.getElementById('block-c').style.display = 'grid';
-            mainCounter = 6;
+            ShowBlock('block-c');
+            _mainCounter = 6;
         } else {
-            document.getElementById('block-c').style.display = 'none';
-            removeActiveClass('block-c');
+            HideBlock('block-c');
             c_AFlowers = 0;
         }
     } else {
-        document.getElementById('block-c').style.display = 'none';
-        removeActiveClass('block-c');
+        HideBlock('block-c');
         c_AFlowers = 0;
     }
 
-    if(mainCounter >= 5) {
+
+    if(_mainCounter >= 5) {
         if(c_AFlowers == 3) { ////// ЦВЕТА!!!
-            document.getElementById('block-c-3').style.display = 'grid';
+            ShowBlock('block-c-3');
             isColorCucsSelected = false
-            //mainCounter = 6;
+            //_mainCounter = 6;
             // Здесь нужно будет верно обработать ввод цветов
         } else {
-            document.getElementById('block-c-3').style.display = 'none';
-            removeActiveClass('block-c-3');
-            //mainCounter = 6;
+            // removeActiveClass('block-c-3');
+            HideBlock('block-c-3');
+            //_mainCounter = 6;
         }
     } else {
-        document.getElementById('block-c-3').style.display = 'none';
-        removeActiveClass('block-c-3');
+        HideBlock('block-c-3');
     }
 
-    if(mainCounter >= 6) {
+
+    if(_mainCounter >= 6) {
         if(c_AFlowers == 1 || c_AFlowers == 2 || isColorCucsSelected == true) {
-            document.getElementById('block-d').style.display = 'grid';
-            mainCounter = 7;
+            ShowBlock('block-d');
+            _mainCounter = 7;
         } else {
-            document.getElementById('block-d').style.display = 'none';
-            removeActiveClass('block-d');
+            HideBlock('block-d');
             d_IsPlod = 0;
         }
     } else {
-        document.getElementById('block-d').style.display = 'none';
-        removeActiveClass('block-d');
+        HideBlock('block-d');
         d_IsPlod = 0;
     }
 
-    if(mainCounter >= 7) {
-        if(a_InHome == 1) {
-            if(d_IsPlod != 0) {
-                document.getElementById('block-e').style.display = 'grid';
-            } else {
-                document.getElementById('block-e').style.display = 'none';
-                removeActiveClass('block-e');
-                e_StandOnWindow = 0;
-            }
-    
-            if(e_StandOnWindow == 1) {
-                document.getElementById('block-e-1').style.display = 'grid';
-            } else {
-                document.getElementById('block-e-1').style.display = 'none';
-                removeActiveClass('block-e-1');
-                e_1_ASunLight = 0;
-            }
-    
-            if(e_StandOnWindow == 2 || e_1_ASunLight != 0) {
-                document.getElementById('block-f').style.display = 'grid';
-            } else {
-                document.getElementById('block-f').style.display = 'none';
-                removeActiveClass('block-f');
-                f_GenerateAOxugen = 0;
-            }
-    
-            if(f_GenerateAOxugen != 0) {
-                document.getElementById('block-g').style.display = 'grid';
-                mainCounter = 8;
-            } else {
-                document.getElementById('block-g').style.display = 'none';
-                removeActiveClass('block-g');
-                g_AFreeProstr = 0;
-            }
+    if ((_mainCounter >= 7) && (a_InHome == 1)) {
+        if(d_IsPlod != 0) {
+            ShowBlock('block-e');
         } else {
-            removeActiveClass('block-e');
-            removeActiveClass('block-e-1');
-            removeActiveClass('block-f');
-            removeActiveClass('block-g');
-
+            HideBlock('block-e');
             e_StandOnWindow = 0;
-            e_1_ASunLight = 0;
-            f_GenerateAOxugen = 0;
-            g_AFreeProstr = 0;
-
-            mainCounter = 8;
         }
-    }
-
-    if(mainCounter >= 8) {
-        if(g_AFreeProstr != 0 || (a_InHome == 2 && d_IsPlod != 0)) {
-            document.getElementById('block-h').style.display = 'grid';
-            mainCounter = 9;
+    
+        if(e_StandOnWindow == 1) {
+            ShowBlock('block-e-1');
         } else {
-            document.getElementById('block-h').style.display = 'none';
-            removeActiveClass('block-h');
+            HideBlock('block-e-1');
+            e_1_ASunLight = 0;
+        }
+    
+        if(e_StandOnWindow == 2 || e_1_ASunLight != 0) {
+            ShowBlock('block-f');
+        } else {
+            HideBlock('block-f');
+            f_GenerateAOxugen = 0;
+        }
+    
+        if(f_GenerateAOxugen != 0) {
+            ShowBlock('block-g');
+            _mainCounter = 8;
+        } else {
+            HideBlock('block-g');
+            g_AFreeProstr = 0;
+        }
+    } else {
+        HideBlock('block-g');
+        HideBlock('block-e');
+        HideBlock('block-e-1');
+        HideBlock('block-f');
+
+        e_StandOnWindow = 0;
+        e_1_ASunLight = 0;
+        f_GenerateAOxugen = 0;
+        g_AFreeProstr = 0;
+
+        //_mainCounter = 8;
+    }
+    
+
+    if(_mainCounter >= 8 || (_mainCounter >= 7 && a_InHome == 1)) {
+        if(g_AFreeProstr != 0 || (a_InHome == 2 && d_IsPlod != 0)) {
+            ShowBlock('block-h');
+            _mainCounter = 9;
+        } else {
+            HideBlock('block-h');
             h_NoControl = 0;
         }
     } else {
-        document.getElementById('block-h').style.display = 'none';
-        removeActiveClass('block-h');
+        HideBlock('block-h');
         h_NoControl = 0;
     }
 
-    if(mainCounter >= 9) {
+    // Финальная кнопка:
+    if(_mainCounter >= 9) {
         if(h_NoControl != 0) {
-            mainCounter = 10;
-            document.getElementsByClassName('butt-final')[0].style.display = 'flex';
+            _mainCounter = 10;
+            let block = document.getElementsByClassName('butt-final')[0];
+
+            block.style.display = 'flex';     
+            block.scrollIntoView({behavior: "smooth"});
         }
+    } else {
+        document.getElementsByClassName('butt-final')[0].style.display = 'none';
+        document.getElementsByClassName('block-request')[0].style.display = 'none';
     }
+
+    document.querySelectorAll('.main-counter')[0].textContent = _mainCounter;    
+    //console.log("Main-counter = " + _mainCounter);
 }
 
 function removeActiveClass(parentId) {
@@ -622,50 +622,49 @@ function removeActiveClass(parentId) {
     }
 }
 
+// function debugPrint(){
+//     console.log("----------");
+//     console.log("Debug Print:");
+//     console.log(`a_InHome: ${a_InHome}`);
+//     if (a_InHome == 1) {
+//         console.log(`a_1_MinTempInHome: ${a_1_MinTempInHome}`);
+//         if (a_1_MinTempInHome == 1) {
+//             console.log(`a_1_input_MinTempInHome: ${a_1_input_MinTempInHome}`);
+//         }
+//     } else {
+//         console.log(`a_2_AVGTempInRegion: ${a_2_AVGTempInRegion}`);
+//         if (a_2_AVGTempInRegion == 1) {
+//             console.log(`a_2_input_AVGTempInRegion: ${a_2_input_AVGTempInRegion}`);
+//         }
+//         console.log(`a_2_1_AVGHum: ${a_2_1_AVGHum}`);
+//         if (a_2_1_AVGHum == 1) {
+//             console.log(`a_2_1_input_AVGHum: ${a_2_1_input_AVGHum}`);
+//         }
+//     }
+    
+//     console.log(`b_OncePlant: ${b_OncePlant}`);
+    
+//     console.log(`c_AFlowers: ${c_AFlowers}`);
+//     if (c_AFlowers == 3) {
+//         console.log(`c_3_SelectAColor: ${c_3_SelectAColor}`);
+//     }
+    
+//     console.log(`d_IsPlod: ${d_IsPlod}`);
+    
+//     console.log(`e_StandOnWindow: ${e_StandOnWindow}`);
+//     if (e_StandOnWindow == 1) {
+//         console.log(`e_1_ASunLight: ${e_1_ASunLight}`);
+//     }
+    
+//     console.log(`f_GenerateAOxugen: ${f_GenerateAOxugen}`);
+    
+//     console.log(`g_AFreeProstr: ${g_AFreeProstr}`);
+    
+//     console.log(`h_NoControl: ${h_NoControl}`);    
+// }
 
-// Когда вопросы скрываются, их перемменные не обнуляются
 
-function debugPrint(){
-    console.log("----------");
-    console.log("Debug Print:");
-    console.log(`a_InHome: ${a_InHome}`);
-    if (a_InHome == 1) {
-        console.log(`a_1_MinTempInHome: ${a_1_MinTempInHome}`);
-        if (a_1_MinTempInHome == 1) {
-            console.log(`a_1_input_MinTempInHome: ${a_1_input_MinTempInHome}`);
-        }
-    } else {
-        console.log(`a_2_AVGTempInRegion: ${a_2_AVGTempInRegion}`);
-        if (a_2_AVGTempInRegion == 1) {
-            console.log(`a_2_input_AVGTempInRegion: ${a_2_input_AVGTempInRegion}`);
-        }
-        console.log(`a_2_1_AVGHum: ${a_2_1_AVGHum}`);
-        if (a_2_1_AVGHum == 1) {
-            console.log(`a_2_1_input_AVGHum: ${a_2_1_input_AVGHum}`);
-        }
-    }
-    
-    console.log(`b_OncePlant: ${b_OncePlant}`);
-    
-    console.log(`c_AFlowers: ${c_AFlowers}`);
-    if (c_AFlowers == 3) {
-        console.log(`c_3_SelectAColor: ${c_3_SelectAColor}`);
-    }
-    
-    console.log(`d_IsPlod: ${d_IsPlod}`);
-    
-    console.log(`e_StandOnWindow: ${e_StandOnWindow}`);
-    if (e_StandOnWindow == 1) {
-        console.log(`e_1_ASunLight: ${e_1_ASunLight}`);
-    }
-    
-    console.log(`f_GenerateAOxugen: ${f_GenerateAOxugen}`);
-    
-    console.log(`g_AFreeProstr: ${g_AFreeProstr}`);
-    
-    console.log(`h_NoControl: ${h_NoControl}`);    
-}
-
+// Передаю набор переменных в финальное окошко
 
 function debugPrint_2(){
     let output = "Текст запроса: [Тестовый]\n";

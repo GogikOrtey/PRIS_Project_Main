@@ -132,38 +132,38 @@ header::before
 
 .bg1::before 
 	background-image: url("img/Header_Photo/B (1).jpg");
-.bg2::before 
-	background-image: url("img/Header_Photo/B (2).jpg");
-.bg3::before 
-	background-image: url("img/Header_Photo/B (3).jpg");
-.bg4::before 
-	background-image: url("img/Header_Photo/B (4).jpg");
-.bg5::before 
-	background-image: url("img/Header_Photo/B (5).jpg");
-.bg6::before 
-	background-image: url("img/Header_Photo/B (6).jpg");
-.bg7::before 
-	background-image: url("img/Header_Photo/B (7).jpg");
-.bg8::before 
-	background-image: url("img/Header_Photo/B (8).jpg");
-.bg9::before 
-	background-image: url("img/Header_Photo/B (9).jpg");
-.bg10::before 
-	background-image: url("img/Header_Photo/B (10).jpg");
-.bg11::before 
-	background-image: url("img/Header_Photo/B (11).jpg");
-.bg12::before 
-	background-image: url("img/Header_Photo/B (12).jpg");
-.bg13::before 
-	background-image: url("img/Header_Photo/B (13).jpg");
-.bg14::before 
-	background-image: url("img/Header_Photo/B (14).jpg");
-.bg15::before 
-	background-image: url("img/Header_Photo/B (15).jpg");
-.bg16::before 
-	background-image: url("img/Header_Photo/B (16).jpg");
-.bg17::before 
-	background-image: url("img/Header_Photo/B (17).jpg");
+// .bg2::before 
+// 	background-image: url("img/Header_Photo/B (2).jpg");
+// .bg3::before 
+// 	background-image: url("img/Header_Photo/B (3).jpg");
+// .bg4::before 
+// 	background-image: url("img/Header_Photo/B (4).jpg");
+// .bg5::before 
+// 	background-image: url("img/Header_Photo/B (5).jpg");
+// .bg6::before 
+// 	background-image: url("img/Header_Photo/B (6).jpg");
+// .bg7::before 
+// 	background-image: url("img/Header_Photo/B (7).jpg");
+// .bg8::before 
+// 	background-image: url("img/Header_Photo/B (8).jpg");
+// .bg9::before 
+// 	background-image: url("img/Header_Photo/B (9).jpg");
+// .bg10::before 
+// 	background-image: url("img/Header_Photo/B (10).jpg");
+// .bg11::before 
+// 	background-image: url("img/Header_Photo/B (11).jpg");
+// .bg12::before 
+// 	background-image: url("img/Header_Photo/B (12).jpg");
+// .bg13::before 
+// 	background-image: url("img/Header_Photo/B (13).jpg");
+// .bg14::before 
+// 	background-image: url("img/Header_Photo/B (14).jpg");
+// .bg15::before 
+// 	background-image: url("img/Header_Photo/B (15).jpg");
+// .bg16::before 
+// 	background-image: url("img/Header_Photo/B (16).jpg");
+// .bg17::before 
+// 	background-image: url("img/Header_Photo/B (17).jpg");
 
 
 
@@ -228,6 +228,14 @@ body
 	// justify-content: center;
 	// flex-direction: column;
 	//align-items: center;
+	position: relative;
+
+.main-counter
+	position: absolute;
+	top: 0px;
+	left -45px;
+
+
 
 // Широкие экраны (десктоп)
 @media (min-width: 950px) 
@@ -275,6 +283,7 @@ body
 	//position: relative;
 	width: calc(100% - 15px);
 	height: calc(100% - 15px);
+	//position: relative;
 	p	
 		padding: 3px
 		margin 0px
@@ -285,6 +294,7 @@ body
 		padding-bottom 3px
 	.pp3
 		padding-top 40px
+
 
 //.block-qu-1
 
@@ -570,16 +580,19 @@ body
 	margin-bottom 35px
 	margin-top 0px
 	border-radius: 15px
-	text-align: center
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	//flex-direction: column;
+	border solid 6px bg-blue
+	span	
+		font-size: 26px
 
 .butt-final:hover
 	background bg-blue
 .butt-final:active
 	font-weight: bold
-	border 3px solid black
+	border 6px solid #001aff
 
 
 .block-request  

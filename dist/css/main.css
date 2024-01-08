@@ -68,54 +68,6 @@ header::before {
 .bg1::before {
   background-image: url("img/Header_Photo/B (1).jpg");
 }
-.bg2::before {
-  background-image: url("img/Header_Photo/B (2).jpg");
-}
-.bg3::before {
-  background-image: url("img/Header_Photo/B (3).jpg");
-}
-.bg4::before {
-  background-image: url("img/Header_Photo/B (4).jpg");
-}
-.bg5::before {
-  background-image: url("img/Header_Photo/B (5).jpg");
-}
-.bg6::before {
-  background-image: url("img/Header_Photo/B (6).jpg");
-}
-.bg7::before {
-  background-image: url("img/Header_Photo/B (7).jpg");
-}
-.bg8::before {
-  background-image: url("img/Header_Photo/B (8).jpg");
-}
-.bg9::before {
-  background-image: url("img/Header_Photo/B (9).jpg");
-}
-.bg10::before {
-  background-image: url("img/Header_Photo/B (10).jpg");
-}
-.bg11::before {
-  background-image: url("img/Header_Photo/B (11).jpg");
-}
-.bg12::before {
-  background-image: url("img/Header_Photo/B (12).jpg");
-}
-.bg13::before {
-  background-image: url("img/Header_Photo/B (13).jpg");
-}
-.bg14::before {
-  background-image: url("img/Header_Photo/B (14).jpg");
-}
-.bg15::before {
-  background-image: url("img/Header_Photo/B (15).jpg");
-}
-.bg16::before {
-  background-image: url("img/Header_Photo/B (16).jpg");
-}
-.bg17::before {
-  background-image: url("img/Header_Photo/B (17).jpg");
-}
 .head-title p {
   font-size: 35px;
   color: #fff;
@@ -152,6 +104,12 @@ body {
   margin: 20px;
   border-radius: 15px;
   margin-top: 17px;
+  position: relative;
+}
+.main-counter {
+  position: absolute;
+  top: 0px;
+  left: -45px;
 }
 @media (min-width: 950px) {
   .main-body {
@@ -400,17 +358,20 @@ body {
   margin-bottom: 35px;
   margin-top: 0px;
   border-radius: 15px;
-  text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
+  border: solid 6px #00a3ff;
+}
+.butt-final span {
+  font-size: 26px;
 }
 .butt-final:hover {
   background: #00a3ff;
 }
 .butt-final:active {
   font-weight: bold;
-  border: 3px solid #000;
+  border: 6px solid #001aff;
 }
 .block-request {
   width: 90%;
