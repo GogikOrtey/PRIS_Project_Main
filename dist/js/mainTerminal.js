@@ -797,6 +797,25 @@ function SetButtonSelection() {
     });
 }
 
+// function SQLteReq() {
+//     // Подключаем модуль sqlite3
+//     var sqlite3 = require('sqlite3').verbose();
+
+//     // Открываем базу данных SQLite
+//     var db = new sqlite3.Database('/путь/к/вашей/базе/данных.db');
+
+//     db.serialize(function() {
+//       // Выполняем запрос SELECT
+//       db.each("SELECT rowid AS id, info FROM lorem", function(err, row) {
+//         // Выводим результаты в консоль
+//         console.log(row.id + ": " + row.info);
+//       });
+//     });
+
+//     // Закрываем базу данных
+//     db.close();
+// }
+
 function CreateSQLequest() {
     let strRequare = "SELECT plant_name FROM MainTable WHERE ";
     let windowCompare = 7; // Окно на температуру
