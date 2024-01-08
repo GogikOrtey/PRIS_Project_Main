@@ -430,3 +430,13 @@ body {
     width: 870px;
   }
 }
+.err-inp-1,
+.err-inp-2,
+.err-inp-3 {
+  padding: 0px;
+  margin: 0px;
+  color: #f00;
+  font-weight: bold;
+  margin-bottom: 3px;
+  display: none;
+}

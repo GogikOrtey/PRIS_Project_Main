@@ -1,6 +1,8 @@
 
 // a: Вы будете выращивать растения дома, или на улице?
 
+//const { isNull } = require("mathjs")
+
 a_InHome = 0 
 // 1 - На улице
 // 2 - Дома
@@ -431,8 +433,31 @@ function removeActiveClass(parentId) {
 
 
 
+function CheckCorrectInput1() {
+    document.querySelector('.my-input-1').addEventListener('input', function(e) {
+        var value = e.target.value;
+        var errorElement = document.querySelector('.err-inp-1');
+        
+        if (value == "" || isNaN(value) || value < -20 || value > 35) {
+            errorElement.style.display = 'block';
+            isTempCorrect = false;
+            a_2_input_AVGTempInRegion = 0;
+            a_2_AVGTempInRegion = 0;
+        } else {
+            errorElement.style.display = 'none';
+            isTempCorrect = true;
+            a_2_input_AVGTempInRegion = parseInt(value);
+            a_2_AVGTempInRegion = 1;
+        }
+
+        CheckAllBlocks();
+    });
+}
 
 
+
+//let isTempCorrect = false;
+//let isHumCorrect = false;
 
 
 
@@ -455,9 +480,17 @@ function removeActiveClass(parentId) {
 
 
 function SetButtonSelection() {
+
+
+    
+
+
+
+
+
     document.querySelector('#block-a .answ-block-1').addEventListener('click', function() {
         a_InHome = 1
-        currentLetterButtonDown = "a";
+        //currentLetterButtonDown = "a";
 
         document.getElementById('block-b').style.display = 'none';
         removeActiveClass('block-b');
@@ -465,7 +498,7 @@ function SetButtonSelection() {
     });    
     document.querySelector('#block-a .answ-block-2').addEventListener('click', function() {
         a_InHome = 2
-        currentLetterButtonDown = "a";
+        //currentLetterButtonDown = "a";
 
         document.getElementById('block-b').style.display = 'none';
         removeActiveClass('block-b');
@@ -478,8 +511,9 @@ function SetButtonSelection() {
         // Ввод из поля ввода
         //a_1_input_MinTempInHome = ...
         // Если корректно - то isTempCorrect = true
-        isTempCorrect = true
-        currentLetterButtonDown = "a-2";
+        
+        //isTempCorrect = true
+        //currentLetterButtonDown = "a-2";
     });
 
     document.querySelector('#block-a-1 .answ-block-1').addEventListener('click', function() {
@@ -487,13 +521,20 @@ function SetButtonSelection() {
         // Ввод из поля ввода
         //a_2_input_AVGTempInRegion = ...
         // Если корректно - то isTempCorrect = true
-        isTempCorrect = true
-        currentLetterButtonDown = "a-1";
+        isTempCorrect = false
+        CheckCorrectInput1();
+        //currentLetterButtonDown = "a-1";
     });    
+    document.querySelector('.my-input-1').addEventListener('input', function(e) {
+        //console.log('Значение поля ввода изменилось: ', e.target.value);
+        CheckCorrectInput1();
+    });
     document.querySelector('#block-a-1 .answ-block-2').addEventListener('click', function() {
         a_2_AVGTempInRegion = 2
         isTempCorrect = true
-        currentLetterButtonDown = "a-1";
+        //currentLetterButtonDown = "a-1";
+        document.querySelector('.err-inp-1').style.display = 'none';
+        document.querySelector('.my-input-1').value = '';
     });    
 
     document.querySelector('#block-a-2-1 .answ-block-1-s').addEventListener('click', function() {
@@ -501,120 +542,120 @@ function SetButtonSelection() {
         // Ввод из поля ввода
         //a_2_1_input_AVGHum = ...
         isHumCorrect = false
-        currentLetterButtonDown = "a-2-1";
+        //currentLetterButtonDown = "a-2-1";
     });    
     document.querySelector('#block-a-2-1 .answ-block-2-s').addEventListener('click', function() {
         a_2_1_AVGHum = 2
         isHumCorrect = true
-        currentLetterButtonDown = "a-2-1";
+        //currentLetterButtonDown = "a-2-1";
     });    
     document.querySelector('#block-a-2-1 .answ-block-3-s').addEventListener('click', function() {
         a_2_1_AVGHum = 3
         isHumCorrect = true
-        currentLetterButtonDown = "a-2-1";
+        //currentLetterButtonDown = "a-2-1";
     });    
     document.querySelector('#block-a-2-1 .answ-block-4-s').addEventListener('click', function() {
         a_2_1_AVGHum = 4
         isHumCorrect = true
-        currentLetterButtonDown = "a-2-1";
+        //currentLetterButtonDown = "a-2-1";
     });    
 
     document.querySelector('#block-b .answ-block-1').addEventListener('click', function() {
         b_OncePlant = 1
-        currentLetterButtonDown = "b";
+        //currentLetterButtonDown = "b";
     });    
     document.querySelector('#block-b .answ-block-2').addEventListener('click', function() {
         b_OncePlant = 2
-        currentLetterButtonDown = "b";
+        //currentLetterButtonDown = "b";
     });
 
     document.querySelector('#block-c .answ-block-1').addEventListener('click', function() {
         c_AFlowers = 1
-        currentLetterButtonDown = "c";
+        //currentLetterButtonDown = "c";
     });    
     document.querySelector('#block-c .answ-block-2').addEventListener('click', function() {
         c_AFlowers = 2
-        currentLetterButtonDown = "c";
+        //currentLetterButtonDown = "c";
     });
     document.querySelector('#block-c .answ-block-3').addEventListener('click', function() {
         c_AFlowers = 3
-        currentLetterButtonDown = "c";
+        //currentLetterButtonDown = "c";
     });
 
     //c-3
 
     document.querySelector('#block-d .answ-block-1').addEventListener('click', function() {
         d_IsPlod = 1
-        currentLetterButtonDown = "d";
+        //currentLetterButtonDown = "d";
     });    
     document.querySelector('#block-d .answ-block-2').addEventListener('click', function() {
         d_IsPlod = 2
-        currentLetterButtonDown = "d";
+        //currentLetterButtonDown = "d";
     });
     document.querySelector('#block-d .answ-block-3').addEventListener('click', function() {
         d_IsPlod = 3
-        currentLetterButtonDown = "d";
+        //currentLetterButtonDown = "d";
     });
 
     document.querySelector('#block-e .answ-block-1').addEventListener('click', function() {
         e_StandOnWindow = 1
-        currentLetterButtonDown = "e";
+        //currentLetterButtonDown = "e";
     });    
     document.querySelector('#block-e .answ-block-2').addEventListener('click', function() {
         e_StandOnWindow = 2
-        currentLetterButtonDown = "e";
+        //currentLetterButtonDown = "e";
     });
 
     document.querySelector('#block-e-1 .answ-block-1').addEventListener('click', function() {
         e_1_ASunLight = 1
-        currentLetterButtonDown = "e-1";
+        //currentLetterButtonDown = "e-1";
     });    
     document.querySelector('#block-e-1 .answ-block-2').addEventListener('click', function() {
         e_1_ASunLight = 2
-        currentLetterButtonDown = "e-1";
+        //currentLetterButtonDown = "e-1";
     });
     document.querySelector('#block-e-1 .answ-block-3').addEventListener('click', function() {
         e_1_ASunLight = 3
-        currentLetterButtonDown = "e-1";
+        //currentLetterButtonDown = "e-1";
     });
 
     document.querySelector('#block-f .answ-block-1').addEventListener('click', function() {
         f_GenerateAOxugen = 1
-        currentLetterButtonDown = "f";
+        //currentLetterButtonDown = "f";
     });    
     document.querySelector('#block-f .answ-block-2').addEventListener('click', function() {
         f_GenerateAOxugen = 2
-        currentLetterButtonDown = "f";
+        //currentLetterButtonDown = "f";
     });
     document.querySelector('#block-f .answ-block-3').addEventListener('click', function() {
         f_GenerateAOxugen = 3
-        currentLetterButtonDown = "f";
+        //currentLetterButtonDown = "f";
     });
 
     document.querySelector('#block-g .answ-block-1').addEventListener('click', function() {
         g_AFreeProstr = 1
-        currentLetterButtonDown = "g";
+        //currentLetterButtonDown = "g";
     });    
     document.querySelector('#block-g .answ-block-2').addEventListener('click', function() {
         g_AFreeProstr = 2
-        currentLetterButtonDown = "g";
+        //currentLetterButtonDown = "g";
     });
     document.querySelector('#block-g .answ-block-3').addEventListener('click', function() {
         g_AFreeProstr = 3
-        currentLetterButtonDown = "g";
+        //currentLetterButtonDown = "g";
     });
 
     document.querySelector('#block-h .answ-block-1').addEventListener('click', function() {
         h_NoControl = 1
-        currentLetterButtonDown = "h";
+        //currentLetterButtonDown = "h";
     });    
     document.querySelector('#block-h .answ-block-2').addEventListener('click', function() {
         h_NoControl = 2
-        currentLetterButtonDown = "h";
+        //currentLetterButtonDown = "h";
     });
     document.querySelector('#block-h .answ-block-3').addEventListener('click', function() {
         h_NoControl = 3
-        currentLetterButtonDown = "h";
+        //currentLetterButtonDown = "h";
     });
 }
 
