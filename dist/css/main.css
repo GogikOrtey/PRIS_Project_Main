@@ -409,7 +409,7 @@ body {
 }
 .block-request {
   width: 90%;
-  height: 400px;
+  height: auto;
   background: #fff;
   margin-top: 0px;
   display: grid;
@@ -500,6 +500,15 @@ body {
   border-radius: 10px;
   background: #000;
   margin: 10px;
+}
+.color-s.active-2,
+.color-s:active {
+  border: solid 4px #202020;
+}
+.hhid {
+  color: #808080;
+  padding: 0px;
+  margin-bottom: 7px;
 }
 #white {
   background-color: #fff;

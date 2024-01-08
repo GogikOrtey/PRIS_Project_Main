@@ -131,7 +131,11 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementsByClassName('block-request')[0].style.display = 'grid';
             document.getElementsByClassName('butt-final')[0].style.display = 'none';
             document.querySelector('.butt-final-2').style.display = 'flex';
-            debugPrint_2();
+            //debugPrint_2();
+
+            let SQL_Rq = CreateSQLequest();
+
+            document.querySelector('.block-request .req p').textContent = SQL_Rq;
 
             elements.forEach(element => {
                 element.style.display = 'none';
@@ -142,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Массив цветов
-    var colors = ["#197de0", "rgb(14, 182, 204)", "#5d33da", "#38ec0f", "#e9e51f", "#ecbc0c", "#e24916", "#ec34be", "#a619da"];
+    //var colors = ["#197de0", "rgb(14, 182, 204)", "#5d33da", "#38ec0f", "#e9e51f", "#ecbc0c", "#e24916", "#ec34be", "#a619da"];
 
     // // Получаем все кнопки
     // var buttons = document.querySelectorAll('.butt-answ');
@@ -155,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Получаем все кнопки
     var buttons = document.querySelectorAll('.butt-answ');
 
-    // Применяем случайный цвет фона к каждой кнопке
+    // Применяем случайный цвет фона к каждой кнопке - от красного до зелёного
     for (var i = 0; i < buttons.length; i++) {
         var hue = Math.floor(Math.random() * 81) + 20;
         buttons[i].style.backgroundColor = 'hsl(' + hue + ', 100%, 50%)';
@@ -180,7 +184,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     //document.querySelector('#block-a-1').style.display = 'block';
 
-    let currentLetterButtonDown = "";
+    //let currentLetterButtonDown = "";
 
     SetButtonSelection();
 
@@ -287,32 +291,7 @@ function CheckAllBlocks(){
             (a_InHome == 1 && isHumCorrect == true) ||
             (a_InHome == 2 && a_2_AVGTempInRegion == 2) ||
             (a_InHome == 2 && a_2_AVGTempInRegion == 1 && isTempCorrect == true)
-            // a_InHome == 2
-            // // (a_InHome == 2 &&
-            // //     ((isHumCorrect == true)
-            // //     || (a_2_1_AVGHum != 0)))
-            // || (RQ_2 <= 0 && a_InHome == 1)
-            // || (a_2_1_AVGHum != 0 && isHumCorrect == true)
         )
-
-
-        // if(
-        //     a_InHome == 2
-        //     // (a_InHome == 2 &&
-        //     //     ((isHumCorrect == true)
-        //     //     || (a_2_1_AVGHum != 0)))
-        //     || (RQ_2 <= 0 && a_InHome == 1)
-        //     || (a_2_1_AVGHum != 0 && isHumCorrect == true)
-        // )     
-        
-        // (((a_2_AVGTempInRegion != 0 
-        //     || (a_2_1_AVGHum != 0 && isHumCorrect == true)) 
-        //     && (isTempCorrect == true))
-        //     && (RQ_2 <= 0 && a_InHome == 1)
-        //     ) || ((a_InHome == 1 && isHumCorrect == true))
-            
-            
-            
             {
             ShowBlock('block-b');
             _mainCounter = 4;
@@ -340,18 +319,24 @@ function CheckAllBlocks(){
 
 
     if(_mainCounter >= 5) {
-        if(c_AFlowers == 3) { ////// ЦВЕТА!!!
+        if(c_AFlowers == 3) {
             ShowBlock('block-c-3');
-            isColorCucsSelected = false
+            //let block = document.getElementById('block-c-3');
+            //block.style.display = 'grid';   
+            window.scrollTo(0, document.body.scrollHeight);
+
+            //isColorCucsSelected = false
             //_mainCounter = 6;
-            // Здесь нужно будет верно обработать ввод цветов
         } else {
-            // removeActiveClass('block-c-3');
             HideBlock('block-c-3');
             //_mainCounter = 6;
+            isColorCucsSelected = false
+
+            ColorZeroing();
         }
     } else {
         HideBlock('block-c-3');
+        isColorCucsSelected = false
     }
 
 
@@ -523,15 +508,82 @@ function CheckCorrectInput3() {
 
 
 
+let colors = {
+    green: false,
+    red: false,
+    orange: false,
+    yellow: false,
+    lightBlue: false,
+    blue: false,
+    violet: false,
+    pink: false,
+    silver: false,
+    multicolor: false
+};
 
 
+function SetColorAction() {
+    // Создание объекта для хранения булевых переменных
 
+      
+      // Получение всех кнопок цветов
+      let buttons = document.querySelectorAll('.butt-bar-colors .color-s');
+      
+      // Добавление обработчика событий для каждой кнопки
+      buttons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Получение id кнопки (цвета)
+            let color = this.id;
+      
+            // Изменение значения булевой переменной на противоположное
+            colors[color] = !colors[color];
+      
+            // Изменение стиля элемента в зависимости от значения булевой переменной
+            if (colors[color]) {
+              this.classList.add('active-2');
+            } else {
+              this.classList.remove('active-2');
+            }
 
+            isColorCucsSelected = CheckCorrectColors();
+            //console.log("isColorCucsSelected = " + isColorCucsSelected + " _");
 
+            CheckAllBlocks();
+        });
+    });  
+}
 
+function ColorZeroing() {
+    for (let color in colors) {
+        colors[color] = false;
+    }
 
+    // Получение всех элементов .color-s внутри .color-other
+    let colorButtons = document.querySelectorAll('.color-other .color-s');
 
+    // Обход всех кнопок цветов
+    colorButtons.forEach(button => {
+      // Удаление стиля active-2
+      button.classList.remove('active-2');
+    });
+}
 
+function CheckCorrectColors() {
+    // Создание переменной
+    let isAnyColorActive = false;
+
+    // Проверка, есть ли хотя бы один цвет, который равен true
+    for (let color in colors) {
+      if (colors[color]) {
+        isAnyColorActive = true;
+        break;
+      }
+    }
+
+    return isAnyColorActive;
+}
+
+// ------------> Вот тут надо добавить обработчик выбранных цветов
 
 
 
@@ -541,14 +593,9 @@ function CheckCorrectInput3() {
 
 function SetButtonSelection() {
 
+    SetColorAction();
 
-    
-
-
-
-
-
-    document.querySel ector('#block-a .answ-block-1').addEventListener('click', function() {
+    document.querySelector('#block-a .answ-block-1').addEventListener('click', function() {
         a_InHome = 1
         //currentLetterButtonDown = "a";
 
@@ -661,10 +708,12 @@ function SetButtonSelection() {
     document.querySelector('#block-c .answ-block-1').addEventListener('click', function() {
         c_AFlowers = 1
         //currentLetterButtonDown = "c";
+        ColorZeroing() 
     });    
     document.querySelector('#block-c .answ-block-2').addEventListener('click', function() {
         c_AFlowers = 2
         //currentLetterButtonDown = "c";
+        ColorZeroing() 
     });
     document.querySelector('#block-c .answ-block-3').addEventListener('click', function() {
         c_AFlowers = 3
@@ -748,6 +797,133 @@ function SetButtonSelection() {
     });
 }
 
+function CreateSQLequest() {
+    let strRequare = "SELECT plant_name FROM MainTable WHERE ";
+    let windowCompare = 7; // Окно на температуру
+    let windowCompare_2 = 45; // Окно на влажность
+    //let windowCompare_Light = 3;
+
+    if (a_InHome === 1) {
+        strRequare += "plant_type_description = 'Домашнее' ";
+    } else if (a_InHome === 2) {
+        strRequare += "plant_type_description = 'Уличное'";
+    }
+
+    strRequare += " AND ";
+
+    if (a_2_AVGTempInRegion === 2) {
+        if(a_2_input_AVGTempInRegion < 0) {
+            strRequare += "min_temperature >= " + a_2_input_AVGTempInRegion;
+        }
+    }
+
+    if (a_2_AVGTempInRegion === 1) {
+        strRequare += " max_temperature <= " + (a_1_input_MinTempInHome + windowCompare);
+    }
+
+    strRequare += " AND ";
+
+    let bool1 = false;
+
+    if (a_2_1_AVGHum === 2) {
+        a_2_1_input_AVGHum = 35;
+        bool1 = true;
+    } else if (a_2_1_AVGHum === 3) {
+        a_2_1_input_AVGHum = 80;
+        bool1 = true;
+    } else if (a_2_1_AVGHum === 4) {
+        a_2_1_input_AVGHum = 55;
+        bool1 = true;
+    }
+
+    if (bool1 === true || a_2_1_AVGHum === 1) {
+        strRequare += "min_humidity >= " + (a_2_1_input_AVGHum - windowCompare_2);
+    }
+
+    strRequare += " AND ";
+
+    if (b_OncePlant === 2) {
+        strRequare += "(allelopathy_description = 'Нейтральная' OR allelopathy_description = 'Положительная')";
+    }
+
+    strRequare += " AND ";
+
+    if (c_AFlowers === 1) {
+        strRequare += "plant_color_description LIKE '%елёный%'";
+    }
+
+    if(c_3_SelectAColor !== ""){
+        // Потом напишу
+    }
+
+    strRequare += " AND ";
+
+    if (d_IsPlod === 1) {
+        strRequare += "is_fruitful = 'true'";
+    } else if (d_IsPlod === 3) {
+        strRequare += "is_fruitful = 'false'";
+    }
+
+    strRequare += " AND ";
+
+    if (e_StandOnWindow === 2) {
+        strRequare += "(sunlight_tolerance_description = 'Нет' OR sunlight_tolerance_description = 'Средне')";
+        strRequare += " AND ";
+        strRequare += "max_light <= 8";
+    } else if (e_StandOnWindow === 1) {
+        strRequare += "min_light >= 3";
+    }
+    
+    strRequare += " AND ";
+    
+    if (f_GenerateAOxugen === 1) {
+        strRequare += "oxygen_production >= 5";
+    } else if (f_GenerateAOxugen === 2) {
+        strRequare += "oxygen_production >= 3";
+    }
+    
+    strRequare += " AND ";
+    
+    if (g_AFreeProstr === 1) {
+        strRequare += "area_covered <= 4";
+    } else if (g_AFreeProstr === 2) {
+        strRequare += "area_covered <= 7";
+    }
+    
+    strRequare += " AND ";
+    
+    if (h_NoControl === 1) {
+        strRequare += "care_instructions < 6";
+    } else if (h_NoControl === 2) {
+        strRequare += "(care_instructions >= 6)";
+    }
+    
+    let remove_extra_and = (sql_query) => {
+        while (sql_query.includes(' AND  AND ')) {
+            sql_query = sql_query.replace(' AND  AND ', ' AND '); // Удаляю AND, если он появился 2 раза подряд
+        }
+    
+        sql_query = sql_query.trim(); // Удаляю пробелы в конце строки
+    
+        if (sql_query.endsWith(' AND')) {
+            sql_query = sql_query.slice(0, -4); // Удаляю AND, если он вылез в коне запроса
+        }
+        return sql_query;
+    }
+    
+    let outputRequare = remove_extra_and(strRequare); // Делаю строку без ошибок, как SQL-запрос
+    
+    outputRequare += str_SortMainReq;
+    
+    console.log();
+    console.log("Запрос:" + outputRequare);
+    console.log();    
+
+    return(outputRequare)
+}
+
+
+
 // Вставляем полученные значения переменных в форму запроса
 function debugPrint_2(){
     let output = "Текст запроса: [Тестовый]\n";
@@ -789,6 +965,42 @@ function ZeroingAllVar() {
     g_AFreeProstr = 0
     h_NoControl = 0
 }
+
+// Запрос на сортировку в нужном порядке:
+str_SortMainReq = `
+ORDER BY 
+    is_famous DESC,
+    CASE allelopathy_description 
+        WHEN 'Положительная' THEN 1 
+        WHEN 'Нейтральная' THEN 2 
+        ELSE 3 
+    END,    
+    CASE plant_color_description 
+        WHEN 'разноцветный' THEN 1 
+        WHEN 'белый' THEN 2 
+        WHEN 'жёлтый' THEN 3 
+        WHEN 'голубой' THEN 4 
+        WHEN 'серебристый' THEN 5 
+        WHEN 'бордовый' THEN 6 
+        WHEN 'красный' THEN 7 
+        WHEN 'оранжевый' THEN 8 
+        WHEN 'пёстрый' THEN 9 
+        WHEN 'пурпурный' THEN 10 
+        WHEN 'розовый' THEN 11 
+        WHEN 'синий' THEN 12 
+        WHEN 'фиолетовый' THEN 13
+        WHEN 'Зелёный с белой каймой' THEN 14
+        WHEN 'Зелёный с белыми или розовыми разводами' THEN 15
+        WHEN 'Зелёный с красными прицветниками' THEN 16
+        WHEN 'Зелёный с пятнами' THEN 17
+        WHEN 'Зелёный с разноцветными прожилками' THEN 18
+        WHEN 'Зелёный с серебристым оттенком' THEN 19
+        ELSE 20
+    END,
+    area_covered ASC,
+    oxygen_production DESC;
+    `;
+
 
 
 // function HideAll() {
