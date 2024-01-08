@@ -307,7 +307,45 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', function() {
           this.querySelector('input').focus();
         });
-      });      
+    });      
+
+    // ------------------------------------------------------------------- //
+    // 	          Всплывающее окно "Узнать о растении больше"              //
+    // ------------------------------------------------------------------- // 
+
+    document.querySelectorAll('.card').forEach((card) => {
+        card.addEventListener('click', function() {
+            let plantName = this.querySelector('span').innerText;
+            let modal = document.createElement('div');
+            modal.class = 'new-window-1';
+            modal.style.position = 'fixed';
+            modal.style.top = '0';
+            modal.style.left = '0';
+            modal.style.width = '100%';
+            modal.style.height = '100%';
+            modal.style.backgroundColor = 'rgba(0,0,0,0.5)';
+            modal.style.display = 'flex';
+            modal.style.justifyContent = 'center';
+            modal.style.alignItems = 'center';
+            modal.style.zIndex = '1000';
+            modal.innerHTML = `
+                <div style="background-color: white; padding: 20px; border-radius: 10px; position: relative;">
+                    <button style="position: absolute; top: 5px; right: 5px; background-color: orange; border: none; border-radius: 5px; width: 30px; height: 30px;">X</button>
+                    <p>Хочешь узнать о растении больше?</p>
+                    <button style=" border: none; border-radius: 15px; height: 50px; font-size: 20px; width: 100%; margin: auto; display: block; :hover { background-color: yellow; }" onclick="window.open('https://yandex.ru/search/?text=растение%20${plantName}', '_blank')">Перейти в Яндекс</button>
+                </div>
+            `;
+            modal.querySelector('button').addEventListener('click', function() {
+                document.body.removeChild(modal);
+            });
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    document.body.removeChild(modal);
+                }
+            });
+            document.body.appendChild(modal);
+        });
+    });
 });
 
 // ------------------------------------------------------------------- //
