@@ -988,3 +988,46 @@ body {
 .go-back-to-main span {
   font-size: 23px;
 }
+@media (max-width: 650px) {
+  .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  .header .head-title {
+    margin: 35px;
+    padding-bottom: 20px;
+  }
+  .header .head-title p {
+    font-size: 30px;
+  }
+  .header .head-bottom-line {
+    position: absolute;
+    bottom: 0px;
+  }
+  .nav-menu-bar {
+    margin: 5px auto;
+  }
+  .nav-menu-bar .decr-nav-menu {
+    width: 85%;
+    border: solid 3px #d3d3d3;
+    border-radius: 12.5px;
+  }
+  .nav-menu-bar .decr-nav-menu span {
+    font-size: 20px;
+  }
+  .nav-menu-bar .content-nav-menu {
+    display: grid;
+  }
+  .nav-menu-bar .content-nav-menu .nav-nav-menu {
+    grid-template-columns: 1fr;
+  }
+  .nav-menu-bar .content-nav-menu .nav-nav-menu .butt-info,
+  .nav-menu-bar .content-nav-menu .nav-nav-menu .butt-all-pants {
+    align-self: center;
+    width: 95%;
+    margin: 15px;
+    height: 60px;
+  }
+}
