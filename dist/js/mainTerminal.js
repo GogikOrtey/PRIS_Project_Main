@@ -315,6 +315,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.querySelectorAll('.card').forEach((card) => {
         card.addEventListener('click', function() {
+            let existingModal = document.querySelector('.modal');
+            if (existingModal) {
+                document.body.removeChild(existingModal);
+            }
+
             let plantName = this.querySelector('span').innerText;
             let modal = document.createElement('div');
             modal.class = 'new-window-1';
