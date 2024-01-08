@@ -139,8 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let SQL_Rq = CreateSQLequest();
             document.querySelector('.block-request .req p').textContent = SQL_Rq;
 
-            //let BD_Answer = 
-            SQL_RQ_FromSwever(SQL_Rq);
+            let BD_Answer = SQL_RQ_FromSwever(SQL_Rq);
             //document.querySelector('.block-request .answ p').textContent = BD_Answer;            
 
             elements.forEach(element => {
@@ -148,6 +147,8 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             console.log("Final*");
+
+
         }
     });
 
@@ -836,14 +837,16 @@ function CreateSQLequest() {
 
     strRequare += " AND ";
 
-    if (a_2_AVGTempInRegion === 2) {
-        if(a_2_input_AVGTempInRegion < 0) {
-            strRequare += "min_temperature >= " + a_2_input_AVGTempInRegion;
-        }
+    if (a_InHome === 1) {
+        strRequare += "min_temperature >= " + (a_1_input_MinTempInHome - windowCompare);
+        strRequare += " AND ";
+        strRequare += "max_temperature <= " + (a_1_input_MinTempInHome + windowCompare);
     }
 
     if (a_2_AVGTempInRegion === 1) {
-        strRequare += " max_temperature <= " + (a_1_input_MinTempInHome + windowCompare);
+        if(a_2_input_AVGTempInRegion < 15) {
+            strRequare += " min_temperature >= " + (a_2_input_AVGTempInRegion - windowCompare);
+        }        
     }
 
     strRequare += " AND ";
@@ -918,9 +921,9 @@ function CreateSQLequest() {
         if(colors['yellow'] == true) {
             addStr1 += "plant_color_description LIKE '%ёлтый%' OR ";
         } 
-        // if(colors['lightBlue'] === true) {
-        //     addStr1 += "plant_color_description LIKE '%олубой%' OR ";
-        // } 
+        if(colors['lightBlue'] === true) {
+            addStr1 += "plant_color_description LIKE '%олубой%' OR ";
+        } 
         if(colors['blue'] == true) {
             addStr1 += "plant_color_description LIKE '%иний%' OR ";
         } 
@@ -1065,39 +1068,41 @@ function ZeroingAllVar() {
 }
 
 // Запрос на сортировку в нужном порядке:
-str_SortMainReq = `
-ORDER BY 
-    is_famous DESC,
-    CASE allelopathy_description 
-        WHEN 'Положительная' THEN 1 
-        WHEN 'Нейтральная' THEN 2 
-        ELSE 3 
-    END,    
-    CASE plant_color_description 
-        WHEN 'разноцветный' THEN 1 
-        WHEN 'белый' THEN 2 
-        WHEN 'жёлтый' THEN 3 
-        WHEN 'голубой' THEN 4 
-        WHEN 'серебристый' THEN 5 
-        WHEN 'бордовый' THEN 6 
-        WHEN 'красный' THEN 7 
-        WHEN 'оранжевый' THEN 8 
-        WHEN 'пёстрый' THEN 9 
-        WHEN 'пурпурный' THEN 10 
-        WHEN 'розовый' THEN 11 
-        WHEN 'синий' THEN 12 
-        WHEN 'фиолетовый' THEN 13
-        WHEN 'Зелёный с белой каймой' THEN 14
-        WHEN 'Зелёный с белыми или розовыми разводами' THEN 15
-        WHEN 'Зелёный с красными прицветниками' THEN 16
-        WHEN 'Зелёный с пятнами' THEN 17
-        WHEN 'Зелёный с разноцветными прожилками' THEN 18
-        WHEN 'Зелёный с серебристым оттенком' THEN 19
-        ELSE 20
-    END,
-    area_covered ASC,
-    oxygen_production DESC;
-`;
+str_SortMainReq = ''; // Пока что, для тестов
+
+// str_SortMainReq = `
+// ORDER BY 
+//     is_famous DESC,
+//     CASE allelopathy_description 
+//         WHEN 'Положительная' THEN 1 
+//         WHEN 'Нейтральная' THEN 2 
+//         ELSE 3 
+//     END,    
+//     CASE plant_color_description 
+//         WHEN 'разноцветный' THEN 1 
+//         WHEN 'белый' THEN 2 
+//         WHEN 'жёлтый' THEN 3 
+//         WHEN 'голубой' THEN 4 
+//         WHEN 'серебристый' THEN 5 
+//         WHEN 'бордовый' THEN 6 
+//         WHEN 'красный' THEN 7 
+//         WHEN 'оранжевый' THEN 8 
+//         WHEN 'пёстрый' THEN 9 
+//         WHEN 'пурпурный' THEN 10 
+//         WHEN 'розовый' THEN 11 
+//         WHEN 'синий' THEN 12 
+//         WHEN 'фиолетовый' THEN 13
+//         WHEN 'Зелёный с белой каймой' THEN 14
+//         WHEN 'Зелёный с белыми или розовыми разводами' THEN 15
+//         WHEN 'Зелёный с красными прицветниками' THEN 16
+//         WHEN 'Зелёный с пятнами' THEN 17
+//         WHEN 'Зелёный с разноцветными прожилками' THEN 18
+//         WHEN 'Зелёный с серебристым оттенком' THEN 19
+//         ELSE 20
+//     END,
+//     area_covered ASC,
+//     oxygen_production DESC;
+// `;
 
 // return "Неверный запрос";
 
@@ -1166,6 +1171,9 @@ function SQL_RQ_FromSwever(sql_2) {
 
 function docWrite_01(text) {
     document.querySelector('.block-request .answ p').innerText = text;
+
+    window.plantCards_plantNames = text;
+    window.setCards();
 }
 
 function OnPageWeu_02(data) {
