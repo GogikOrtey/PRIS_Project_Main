@@ -304,6 +304,9 @@ body {
 .bad-batton {
   background: #e70e0e;
 }
+.very-long-01 {
+  width: 95%;
+}
 .nav-button {
   width: 100%;
 }

@@ -181,14 +181,25 @@ document.addEventListener('DOMContentLoaded', function() {
     buttons.forEach(function(button) {
         var color;
 
+        // // Устанавливаю случайные цвета для кнопок ответов, в зависимости от их классов:
+        // if (button.classList.contains('good-button')) {
+        //     color = getRandomColor(120, 60);    // От зелёного до жёлтого
+        // } else if (button.classList.contains('gerat-button')) {
+        //     color = getRandomColor(60, 30);     // От жёлтого до ораньжевого
+        // } else if (button.classList.contains('bad-batton')) {
+        //     color = getRandomColor(30, 0);      // От оранжевого до красного
+        // }
+
         // Устанавливаю случайные цвета для кнопок ответов, в зависимости от их классов:
+        // Изменил задаваемые цвета, что бы избежать насыщенного красного, т.к. он немного отталкивает
         if (button.classList.contains('good-button')) {
-            color = getRandomColor(120, 60);    // От зелёного до жёлтого
+            color = getRandomColor(100, 75);    // От зелёного до жёлтого
         } else if (button.classList.contains('gerat-button')) {
-            color = getRandomColor(60, 30);     // От жёлтого до ораньжевого
+            color = getRandomColor(75, 45);     // От жёлтого до оранжевого
         } else if (button.classList.contains('bad-batton')) {
-            color = getRandomColor(30, 0);      // От ораньжевого до красного
+            color = getRandomColor(45, 15);      // От оранжевого до красного
         }
+
         button.style.backgroundColor = color;
     });
 
