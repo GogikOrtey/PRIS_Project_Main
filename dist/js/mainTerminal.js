@@ -123,6 +123,13 @@ h_NoControl = 0
 // ------------------------------------------------------------------- // 
 
 document.addEventListener('DOMContentLoaded', function() { 
+    let header = document.querySelector('header');
+    let width = window.innerWidth;
+    if (width < 650) {
+        header.style.backgroundImage = "url('css/img/Header_Photo/B (1)_small.jpg')";
+        header.style.backgroundSize = "cover";
+    }
+
     // Получение сохраненного значения переменной
     isDevelopModActive = localStorage.getItem('isDevelopModActive');
     
@@ -1436,7 +1443,13 @@ function SetNamePlants(plantNames_mass) {
                 // Если вы хотите установить src для первого изображения
                 let img = img_loc[0];           
         
-                img.src = `img/all-plants-photo/Растение ${namePl}.jpg`;
+                //img.src = `img/all-plants-photo/Растение ${namePl}.jpg`;
+
+                if(window.innerWidth > 650) {
+                    img.src = `img/all-plants-photo/Растение ${item.plant_name}.jpg`;
+                } else {
+                    img.src = `img/all-plants-photo-small/Растение ${item.plant_name}.jpg`;
+                }
     
                 img.onerror = function() { ErrorImageCon(img) }; // Если картинки с нужным именем не нашлось
     
@@ -1465,7 +1478,13 @@ function SetNamePlants(plantNames_mass) {
         // Если вы хотите установить src для первого изображения
         let img = img_loc[0];           
     
-        img.src = `img/all-plants-photo/Растение ${namePl}.jpg`;
+        //img.src = `img/all-plants-photo/Растение ${namePl}.jpg`;
+
+        if(window.innerWidth > 650) {
+            img.src = `img/all-plants-photo/Растение ${item.plant_name}.jpg`;
+        } else {
+            img.src = `img/all-plants-photo-small/Растение ${item.plant_name}.jpg`;
+        }
     
         img.onerror = function() { ErrorImageCon(img) }; // Если картинки с нужным именем не нашлось
 

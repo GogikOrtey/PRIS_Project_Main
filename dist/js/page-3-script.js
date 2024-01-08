@@ -4,6 +4,13 @@
 // ------------------------------------------------------------------- // 
 
 document.addEventListener('DOMContentLoaded', function() { 
+    let header = document.querySelector('header');
+    let width = window.innerWidth;
+    if (width < 650) {
+        header.style.backgroundImage = "url('css/img/Header_Photo/B (1)_small.jpg')";
+        header.style.backgroundSize = "cover";
+    }
+
     document.querySelector('.load-more').style.display = 'none';
     document.querySelector('.go-back-to-main').style.display = 'none';
     document.querySelector('#main-2').style.display = 'none';
@@ -322,7 +329,11 @@ function showCards(data) {
             let span = document.createElement('span');
     
             card.className = 'card';
-            img.src = `img/all-plants-photo/Растение ${item.plant_name}.jpg`;
+            if(window.innerWidth > 650) {
+                img.src = `img/all-plants-photo/Растение ${item.plant_name}.jpg`;
+            } else {
+                img.src = `img/all-plants-photo-small/Растение ${item.plant_name}.jpg`;
+            }
             img.onerror = function() {
                 // Обработка ошибки
                 // Создаем массив с именами файлов изображений
