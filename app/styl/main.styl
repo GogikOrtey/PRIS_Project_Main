@@ -999,12 +999,15 @@ body
 	height auto
 	display: grid
 	grid-template-rows: auto auto
-	background white
+	//background white
 	justify-items: center;
 	align-items: center;
 	margin 25px
+	margin-bottom 0px
+	margin-top 15px
 	padding 5px
-	border-radius: 10px
+	//border-radius: 10px
+
 
 .decr-nav-menu
 	height auto
@@ -1012,13 +1015,14 @@ body
 	background white
 	border-radius: 12.5px
 	padding 10px
-	margin 25px
+	//margin 5px
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	border solid 4px bg-3
 	span
-		font-size: 20px
+		font-size: 25px
+		//color red
 
 // Широкие экраны (десктоп)
 @media (min-width: 950px) 
@@ -1031,18 +1035,20 @@ body
 .decr-nav-menu:active
 	background #2078fc
 
-// .content-nav-menu
-// 	display: none
-
-.decr-nav-menu 
-	display: none
-
 .content-nav-menu
+	border-radius: 12.5px
+	background white
 	display: grid
 	grid-template-columns: 1fr
 	grid-template-rows: auto auto auto
 	justify-items: center;
 	align-items: center;
+	.sp-4 
+		margin-top: 15px
+		font-size: 25px
+	span
+		font-size: 19px
+		//color red
 
 .nav-nav-menu
 	display: grid
@@ -1102,13 +1108,22 @@ body
 	//border 3px solid bg-2
 	//border 2px solid black
 	background rgb(243, 98, 1)
-	width 23px
-	height 23px
+	width 22px
+	height 22px
 
 .circle-dev-mode-enable-style
-	margin-left 20px
+	margin-left 19px
 	background rgb(0, 209, 0)
 
 // .circle-dev-mode:hover
 // 	background #2078fc
 // 	border 3px solid black
+
+// .decr-nav-menu 
+// 	display: none
+
+.content-nav-menu
+	display: none
+
+.none-style
+	display: none
