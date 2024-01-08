@@ -163,7 +163,7 @@ body {
   height: calc(100% - 15px);
 }
 .descr-qu-1,
-.block-qu-1 {
+.block-qu {
   text-align: center;
   background-color: #fff;
   border-radius: 15px;
@@ -171,7 +171,7 @@ body {
   height: 100%;
 }
 .descr-qu-1 p,
-.block-qu-1 p {
+.block-qu p {
   padding: 20px;
   font-size: larger;
 }
@@ -213,6 +213,56 @@ body {
   padding: 5px;
   padding-top: 9px;
   font-weight: bold;
+}
+.block-qu {
+  height: auto;
+  display: grid;
+  grid-template-rows: auto auto;
+  justify-items: center;
+  align-items: center;
+  position: relative;
+}
+.butt-bar {
+  grid-row: 2;
+  display: grid;
+  width: 90%;
+  height: auto;
+  margin-bottom: 25px;
+}
+.butt-answ {
+  border-radius: 10px;
+  margin: 0px 30px;
+  padding: 0px;
+  background: #07f36a;
+  border: 3px #fff solid;
+}
+.butt-answ p {
+  margin: 10px;
+  padding: 0px;
+}
+.butt-answ:hover {
+  filter: brightness(135%);
+}
+.butt-answ:active {
+  font-weight: bold;
+  border: solid 3px #000;
+}
+.answ-block-1 {
+  grid-column: 1;
+}
+.answ-block-2 {
+  grid-column: 2;
+}
+.answ-block-3 {
+  grid-column: 3;
+}
+.answ-block-4 {
+  grid-column: 4;
+}
+.letter-abbr {
+  position: absolute;
+  top: -10;
+  left: 0;
 }
 .nav-button {
   width: 100%;
