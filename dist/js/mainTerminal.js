@@ -212,30 +212,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // 	      Меню        //
     // ------------------ // 
 
-    // // Добавляю событие: При нажатии на кнопку развёртывания меню
-    // let ButtMenuOpen = document.querySelectorAll('.nav-menu-bar')[0];
-    // let ButtMenuClose = document.querySelectorAll('.butt-hide-menu')[0];
+    let GoToPage_2 = document.querySelector('.go-to-page-2');
+    let GoToPage_3 = document.querySelector('.go-to-page-3');
+    
+    GoToPage_2.addEventListener('click', function() {
+        window.location.href = 'page_2.html';
+    });
+    
+    GoToPage_3.addEventListener('click', function() {
+        window.location.href = 'page_3.html';
+    });
+    
 
-    // let descrMenu = document.querySelectorAll('.nav-menu-bar .decr-nav-menu')[0];
-    // let ElementMenu = document.querySelectorAll('.nav-menu-bar .content-nav-menu')[0];
-
-    // ButtMenuOpen.addEventListener('click', function() {
-    //     // isMenuVisible = true;
-    //     ElementMenu.style.display = "grid"
-    //     descrMenu.style.display = "none"
-    //     // ElementMenu.classList.remove('none-style');
-    //     // descrMenu.classList.add('none-style');
-    // });
-
-    // ButtMenuClose.addEventListener('click', function() {
-    //     //isMenuVisible = false;
-    //     // descrMenu.classList.remove('none-style');
-    //     // ElementMenu.classList.add('none-style');
-    //     descrMenu.style.display = "flex"
-    //     ElementMenu.style.display = "grid"
-    //     //ElementMenu.style.display = "none"
-    //     // console.log("isMenuVisible = " + isMenuVisible);
-    // });
 
     // Получаем элементы по классам
     let decrNavMenu = document.querySelector('.decr-nav-menu');

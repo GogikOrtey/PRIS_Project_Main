@@ -394,6 +394,9 @@ body
 	margin-bottom 25px
 	position: relative;
 
+// .block-qu
+// 	display: none
+
 #block-a-2-butt
 	display: grid
 	grid-template-columns: 2fr 3fr
@@ -955,6 +958,7 @@ body
 		box-shadow: none
 		width: 85%
 		height 100%
+		//overflow: hidden;
 	span
 		font-size: 21px
 		//bord()
@@ -977,8 +981,8 @@ body
 .card:hover
 	box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5)
 
-.card:active
-	border 5px solid #00a3ff
+// .card:active
+// 	border 5px solid #00a3ff
 
 // Узкие экраны
 @media (max-width: 950px) 
@@ -1011,7 +1015,7 @@ body
 
 .decr-nav-menu
 	height auto
-	width 60%
+	width 35%
 	background white
 	border-radius: 12.5px
 	padding 10px
@@ -1127,3 +1131,250 @@ body
 
 .none-style
 	display: none
+
+
+
+
+
+// ------------------------------------------------------------------- //
+//																	   //
+//  							PAGE 2								   //
+//																	   //
+// ------------------------------------------------------------------- //
+
+
+
+
+
+.simple-text-block 
+	width 90%
+	background white
+	border-radius: 15px
+	margin 35px
+	margin-bottom 0px
+	padding 15px
+	height auto
+	p
+		margin-bottom 3px
+	a
+		display: inline-block
+		color rgb(140, 0, 255)
+		font-size: 20px
+		margin-left: 10px
+	// a:hover
+	// 	text-decoration: none
+	// 	font-style: italic
+	p.nhh
+		display: inline
+	p.ahh
+		padding 0px
+
+	.aa1
+		color rgb(212, 0, 255)
+	.aa2
+		color blue
+	.aa3
+		color rgb(0, 216, 0)
+	.aa4
+		color rgb(140, 0, 255)
+	.aa5
+		color orange
+		
+.title-page2-01
+	padding 0px
+	margin 0px
+	font-size: 28px
+	padding-top 20px
+
+
+
+
+
+
+// Широкие экраны (десктоп)
+@media (min-width: 950px) 
+	.simple-text-block 
+		width: 870px
+
+.some-height
+	height 35px
+	width 100%
+
+
+
+
+.go-back-to-main 
+	height auto
+	width 60%
+	background white
+	border-radius: 12.5px
+	padding 10px
+	//margin 5px
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border solid 4px bg-3
+	margin-top 25px
+	span
+		font-size: 25px
+		//color red
+
+// Широкие экраны (десктоп)
+@media (min-width: 950px) 
+	.go-back-to-main 
+		width: 870px
+
+
+.go-back-to-main:hover
+	border solid 4px #2078fc
+	
+.go-back-to-main:active
+	background #2078fc
+
+
+
+
+// ------------------------------------------------------------------- //
+//																	   //
+//  							PAGE 3								   //
+//																	   //
+// ------------------------------------------------------------------- //
+
+
+
+
+
+.gray-color-page-3
+	color rgb(207, 207, 207)
+
+.simple-text-block 
+	display: grid;
+	grid-template-rows: auto auto
+	justify-items: center;
+	align-items: center;	
+	.block-request  
+		width 95%
+	.load-req 
+		width 90%
+		height 60px
+		margin 15px
+		padding 7px
+		text-align: center
+		//bord()
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border-radius: 12.5px
+		border solid 4px bg-2
+		span
+			font-size: 20px
+
+.load-req:hover
+	border solid 4px #2078fc
+
+.load-req:active
+	background #2078fc
+
+
+// ------------
+
+.card-holder
+	width 90%
+	margin 20px
+	display: grid
+	grid-template-columns: 1fr 1fr 1fr 1fr
+	justify-items: center;
+	align-items: center;
+	.card
+		height 270px
+		width 195px
+		margin-left: 0px
+		margin-right: 0px
+		img	
+			box-shadow: none
+			width: 85%
+			max-height: 150px
+			align-self: start;
+			//height 100%
+			//overflow: hidden;
+
+
+// Широкие экраны:
+
+.card-holder
+	bord()
+	//all: unset
+	display: block
+
+.card1
+	height 250px
+	width 400px
+	margin 20px
+	padding 10px
+	background white
+	border-radius: 12px
+	box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.25)
+	span	
+		all: unset
+	display: grid
+	grid-template-rows: 30px auto //200px
+
+	.name
+		margin 0px 4px
+		overflow: hidden
+		span
+			font-size: 20px
+	
+	.other
+		margin-top 10px
+		//bord()
+		display: grid
+		grid-template-columns: 65% 35%
+		img			
+			align-self: end;
+			justify-self: start;
+			margin auto 0px
+			height 100%
+			width 100%
+			//max-width: 60%
+		.haract
+			//bord()
+			
+
+.card1:hover
+	box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.4)
+
+// // Широкие экраны (десктоп)
+// @media (min-width: 950px) 
+// 	.card-holder
+// 		//width: 870px
+// 		//grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr
+// 		grid-template-columns: 1fr 1fr 1fr 1fr
+// 		.card
+// 			display: grid
+// 			grid-template-columns: 1fr 1fr
+// 			height 250px
+// 			width 400px
+// 			.haract
+// 				display: grid
+// 				grid-template-rows: 1fr 1fr
+// 				//bord()
+// 				height 230px
+// 				span
+// 					align-self: start;
+// 					height auto
+// 					width  auto
+// 					padding 10px
+// 					margin 10px
+// 				.hhh2
+// 					height: 50px
+// 					span
+// 						bord()
+// 				.hhh1
+// 					height 250px
+
+
+			
+
+
+
