@@ -21,13 +21,13 @@ bg-blue = #00a3ff
 color1 = #197de0;
 color2 = rgb(14, 182, 204);
 color3 = #5d33da;
-color4 = #07f36a;
-color5 = #38ec0f;
-color6 = #e9e51f;
-color7 = #ecbc0c;
-color8 = #e24916;
-color9 = #ec34be;
-color10 = #a619da;
+//color4 = #07f36a;
+color4 = #38ec0f;
+color5 = #e9e51f;
+color6 = #ecbc0c;
+color7 = #e24916;
+color8 = #ec34be;
+color9 = #a619da;
 
 bord() // Для отладки
 	border solid black 1px
@@ -288,7 +288,7 @@ body
 .butt-start	
 	//position: absolute;
 	//bottom: 20px;
-	background color5
+	background color4
 	width 300px
 	height 50px
 	border-radius: 10px
@@ -297,11 +297,24 @@ body
 	//width 50%
 	//bord()
 	//border none
+	border solid 3px white
 	p
 		height 50px
-		padding: 5px
-		padding-top: 9px
-		font-weight: bold
+		padding: 0px
+		padding-top: 6px
+		//font-weight: bold
+
+.butt-start:hover
+	filter: brightness(135%);
+	border solid 3px black
+
+.butt-start:active
+	//filter: invert(100%);
+	//bord()
+	font-weight: bold
+	//font-style: italic	
+	letter-spacing: -0.05em 
+
 // .butt-start:hover
 // 	//border none
 // .butt-start:active
@@ -325,6 +338,7 @@ body
 	justify-items: center;
 	align-items: center;
 	position: relative;
+	margin-bottom 25px
 
 .butt-bar // Блок для кнопок
 	grid-row: 2;
@@ -355,8 +369,10 @@ body
 	//bord()
 	font-weight: bold
 	//font-style: italic
-	border solid 3px black
+	border solid 3px rgb(32, 32, 32)
+	letter-spacing: -0.05em 
 
+// Блоки для отвтеов
 .answ-block-1
 	grid-column: 1;
 
@@ -366,14 +382,48 @@ body
 .answ-block-3
 	grid-column: 3;
 
-.answ-block-4
-	grid-column: 4;
+
+// Расположение блоков, если ответов 4
+.answ-block-1-s
+	grid-column: 1;
+	grid-row: 1
+
+.answ-block-2-s
+	grid-column: 1;
+	grid-row: 2
+
+.answ-block-3-s
+	grid-column: 2;
+	grid-row: 1
+
+.answ-block-4-s
+	grid-column: 2;
+	grid-row: 2
+
 
 .letter-abbr
+	color: gray
 	position: absolute;
 	top: -10;
 	left: 0;
 	
+// Тестово устанавливаю цвета для кнопочек:
+
+#block-a
+	.butt-answ
+		background color4
+
+#block-a-1
+	.butt-answ
+		background color5
+
+#block-a-2
+	.butt-answ
+		background color6
+
+#block-a-2-1
+	.butt-answ
+		background color7
 
 // ----------------------------- //
 // 		 Кнопки навигации:	     //
