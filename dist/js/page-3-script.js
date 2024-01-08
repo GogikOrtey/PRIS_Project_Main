@@ -125,8 +125,12 @@ document.addEventListener('DOMContentLoaded', function() {
     window.onscroll = function() {
         var offset = window.pageYOffset + window.innerHeight;
         var height = document.body.offsetHeight;
+
+        let downOffsetSet = 150;
     
-        if (offset >= height - 150) {
+        if(window.innerWidth < 650) { downOffsetSet = 250; } else { downOffsetSet = 150; }
+
+        if (offset >= height - downOffsetSet) {
             console.log('Вы достигли 150 пикселей от низа страницы или ниже');
             // Ваш код здесь
 
