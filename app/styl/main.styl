@@ -254,7 +254,10 @@ body
 		padding: 20px
 		font-size: larger;
 
-// Описание
+// ------------------------------ //
+// 	     1й блок - описание:      //
+// ------------------------------ // 
+
 .descr-qu-1-grad
 	//background: linear-gradient(to bottom left, #00D9FF, #0066FF);
 	background: linear-gradient(to bottom left, #00aeff, #2078fc);
@@ -288,7 +291,8 @@ body
 .butt-start	
 	//position: absolute;
 	//bottom: 20px;
-	background color4
+	// background color4
+	background white
 	width 300px
 	height 50px
 	border-radius: 10px
@@ -297,23 +301,36 @@ body
 	//width 50%
 	//bord()
 	//border none
-	border solid 3px white
+	//border solid 3px white
+	// border solid 4px #20f00d
+	border dashed 2px black
+	font-style: italic
 	p
 		height 50px
 		padding: 0px
 		padding-top: 6px
 		//font-weight: bold
 
+
+
+// .butt-start:hover
+// 	filter: brightness(135%);
+// 	border solid 3px rgb(32, 32, 32)
+
+// .butt-start:active
+// 	//filter: invert(100%);
+// 	//bord()
+// 	font-weight: bold
+// 	//font-style: italic	
+// 	//letter-spacing: -0.05em 
+
 .butt-start:hover
-	filter: brightness(135%);
-	border solid 3px black
+	font-style: italic
+	border solid 3px #20f00d
 
 .butt-start:active
-	//filter: invert(100%);
-	//bord()
+	background #20f00d
 	font-weight: bold
-	//font-style: italic	
-	letter-spacing: -0.05em 
 
 // .butt-start:hover
 // 	//border none
@@ -340,6 +357,10 @@ body
 	position: relative;
 	margin-bottom 25px
 
+#block-a-2-butt
+	display: grid
+	grid-template-columns: 2fr 3fr
+
 .butt-bar // Блок для кнопок
 	grid-row: 2;
 	//bord()
@@ -357,6 +378,11 @@ body
 	padding: 0px
 	background color4
 	border 3px white solid
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
 	p
 		margin: 10px
 		padding: 0px
@@ -371,6 +397,26 @@ body
 	//font-style: italic
 	border solid 3px rgb(32, 32, 32)
 	letter-spacing: -0.05em 
+
+.butt-answ
+	input
+		width 90%
+		border-radius: 5px
+		margin 12px
+		padding 3px 10px
+		text-align: center
+		font-size: 20px
+		//font-weight: bold
+
+.input-butt
+	display: grid
+	grid-template-rows: auto auto
+	justify-items: center;
+	align-items: center;
+	p
+		margin 0px
+		margin-top 8px
+		padding 0px
 
 // Блоки для отвтеов
 .answ-block-1
@@ -432,6 +478,8 @@ body
 .nav-button
 	width 100%
 
+// Обязательно прописать стили для узких экранов
+
 // Широкие экраны (десктоп)
 @media (min-width: 950px) 
 	.nav-button
@@ -456,6 +504,7 @@ body
 	height 80%
 	border-radius: 10px
 	background white
+	border solid 4px bg-3
 	p
 		font-size: 17px
 		text-align: center
@@ -477,6 +526,11 @@ body
 .butt-info 	
 	justify-self: start
 	
+.butt-info:active
+	background #2078fc
+
+.butt-all-pants:active
+	background #20f00d
 
 .butt-all-pants 
 	justify-self: end

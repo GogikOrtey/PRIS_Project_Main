@@ -46,22 +46,25 @@ html
         p.qu-answ Какая наименьшая температура бывает в вашем регионе?
         p.letter-abbr a-1
         .butt-bar
-          .butt-answ.answ-block-1
-            p [Поле ввода]
+          .butt-answ.answ-block-1.input-butt
+            p Введите, в ℃
+            input(type='text')
           .butt-answ.answ-block-2
             p Не имеет значения, так как я планирую выращивать растения летом
       .block-qu#block-a-2
         p.qu-answ Какая средняя температура в вашем доме?
         p.letter-abbr a-2
         .butt-bar
-          .butt-answ.answ-block-1
-            p [Поле ввода]
+          .butt-answ.answ-block-1#block-a-2-butt
+            p Введите, в ℃
+            input(type='text')
       .block-qu#block-a-2-1
         p.qu-answ Какая примерная влажность в вашем доме?
         p.letter-abbr a-2-1
         .butt-bar
-          .butt-answ.answ-block-1-s
-            p [Поле ввода]
+          .butt-answ.answ-block-1-s.input-butt
+            p Введите (от 20 до 90)
+            input(type='text')
           .butt-answ.answ-block-2-s
             p Сухо
           .butt-answ.answ-block-3-s
