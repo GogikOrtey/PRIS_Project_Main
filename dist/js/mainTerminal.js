@@ -141,6 +141,26 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // Массив цветов
+    var colors = ["#197de0", "rgb(14, 182, 204)", "#5d33da", "#38ec0f", "#e9e51f", "#ecbc0c", "#e24916", "#ec34be", "#a619da"];
+
+    // // Получаем все кнопки
+    // var buttons = document.querySelectorAll('.butt-answ');
+
+    // // Применяем случайный цвет фона к каждой кнопке
+    // for (var i = 0; i < buttons.length; i++) {
+    //     buttons[i].style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    // }
+
+    // Получаем все кнопки
+    var buttons = document.querySelectorAll('.butt-answ');
+
+    // Применяем случайный цвет фона к каждой кнопке
+    for (var i = 0; i < buttons.length; i++) {
+        var hue = Math.floor(Math.random() * 81) + 20;
+        buttons[i].style.backgroundColor = 'hsl(' + hue + ', 100%, 50%)';
+    }
+
     // Добавляю событие: При нажатии на любую кнопку
     document.querySelectorAll('.butt-answ').forEach(button => {
         button.addEventListener('click', function() {
@@ -528,7 +548,7 @@ function SetButtonSelection() {
 
 
 
-    document.query Selector('#block-a .answ-block-1').addEventListener('click', function() {
+    document.querySelector('#block-a .answ-block-1').addEventListener('click', function() {
         a_InHome = 1
         //currentLetterButtonDown = "a";
 
@@ -536,6 +556,7 @@ function SetButtonSelection() {
         removeActiveClass('block-b');
         b_OncePlant = 0;
         isTempCorrect = false;
+        ZeroingAllVar();
     });    
     document.querySelector('#block-a .answ-block-2').addEventListener('click', function() {
         a_InHome = 2
@@ -547,6 +568,7 @@ function SetButtonSelection() {
         document.querySelector('.err-inp-2').style.display = 'none';
         document.querySelector('.my-input-2').value = '';
         isTempCorrect = false;
+        ZeroingAllVar();
     });
 
     document.querySelector('#block-a-2 .answ-block-1').addEventListener('click', function() {
@@ -749,6 +771,24 @@ function debugPrint_2(){
     document.querySelector('.block-request .req p').textContent = output;
 }
 
+
+function ZeroingAllVar() {
+    a_1_MinTempInHome = 0
+    a_1_input_MinTempInHome = 0
+    a_2_AVGTempInRegion = 0
+    a_2_input_AVGTempInRegion = 0
+    a_2_1_AVGHum = 0
+    a_2_1_input_AVGHum = 0
+    b_OncePlant = 0
+    c_AFlowers = 0
+    c_3_SelectAColor = ""
+    d_IsPlod = 0
+    e_StandOnWindow = 0
+    e_1_ASunLight = 0
+    f_GenerateAOxugen = 0
+    g_AFreeProstr = 0
+    h_NoControl = 0
+}
 
 
 // function HideAll() {
