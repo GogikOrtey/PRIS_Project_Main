@@ -112,6 +112,9 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementsByClassName('block-request')[0].style.display = 'none';
     document.querySelector('.butt-final-2').style.display = 'none';
 
+    document.querySelector('.loadd').style.display = 'none';
+    document.querySelector('.result-cards').style.display = 'none';
+
     // Для кнопки старта прописываем событие по нажатию
     document.querySelector('.butt-start').addEventListener('click', function() {
         // По нажатию кнопки Старт, скрываем один блок, и показываем другой:
@@ -131,6 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementsByClassName('block-request')[0].style.display = 'grid';
             document.getElementsByClassName('butt-final')[0].style.display = 'none';
             document.querySelector('.butt-final-2').style.display = 'flex';
+            document.querySelector('.loadd').style.display = 'grid';
             //debugPrint_2();
 
             //let SQL_Rq = CreateSQLequest();
@@ -139,8 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let SQL_Rq = CreateSQLequest();
             document.querySelector('.block-request .req p').textContent = SQL_Rq;
 
-            //let BD_Answer = 
-            SQL_RQ_FromSwever(SQL_Rq);
+            let BD_Answer = SQL_RQ_FromSwever(SQL_Rq);
             //document.querySelector('.block-request .answ p').textContent = BD_Answer;            
 
             elements.forEach(element => {
@@ -1170,6 +1173,12 @@ function SQL_RQ_FromSwever(sql_2) {
 
 function docWrite_01(text) {
     document.querySelector('.block-request .answ p').innerText = text;
+    
+    document.querySelector('.loadd').style.display = 'none';
+    document.querySelector('.result-cards').style.display = 'grid';
+
+    window.plantCards_plantNames = text;
+    window.setCards();
 }
 
 function OnPageWeu_02(data) {

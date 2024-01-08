@@ -3,14 +3,16 @@ html
     include headCode
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js")
 
-    //script(src="js/bgTestIteration.js")
-    script(src="js/mainTerminal.js")
+    //script(src="js/bgTestIteration.js")    
     //script(src="js/borderAnibate.js")
     //script(src="js/sqlite-test.js")
     //script(src="js/sqlite-test-bundle.js")
     //script(src="js/mysql-test-bundle.js")
     //script(src="js/bundle.js")    
     //script(src="js/GetDBReq-Test.js")
+    script(src="js/plant-cards.js")
+
+    script(src="js/mainTerminal.js")
 
     // Побуквенное появление текста
     
@@ -196,6 +198,37 @@ html
 
       .butt-final
         span Подобрать растения
+
+      .loadd 
+        img(src="img/wave-load.gif")
+        span Подождите...
+
+      .result-cards   
+        .spsp
+          span Вот растения, которые подойдут вам лучше всего:
+        .upper-block-3 
+          .card
+            img(src="img/plant-image/P_01.png")
+            span Название растения
+          .card
+            img(src="img/plant-image/P_02.png")
+            span Название растения
+          .card
+            img(src="img/plant-image/P_03.png")
+            span Название растения
+        .down-block-4
+          .card
+            img(src="img/plant-image/P_04.png")
+            span Название растения
+          .card
+            img(src="img/plant-image/P_05.png")
+            span Название растения
+          .card
+            img(src="img/plant-image/P_06.png")
+            span Название растения
+          .card
+            img(src="img/plant-image/P_07.png")
+            span Название растения
 
       .block-request  
         .req 
