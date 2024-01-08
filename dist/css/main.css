@@ -265,6 +265,11 @@ body {
   border: solid 3px #202020;
   letter-spacing: -0.05em;
 }
+.butt-answ.active {
+  font-weight: bold;
+  border: solid 3px #202020;
+  letter-spacing: -0.05em;
+}
 .butt-answ input {
   width: 90%;
   border-radius: 5px;
@@ -326,18 +331,6 @@ body {
 }
 #block-a-2-1 .butt-answ {
   background: #e24916;
-}
-#block-a-2-1 {
-  display: none;
-}
-#block-a-2 {
-  display: none;
-}
-#block-a-1 {
-  display: none;
-}
-#block-a {
-  display: none;
 }
 .nav-button {
   width: 100%;
