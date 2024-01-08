@@ -1358,7 +1358,7 @@ function docWrite_01(text, data) {
     document.querySelector('.result-cards').style.display = 'grid';   
 
     document.querySelector('.butt-final-2').style.display = 'flex';
-    document.querySelector('.butt-final-2').scrollIntoView({behavior: "smooth"});
+    if(window.innerWidth > 650) document.querySelector('.butt-final-2').scrollIntoView({behavior: "smooth"});
 
     console.log("Отправляем вот такую строку:" + text); 
 
@@ -1433,7 +1433,7 @@ function SetNamePlants(plantNames_mass) {
         });
     
     } else { // Только одно растение // if(b_OncePlant == 0 || 1)
-        spans.for Each((span, index) => {     
+        spans.forEach((span, index) => {     
             if(index != 1) span.parentElement.style.display = 'none';
         });
 

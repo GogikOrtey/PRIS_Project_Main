@@ -1122,6 +1122,28 @@ body {
   .zero-reauest {
     width: 100%;
   }
+  .simple-text-block p,
+  .simple-text-block a {
+    font-size: 16px;
+  }
+  .go-back-to-main {
+    width: 90%;
+  }
+  .card-holder {
+    grid-template-columns: repeat(auto-fill, minmax(115px, 1fr));
+    gap: 3px;
+    grid-row-gap: 0px;
+    padding: 0px;
+  }
+  .card-holder .card {
+    color: #f00;
+    height: 170px;
+    width: 115px;
+  }
+  .card-holder .card span {
+    font-size: 14px;
+    margin-top: 8px;
+  }
 }
 @media (max-width: 400px) {
   .head-title p {
@@ -1157,9 +1179,25 @@ body {
   .zero-reauest {
     width: 100%;
   }
+  .nav-nav-menu span {
+    font-size: 16px;
+  }
+  .go-back-to-main {
+    width: 90%;
+  }
 }
 @media (min-width: 400px) and (max-width: 650px) {
   .head-title p {
     font-size: 30px;
+  }
+  header {
+    position: relative;
+  }
+  header .hhhh2 p {
+    margin-top: 0px;
+  }
+  header .head-bottom-line {
+    position: absolute;
+    bottom: 0px;
   }
 }
