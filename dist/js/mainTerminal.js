@@ -215,7 +215,7 @@ function UpdateDevelomMode() {
     }
 }
 
-let isDevelopModActive = false;
+let isDevelopModActive = true;
 
 let _mainCounter = 0;               // Счётчик состояний
 
