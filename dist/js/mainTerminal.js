@@ -425,7 +425,7 @@ function CheckAllBlocks(){
         document.getElementsByClassName('block-request')[0].style.display = 'none';
     }
 
-    document.querySelectorAll('.main-counter')[0].textContent = _mainCounter;    
+    //document.querySelectorAll('.main-counter')[0].textContent = _mainCounter;    
     //console.log("Main-counter = " + _mainCounter);
 }
 
@@ -852,8 +852,78 @@ function CreateSQLequest() {
         strRequare += "plant_color_description LIKE '%елёный%'";
     }
 
-    if(c_3_SelectAColor !== ""){
-        // Потом напишу
+
+    /*
+    let colors = {
+        green: false,
+        red: false,
+        orange: false,
+        yellow: false,
+        lightBlue: false,
+        blue: false,
+        violet: false,
+        pink: false,
+        silver: false,
+        multicolor: false
+    };
+
+    # 1 - Белый
+    # 2 - Красный
+    # 3 - Оранжевый
+    # 4 - Жёлтый
+    # 5 - Голубой
+    # 6 - Синий
+    # 7 - Филоетовый
+    # 8 - Розовый
+    # 9 - Серебрянный
+    # 10 - Бордовый
+    # 11 - Разноцветный
+    */
+
+    if(isColorCucsSelected === true){
+        let addStr1 = "";
+
+        addStr1 += " AND (";
+        if(colors['red'] == true) {
+            addStr1 += "plant_color_description LIKE '%расный%' OR ";
+        } 
+        if(colors['orange'] == true) {
+            addStr1 += "plant_color_description LIKE '%ранжевый%' OR ";
+        } 
+        if(colors['yellow'] == true) {
+            addStr1 += "plant_color_description LIKE '%ёлтый%' OR ";
+        } 
+        // if(colors['lightBlue'] === true) {
+        //     addStr1 += "plant_color_description LIKE '%олубой%' OR ";
+        // } 
+        if(colors['blue'] == true) {
+            addStr1 += "plant_color_description LIKE '%иний%' OR ";
+        } 
+        if(colors['violet'] == true) {
+            addStr1 += "plant_color_description LIKE '%илоетовый%' OR ";
+        } 
+        if(colors['pink'] == true) {
+            addStr1 += "plant_color_description LIKE '%озовый%' OR ";
+        } 
+        if(colors['silver'] == true) {
+            addStr1 += "plant_color_description LIKE '%еребрянный%' OR ";
+        } 
+        if(colors['multicolor'] == true) {
+            addStr1 += "plant_color_description LIKE '%азноцветный%' OR ";
+        } 
+        if(colors['green'] == true) {
+            addStr1 += "plant_color_description LIKE '%елёный%' OR ";
+        } 
+        
+
+        addStr1 = addStr1.trim(); // Удаляю пробелы в конце строки
+    
+        if (addStr1.endsWith(' OR')) {
+            addStr1 = addStr1.slice(0, -3); // Удаляю AND, если он вылез в коне запроса
+        }
+
+        addStr1 += ")";
+        strRequare += addStr1;      
     }
 
     strRequare += " AND ";
@@ -901,6 +971,9 @@ function CreateSQLequest() {
     let remove_extra_and = (sql_query) => {
         while (sql_query.includes(' AND  AND ')) {
             sql_query = sql_query.replace(' AND  AND ', ' AND '); // Удаляю AND, если он появился 2 раза подряд
+        }
+        while (sql_query.includes(' AND AND ')) {
+            sql_query = sql_query.replace(' AND AND ', ' AND '); // Удаляю AND, если он появился 2 раза подряд
         }
     
         sql_query = sql_query.trim(); // Удаляю пробелы в конце строки
