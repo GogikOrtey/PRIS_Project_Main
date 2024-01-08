@@ -121,7 +121,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Добавляю событие: При нажатии на любую кнопку
     document.querySelectorAll('.butt-answ').forEach(button => {
         button.addEventListener('click', function() {
-            CheckAllBlocks(); // Вызываю обновление всех блоков
+            //CheckAllBlocks(); // Вызываю обновление всех блоков
+            setTimeout(() => {
+                CheckAllBlocks(); // Update all the blocks after a 10 millisecond delay
+            }, 1);
 
             // Добавляю стиль "Нажатой" кнопки к той, которую нажал пользователь
             this.parentElement.querySelectorAll('.butt-answ').forEach(otherButton => {
@@ -141,19 +144,26 @@ document.addEventListener('DOMContentLoaded', function() {
         a_InHome = 2
     });
 
-    document.querySelector('#block-a-1 .answ-block-1').addEventListener('click', function() {
-        a_2_AVGTempInRegion = 1
-        // Ввод из поля ввода
-        //a_2_input_AVGTempInRegion = ...
-    });    
-
     document.querySelector('#block-a-2 .answ-block-1').addEventListener('click', function() {
         //a_InHome = 1
         a_1_MinTempInHome = 1
         // Ввод из поля ввода
         //a_1_input_MinTempInHome = ...
+        // Если корректно - то isTempCorrect = true
     });
 
+    document.querySelector('#block-a-1 .answ-block-1').addEventListener('click', function() {
+        a_2_AVGTempInRegion = 1
+        // Ввод из поля ввода
+        //a_2_input_AVGTempInRegion = ...
+        // Если корректно - то isTempCorrect = true
+        isTempCorrect = false
+    });    
+    document.querySelector('#block-a-1 .answ-block-2').addEventListener('click', function() {
+        a_2_AVGTempInRegion = 2
+        isTempCorrect = true
+    });    
+    
     document.querySelector('#block-a-2-1 .answ-block-1-s').addEventListener('click', function() {
         a_2_1_AVGHum = 1
         // Ввод из поля ввода
@@ -247,6 +257,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
+let isTempCorrect = false;
+
 // Перераспределение блоков
 // Процедура вызывается после нажатия на кнопку в любом блоке
 function CheckAllBlocks(){
@@ -262,7 +274,13 @@ function CheckAllBlocks(){
             document.getElementById('block-a-2').style.display = 'grid';
         }
 
-        //if()
+
+
+        if((a_2_AVGTempInRegion != 0 || a_2_1_AVGHum != 0) && (isTempCorrect == true)){
+            document.getElementById('block-b').style.display = 'grid';
+        } else {
+            document.getElementById('block-b').style.display = 'none';
+        }
     }
 }
 
