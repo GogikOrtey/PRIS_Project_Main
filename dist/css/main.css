@@ -516,28 +516,28 @@ body {
   background-color: #fff;
 }
 #red {
-  background-color: #f00;
+  background-color: #ec3333;
 }
 #orange {
   background-color: #ffa500;
 }
 #yellow {
-  background-color: #ff0;
+  background-color: #ffe600;
 }
 #light-blue {
-  background-color: #add8e6;
+  background-color: #00bfff;
 }
 #blue {
-  background-color: #00f;
+  background-color: #4040f5;
 }
 #violet {
-  background-color: #ee82ee;
+  background-color: #c300ff;
 }
 #pink {
-  background-color: #ffc0cb;
+  background-color: #f164d3;
 }
 #silver {
-  background-color: #c0c0c0;
+  background: linear-gradient(to bottom left, #cecece, #b6b6b6);
 }
 #burgundy {
   background-color: #a1430d;

@@ -1,7 +1,15 @@
+// ------------------------------------------------------------------- //
+// 	              Переменные для создания SQL-запроса:	               //                                              
+// ------------------------------------------------------------------- // 
+
+// Здесь объявляются перемненные, которые потом используются для создания SQL-запроса
+// Также, здесь прописаны все значения, которые они могут принимать
+// Буква в начале вопроса - это его уникальный идентефикатор
+// Префиксы у этой буквы, например a_1 - означают, что этот вопрос появится следующим, 
+// если пользователь ответит в вопросе a вариантом ответа 1
+
 
 // a: Вы будете выращивать растения дома, или на улице?
-
-//const { isNull } = require("mathjs")
 
 a_InHome = 0 
 // 1 - На улице
@@ -99,23 +107,15 @@ h_NoControl = 0
 // 3 - До месяца
 
 // ------------------------------------------------------------------- //
-// 	                   Как работает этот скрипт:	                   //                                              
+// 	                         Об этом скрипте:	                       //                                              
 // ------------------------------------------------------------------- // 
 
 /*
-
-*/
-
-/*
-    По названиям:
-
-    "Блок" - это элемент, с классом ".block-qu"
+    Здесь я часто буду испольщовать слово "Блок". Это элемент, с классом ".block-qu"
     У всех у них есть свой уникальный маркер - это буква (например, a, b, c или a-1, ...)
 
     Переходы между блоками (какой появляется после какого), можно посмотреть в диаграмме
-    Она должна лежать где-то недалеко от всех фалов этого проекта
-
-
+    Она должна лежать где-то недалеко от всех файлов этого проекта
 */
 
 // ------------------------------------------------------------------- //
@@ -156,17 +156,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ------------------------------------------------------------------- //
-    // 	            Обрабатываю нажатие на финальную кнопку:	           //                                              
-    // ------------------------------------------------------------------- // 
-
-    FinalButtonProc();
-    
-    // ------------------------------------------------------------------- //
     // 	                Случайный цвет для кнопок ответа:	               //
     // ------------------------------------------------------------------- // 
 
-    // Новая реализация: Случайный цвет (зелёный/жёлтый/красный),
-    // в зависимости от класса кнопки:
+    // Случайный цвет (зелёный/жёлтый/красный), в зависимости от класса кнопки:
 
     var buttons = document.querySelectorAll('.good-button, .gerat-button, .bad-batton');
 
@@ -188,19 +181,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         button.style.backgroundColor = color;
     });
-    
-    // Старая реализация (случайный цвет от зелёного до красного, для всех кнопок):
-
-    // var buttons = document.querySelectorAll('.butt-answ');
-    // function getRandomColor(minHue, maxHue) {
-    //     var hue = Math.floor(Math.random() * (maxHue - minHue + 1)) + minHue;
-    //     return 'hsl(' + hue + ', 100%, 50%)';
-    // }    
-    // // Применяем случайный цвет фона к каждой кнопке - от красного до зелёного
-    // for (var i = 0; i < buttons.length; i++) {
-    //     var hue = Math.floor(Math.random() * 81) + 20;
-    //     buttons[i].style.backgroundColor = 'hsl(' + hue + ', 100%, 50%)';
-    // }
 
     // ------------------------------------------------------------------- //
     // 	      Добавляю событие: При нажатии на любую кнопку ответа         //
@@ -232,15 +212,25 @@ document.addEventListener('DOMContentLoaded', function() {
     SetButtonSelection();
 
     // ------------------------------------------------------------------- //
-    // 	        Обработчик событий для кнопки "Пройти ещё раз"             //
+    // 	      Обрабатываю нажатие на кнопку "Показать результаты":	       //                                              
+    // ------------------------------------------------------------------- // 
+
+    FinalButtonProc();
+
+    // ------------------------------------------------------------------- //
+    // 	        Обрабатываю нажатие на кнопку "Пройти ещё раз"             //
     // ------------------------------------------------------------------- // 
 
     // Перезагружаю страницу, если нажата кнопка "Пройти ещё раз"
     ReloadPageButtonProc();
 });
 
+// ------------------------------------------------------------------- //
+// 	  Обработчик событий для всех кнопок ответов, во всех формах:      //
+// ------------------------------------------------------------------- // 
+
 // Здесь я прописываю обработчики событий, для всех кнопок ответов, во всех формах
-// Тут я устанавливаю для переменных нужные значения. Эти переменные объявлены в самом начале этого скрипта
+// Тут я устанавливаю для переменных нужные значения. Эти переменные объявлены в самом верху этого скрипта
 // Далее, по значениям этих переменных, я собираю SQL-запрос
 
 function SetButtonSelection() {
@@ -351,7 +341,7 @@ function SetButtonSelection() {
         c_AFlowers = 3
     });
 
-    // c-3 - обработчик выбора цветов - прописан отдельно (выше этой функции)
+    // c-3 - обработчик выбора цветов - прописан отдельно (ниже этой функции)
 
     // d
     document.querySelector('#block-d .answ-block-1').addEventListener('click', function() {
@@ -836,7 +826,7 @@ function CheckAllBlocks() {
 // 	             Нажатие на кнопку "Подобрать растения"                //
 // ------------------------------------------------------------------- // 
 
-// Обработка нажатий на финальную кнопку 
+// Обработка нажатия на финальную кнопку 
 // [Эта процедура вызывается после загрузки всей DOM-модели страницы, в самом верху этого скрипта]
 function FinalButtonProc() {
     document.querySelector('.butt-final').addEventListener('click', function() {
@@ -1167,75 +1157,6 @@ str_SortMainReq = '';
 //     oxygen_production DESC;
 // `;
 
-// ------------------------------------------ //
-// 	             2й запрос к БД:              //
-// ------------------------------------------ // 
-
-let allCountOfRequ = 0; // Общее количество запросов к БД
-
-// 2й запрос к БД - выборка по всем выбранным цветам, без учёта других параметров
-// Выполняется, если первый запрос вернул пустой результат
-function Requ_2_OnlyGettingColor() {
-    if(colors['green'] == true) {
-        console.log("Выбран зелёный цвет, говорим, что результатов нету");
-        isGreenZeroRequest = true;
-        document.querySelector('.zero-reauest').style.display = 'grid';
-        document.querySelector('.loadd').style.display = 'none';
-        document.querySelector('.result-cards').style.display = 'none';
-    } else if(allCountOfRequ < 2) {    
-        console.log("Посылаем новый запрос, только с цветами");
-        allCountOfRequ = 2;
-        document.querySelector('.loadd').style.display = 'grid';
-
-        let addStr1 = "";
-    
-        if(colors['red'] == true) {
-            addStr1 += "plant_color_description LIKE '%расный%' OR ";
-        } 
-        if(colors['orange'] == true) {
-            addStr1 += "plant_color_description LIKE '%ранжевый%' OR ";
-        } 
-        if(colors['yellow'] == true) {
-            addStr1 += "plant_color_description LIKE '%ёлтый%' OR ";
-        } 
-        if(colors['lightBlue'] == true) {
-            addStr1 += "plant_color_description LIKE '%олубой%' OR ";
-        } 
-        if(colors['blue'] == true) {
-            addStr1 += "plant_color_description LIKE '%иний%' OR ";
-        } 
-        if(colors['violet'] == true) {
-            addStr1 += "plant_color_description LIKE '%иолетовый%' OR ";
-        } 
-        if(colors['pink'] == true) {
-            addStr1 += "plant_color_description LIKE '%озовый%' OR ";
-        } 
-        if(colors['silver'] == true) {
-            addStr1 += "plant_color_description LIKE '%еребристый%' OR ";
-        } 
-        if(colors['multicolor'] == true) {
-            addStr1 += "plant_color_description LIKE '%азноцветный%' OR ";
-        }         
-    
-        addStr1 = addStr1.trim(); // Удаляю пробелы в конце строки
-    
-        if (addStr1.endsWith(' OR')) {
-            addStr1 = addStr1.slice(0, -3); // Удаляю OR, если он вылез в коне запроса
-        }
-
-        let strRequare = "SELECT plant_name FROM MainTable WHERE ";
-        strRequare += addStr1;
-        
-        //let SQL_Rq = CreateSQLequest();
-        document.querySelector('.block-request .req p').textContent = strRequare;
-
-        document.querySelector('.reauest-2-only-color').style.display = 'block';
-        document.querySelector('.result-cards .spsp').style.display = 'none';
-
-        SQL_RQ_FromSwever(strRequare);        
-    }
-}
-
 // ------------------------------------------------------------------- //
 // 	   Запрос к серверу, и выполнение SQL-кода, через php скрипт:      //
 // ------------------------------------------------------------------- // 
@@ -1436,6 +1357,75 @@ function ReloadPageButtonProc() {
     document.querySelector('.butt-final-2').addEventListener('click', function() {
         location.reload();
     });    
+}
+
+// ------------------------------------------ //
+// 	             2й запрос к БД:              //
+// ------------------------------------------ // 
+
+let allCountOfRequ = 0; // Общее количество запросов к БД
+
+// 2й запрос к БД - выборка по всем выбранным цветам, без учёта других параметров
+// Выполняется, если первый запрос вернул пустой результат
+function Requ_2_OnlyGettingColor() {
+    if(colors['green'] == true) {
+        console.log("Выбран зелёный цвет, говорим, что результатов нету");
+        isGreenZeroRequest = true;
+        document.querySelector('.zero-reauest').style.display = 'grid';
+        document.querySelector('.loadd').style.display = 'none';
+        document.querySelector('.result-cards').style.display = 'none';
+    } else if(allCountOfRequ < 2) {    
+        console.log("Посылаем новый запрос, только с цветами");
+        allCountOfRequ = 2;
+        document.querySelector('.loadd').style.display = 'grid';
+
+        let addStr1 = "";
+    
+        if(colors['red'] == true) {
+            addStr1 += "plant_color_description LIKE '%расный%' OR ";
+        } 
+        if(colors['orange'] == true) {
+            addStr1 += "plant_color_description LIKE '%ранжевый%' OR ";
+        } 
+        if(colors['yellow'] == true) {
+            addStr1 += "plant_color_description LIKE '%ёлтый%' OR ";
+        } 
+        if(colors['lightBlue'] == true) {
+            addStr1 += "plant_color_description LIKE '%олубой%' OR ";
+        } 
+        if(colors['blue'] == true) {
+            addStr1 += "plant_color_description LIKE '%иний%' OR ";
+        } 
+        if(colors['violet'] == true) {
+            addStr1 += "plant_color_description LIKE '%иолетовый%' OR ";
+        } 
+        if(colors['pink'] == true) {
+            addStr1 += "plant_color_description LIKE '%озовый%' OR ";
+        } 
+        if(colors['silver'] == true) {
+            addStr1 += "plant_color_description LIKE '%еребристый%' OR ";
+        } 
+        if(colors['multicolor'] == true) {
+            addStr1 += "plant_color_description LIKE '%азноцветный%' OR ";
+        }         
+    
+        addStr1 = addStr1.trim(); // Удаляю пробелы в конце строки
+    
+        if (addStr1.endsWith(' OR')) {
+            addStr1 = addStr1.slice(0, -3); // Удаляю OR, если он вылез в коне запроса
+        }
+
+        let strRequare = "SELECT plant_name FROM MainTable WHERE ";
+        strRequare += addStr1;
+        
+        //let SQL_Rq = CreateSQLequest();
+        document.querySelector('.block-request .req p').textContent = strRequare;
+
+        document.querySelector('.reauest-2-only-color').style.display = 'block';
+        document.querySelector('.result-cards .spsp').style.display = 'none';
+
+        SQL_RQ_FromSwever(strRequare);        
+    }
 }
 
 
