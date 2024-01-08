@@ -501,15 +501,6 @@ body {
   background: #000;
   margin: 10px;
 }
-.color-s.active-2,
-.color-s:active {
-  border: solid 4px #202020;
-}
-.hhid {
-  color: #808080;
-  padding: 0px;
-  margin-bottom: 7px;
-}
 #white {
   background-color: #fff;
 }
