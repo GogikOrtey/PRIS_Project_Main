@@ -11,5 +11,21 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
   die("Ошибка подключения: " . $conn->connect_error);
 }
-echo "Успешное подключение";
-?> 
+
+$sql = "SELECT * FROM PlantColors";
+$result = $conn->query($sql);
+
+$data = array(); // создаем массив
+
+if ($result->num_rows > 0) {
+  // выводим данные каждой строки
+  while($row = $result->fetch_assoc()) {
+    $data[] = $row; // добавляем каждую строку в массив
+  }
+} else {
+  echo "0 results";
+}
+echo json_encode($data); // преобразуем массив в JSON
+
+$conn->close();
+?>

@@ -133,9 +133,15 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelector('.butt-final-2').style.display = 'flex';
             //debugPrint_2();
 
-            let SQL_Rq = CreateSQLequest();
+            //let SQL_Rq = CreateSQLequest();
+            //document.querySelector('.block-request .req p').textContent = SQL_Rq;
 
+            let SQL_Rq = CreateSQLequest();
             document.querySelector('.block-request .req p').textContent = SQL_Rq;
+
+            //let BD_Answer = 
+            SQL_RQ_FromSwever(SQL_Rq);
+            //document.querySelector('.block-request .answ p').textContent = BD_Answer;            
 
             elements.forEach(element => {
                 element.style.display = 'none';
@@ -1091,7 +1097,112 @@ ORDER BY
     END,
     area_covered ASC,
     oxygen_production DESC;
-    `;
+`;
+
+// return "Неверный запрос";
+
+//var sql_2 = "SELECT plant_name FROM MainTable WHERE plant_type_description = 'Уличное' AND (allelopathy_description = 'Нейтральная' OR allelopathy_description = 'Положительная') AND (care_instructions >= 6) ORDER BY is_famous DESC, CASE allelopathy_description WHEN 'Положительная' THEN 1 WHEN 'Нейтральная' THEN 2 ELSE 3 END, CASE plant_color_description WHEN 'разноцветный' THEN 1 WHEN 'белый' THEN 2 WHEN 'жёлтый' THEN 3 WHEN 'голубой' THEN 4 WHEN 'серебристый' THEN 5 WHEN 'бордовый' THEN 6 WHEN 'красный' THEN 7 WHEN 'оранжевый' THEN 8 WHEN 'пёстрый' THEN 9 WHEN 'пурпурный' THEN 10 WHEN 'розовый' THEN 11 WHEN 'синий' THEN 12 WHEN 'фиолетовый' THEN 13 WHEN 'Зелёный с белой каймой' THEN 14 WHEN 'Зелёный с белыми или розовыми разводами' THEN 15 WHEN 'Зелёный с красными прицветниками' THEN 16 WHEN 'Зелёный с пятнами' THEN 17 WHEN 'Зелёный с разноцветными прожилками' THEN 18 WHEN 'Зелёный с серебристым оттенком' THEN 19 ELSE 20 END, area_covered ASC, oxygen_production DESC;";
+var sql_2 = "";
+let isNotEmptyBDAnswer = false; // Мы получили непустой ответ от БД?
+
+function SQL_RQ_FromSwever(sql_2) {
+    // Запрос к БД ратсений:
+    $.ajax({
+        type: "POST",
+        url: "https://gogortey.ru/res/getdata_2.php",
+        data: { sql: sql_2 },
+        success: function(data_inp) {
+            if(data_inp == "0 results[]") {
+                console.log("Пустой ответ");
+                docWrite_01("Пустой ответ");
+                isEmptyBDAnswer = false;
+            } else if(data_inp.startsWith("Неверный запрос")) { //if(data_inp == "Неверный запрос") {
+                console.log(data_inp);
+                docWrite_01(data_inp);
+                isEmptyBDAnswer = false;
+            } else {
+                isNotEmptyBDAnswer = true;
+                var data = JSON.parse(data_inp);
+                JSON_Parser_OnConsole(data);
+                JSON_Parser_OnHTMLPage(data);
+                return(data);
+            }
+            //console.log(data);
+        }
+    });
+
+    function JSON_Parser_OnConsole(data) {
+        //var data = JSON.parse(xhr.responseText); // преобразуем ответ в JSON
+        for (var i = 0; i < data.length; i++) {
+            console.log(data[i]); // выводим каждую строку в консоль
+        }
+    }
+
+    function JSON_Parser_OnHTMLPage(data) {
+        var plantNames = ""; // создаем пустую строку
+
+        // Перемешиваем получившийся массив в случайном порядке
+        data.sort(function(a, b) {
+            return 0.5 - Math.random();
+        });        
+
+        plantNames = OnPageWeu_02(data);
+
+        // for (var i = 0; i < data.length; i++) {     
+
+        //     //console.log(data[i]); // выводим каждую строку в консоль
+
+        //     plantNames += data[i].plant_name; // добавляем имя растения в строку            
+            
+        //     // if (i < data.length - 1) { // если это не последнее растение, добавляем запятую и пробел
+        //     //     plantNames += ", ";
+        //     // }
+        // }
+        
+        //document.getElementById("your-p-tag-id").innerText = plantNames; // устанавливаем текст для вашего тега <p>
+        docWrite_01(plantNames);
+    }    
+}
+
+function docWrite_01(text) {
+    document.querySelector('.block-request .answ p').innerText = text;
+}
+
+function OnPageWeu_02(data) {
+    let plantNames = "";
+    let plantNames_top3 = "";
+    let plantNames_next3 = "";
+    
+    if (isNotEmptyBDAnswer) {
+        if (data.length > 7) {
+            for (let i = 0; i < 3; i++) {
+                plantNames_top3 += data[i].plant_name;
+                if (i < 2) { // если это не последнее растение, добавляем запятую и пробел
+                    plantNames_top3 += ", ";
+                }
+            }
+            for (let i = 3; i < 7; i++) {
+                plantNames_next3 += data[i].plant_name;
+                if (i < 6) { // если это не последнее растение, добавляем запятую и пробел
+                    plantNames_next3 += ", ";
+                }
+            }
+            plantNames = plantNames_top3 + ", " + plantNames_next3;
+        } else {
+            for (let i = 0; i < data.length; i++) {
+                plantNames += data[i].plant_name;
+                if (i < data.length - 1) { // если это не последнее растение, добавляем запятую и пробел
+                    plantNames += ", ";
+                }
+            }
+        }
+    } else {
+        plantNames = "Пустой ответ";
+    }
+
+    return plantNames;
+}
+
 
 
 
