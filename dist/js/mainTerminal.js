@@ -875,7 +875,7 @@ function FinalButtonProc() {
 }    
 
 // ------------------------------------------ //
-// 	          Создание SQL-запроса:            //
+// 	          Создание SQL-запроса:           //
 // ------------------------------------------ // 
 
 // Эта процедура собирает SQL-запрос из значений переменных, 
@@ -1129,7 +1129,9 @@ function ZeroingAllVar() {
 }
 
 // Запрос на сортировку в нужном порядке:
-str_SortMainReq = ''; // Пока что, для тестов
+str_SortMainReq = ''; 
+
+// Не использую сортировку в SQL-запросе, т.к. я всё равно перемешиваю все навания, когда получаю их
 
 // str_SortMainReq = `
 // ORDER BY 
@@ -1165,17 +1167,23 @@ str_SortMainReq = ''; // Пока что, для тестов
 //     oxygen_production DESC;
 // `;
 
+// ------------------------------------------ //
+// 	             2й запрос к БД:              //
+// ------------------------------------------ // 
+
 let allCountOfRequ = 0; // Общее количество запросов к БД
 
 // 2й запрос к БД - выборка по всем выбранным цветам, без учёта других параметров
 // Выполняется, если первый запрос вернул пустой результат
 function Requ_2_OnlyGettingColor() {
     if(colors['green'] == true) {
+        console.log("Выбран зелёный цвет, говорим, что результатов нету");
         isGreenZeroRequest = true;
         document.querySelector('.zero-reauest').style.display = 'grid';
+        document.querySelector('.loadd').style.display = 'none';
         document.querySelector('.result-cards').style.display = 'none';
     } else if(allCountOfRequ < 2) {    
-        console.log("Запрос с цветами пустой");
+        console.log("Посылаем новый запрос, только с цветами");
         allCountOfRequ = 2;
         document.querySelector('.loadd').style.display = 'grid';
 
@@ -1240,41 +1248,50 @@ var sql_2 = ""; // Запрос, который мы посылаем к БД ч
 let isEmptyBDAnswer = false;    // Мы получили непустой ответ от БД?
 let isGreenZeroRequest = false; // Если в нашем 1м запросе уже был указан зелёный цвет (тогда мы не посылаем 2й запрос, а выводим, что нет результатов)
 
+// Запрос к БД растений:
 function SQL_RQ_FromSwever(sql_2) {
-    // Запрос к БД растений:
+    // Используем асинхронную функцию для запроса-ответа к серверу
     $.ajax({
+
+        // Подключаемся к php файлу на сервере
         type: "POST",
         url: "https://gogortey.ru/res/getdata_2.php",
+        
+        // Отправляем туда наш SQL-запрос
         data: { sql: sql_2 },
+
+        // Когда получим ответ:
         success: function(data_inp) {
-            if(data_inp == "0 results[]") {
+
+            // Если сервер вернул пустой ответ:
+            if(data_inp == "0 results[]") {                
+
                 console.log("Пустой ответ");
-                isEmptyBDAnswer = false;
-                docWrite_01("Пустой ответ");                
+                isEmptyBDAnswer = false;            
+
                 if(allCountOfRequ >= 2) {
                     isGreenZeroRequest = true;
-                    document.querySelector('.zero-reauest').style.display = 'grid';
-                    document.querySelector('.result-cards').style.display = 'none';
-                    document.querySelector('.reauest-2-only-color').style.display = 'none';
+                    ZeroReauest_Show();
                 }
                 if(colors['green'] == false) {
                     Requ_2_OnlyGettingColor();
                 } else {
                     isGreenZeroRequest = true;
-                    document.querySelector('.zero-reauest').style.display = 'grid';
-                    document.querySelector('.result-cards').style.display = 'none';
+                    ZeroReauest_Show();
                 }
                 
-                // document.querySelector('.zero-reauest').style.display = 'grid';
-                // document.querySelector('.result-cards').style.display = 'none';
-            } else if(data_inp.startsWith("Неверный запрос")) { //if(data_inp == "Неверный запрос") {
+            // Если в нашем SQL-запросе появились лишние функции, типа DELETE или CREATE (была попытка SQL-инъекции)
+            } else if(data_inp.startsWith("Неверный запрос")) {                 
+
                 console.log(data_inp);
                 isEmptyBDAnswer = false;
                 docWrite_01(data_inp);
                 
-                document.querySelector('.zero-reauest').style.display = 'grid';
-                document.querySelector('.result-cards').style.display = 'none';
-            } else {
+                ZeroReauest_Show();
+
+            // Если мы получили нужный ответ от БД:
+            } else {                
+
                 allCountOfRequ = 3; // Устанавливаем, что бы 2й запрос точно не прошёл
                 isEmptyBDAnswer = true;
 
@@ -1310,20 +1327,27 @@ function SQL_RQ_FromSwever(sql_2) {
         if(plantNames == "Пустой ответ" || isGreenZeroRequest === true || data.length == 0) {
             // Показываем карточку "Мы не смогли подобрать для вас растения"
 
-            document.querySelector('.zero-reauest').style.display = 'grid';
-            document.querySelector('.result-cards').style.display = 'none';
-            document.querySelector('.reauest-2-only-color').style.display = 'none';
+            ZeroReauest_Show(); 
         } else {
             docWrite_01(plantNames, data);
         }  
     }    
+
+    // Показываем только блок "К сожалению, мы не смогли подобрать для вас растение", и кнопку "Пройти ещё раз"
+    function ZeroReauest_Show() {
+        document.querySelector('.zero-reauest').style.display = 'grid';
+        document.querySelector('.result-cards').style.display = 'none';
+        document.querySelector('.reauest-2-only-color').style.display = 'none';
+        document.querySelector('.loadd').style.display = 'none';
+        document.querySelector('.butt-final-2').style.display = 'flex';
+    }
 }
 
 // Перебираем данные из массива в строку
 function OnPageWeu_02(data) {
     let plantNames = "";
 
-    console.log("Обрабатываем такую строку:" + data);
+    //console.log("Обрабатываем такую строку:" + data);
     
     if (isEmptyBDAnswer) {
         for (let i = 0; i < data.length; i++) {
@@ -1337,52 +1361,16 @@ function OnPageWeu_02(data) {
         plantNames = "Пустой ответ";
     }
 
-    console.log("На выходе получили такую:" + plantNames);
+    //console.log("На выходе получили такую:" + plantNames);
 
     return plantNames;
 }
 
-// function OnPageWeu_02(data) {
-//     let plantNames = "";
-//     let plantNames_top3 = "";
-//     let plantNames_next3 = "";
+// ------------------------------------------ //
+// 	         Отображение карточек:            //
+// ------------------------------------------ // 
 
-//     console.log("Обрабатываем такую строку:" + data);
-    
-//     if (isEmptyBDAnswer) {
-//         if (data.length > 7) {
-//             for (let i = 0; i < 3; i++) {
-//                 plantNames_top3 += data[i].plant_name;
-//                 if (i < 2) { // если это не последнее растение, добавляем запятую и пробел
-//                     plantNames_top3 += ", ";
-//                 }
-//             }
-//             for (let i = 3; i < 7; i++) {
-//                 plantNames_next3 += data[i].plant_name;
-//                 if (i < 6) { // если это не последнее растение, добавляем запятую и пробел
-//                     plantNames_next3 += ", ";
-//                 }
-//             }
-//             plantNames = plantNames_top3 + ", " + plantNames_next3;
-//         } else {
-//             for (let i = 0; i < data.length; i++) {
-//                 plantNames += data[i].plant_name;
-//                 if (i < data.length - 1) { // если это не последнее растение, добавляем запятую и пробел
-//                     plantNames += ", ";
-//                 }
-//             }
-//         }
-//     } else {
-//         plantNames = "Пустой ответ";
-//     }
-
-//     console.log("На выходе получили такую:" + plantNames);
-
-//     return plantNames;
-// }
-
-// Показываем блок карточек, и отправляем данные в другой скрипт,
-// который обработает их, и выведет на карточки в нужном порядке
+// Показываем блок карточек, и выводим их в нужном порядке
 function docWrite_01(text, data) {
     document.querySelector('.loadd').style.display = 'none';
     document.querySelector('.block-request .answ p').innerText = text;
@@ -1391,35 +1379,14 @@ function docWrite_01(text, data) {
     document.querySelector('.butt-final-2').style.display = 'flex';
     document.querySelector('.butt-final-2').scrollIntoView({behavior: "smooth"});
 
-    // if(isGreenZeroRequest === true) {
-    //     document.querySelector('.zero-reauest').style.display = 'grid';
-    //     document.querySelector('.result-cards').style.display = 'none';
-    //     document.querySelector('.reauest-2-only-color').style.display = 'none';
-    // }
+    console.log("Отправляем вот такую строку:" + text); 
 
-    console.log("Отправляем вот такую строку:" + text);
-
-    // Отправляем строку, с разделёнными названиями цветов, в другой скрипт
-    // через обшую область переменных   
-
-    //plantCards_plantNames = text;
-    randomImgPlantsCard()
-    //SetNamePlants(text);
-    SetNamePlants(data);
-    //setCards(); // И запускаем там-же процедуру обрабтки
+    randomImgPlantsCard();  // Устанавливаем случайные картинки из набора, на все карточки
+    SetNamePlants(data);    // Устанавливаем нужные названия для карточек, из массива
 }
-
-
-// window.setCards = function() {
-//     console.log("Получили такую строку: " + plantCards_plantNames);
-//     randomImgPlantsCard();
-//     SetNamePlants(plantCards_plantNames);
-// }
 
 // Устанавливает случайные картинки из набора, на все карточки
 function randomImgPlantsCard() {
-    //document.querySelector('.result-cards')
-
     // Получаем все элементы img внутри .card
     let images = document.querySelectorAll('.card img');
 
@@ -1435,28 +1402,21 @@ function randomImgPlantsCard() {
     });
 }
 
-//plantCards_plantNames = ""; //"Геликония, Бувардия, Будра, Жакаранда, Камнеломка, Лаванда, Осока";
-
-// Устанавливает нжные названия для карточек, из массива
+// Устанавливает нужные названия для карточек, из массива
 function SetNamePlants(plantNames_mass) {
-    // Получаем все элементы span внутри .card
+    // Пример входной строки:
+    // "Геликония, Бувардия, Будра, Жакаранда, Камнеломка, Лаванда, Осока";
+
+    // Получаем все карточки
     let spans = document.querySelectorAll('.card span');
 
-    // Получаем строку с названиями растений
-
-    // Преобразуем строку в массив
-    //plantNames_mass = plantNames.split(', ');
-
-    // console.log("Разбили на такой массив: " + plantNames_mass);
-    // console.log("Его длинна: " + plantNames_mass.length);
-
-    // Присваиваем каждому элементу span название растения из массива
+    // Присваиваем каждой карточке название растения из массива
     spans.forEach((span, index) => {
         if (index < plantNames_mass.length) {
             span.textContent = plantNames_mass[index].plant_name;
             span.parentElement.style.display = 'grid';
         } else {
-            span.parentElement.style.display = 'none'; // скрываем лишние карточки
+            span.parentElement.style.display = 'none'; // Скрываем лишние карточки
         }
     });
 
