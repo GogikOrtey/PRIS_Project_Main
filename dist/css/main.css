@@ -571,7 +571,8 @@ body {
     width: 870px;
   }
 }
-.result-cards {
+.result-cards,
+.zero-reauest {
   border-radius: 15px;
   width: 90%;
   margin: auto;
@@ -582,7 +583,8 @@ body {
   margin-bottom: 35px;
   padding: 20px;
 }
-.result-cards .spsp {
+.result-cards .spsp,
+.zero-reauest .spsp {
   width: 105%;
   background: #fff;
   border-radius: 15px;
@@ -592,7 +594,8 @@ body {
   grid-template-rows: 90%;
   margin-bottom: 30px;
 }
-.result-cards .spsp span {
+.result-cards .spsp span,
+.zero-reauest .spsp span {
   height: 80%;
   font-size: 28px;
   padding: 15px;
@@ -601,8 +604,20 @@ body {
   padding-top: 10px;
 }
 @media (min-width: 950px) {
-  .result-cards {
+  .result-cards,
+  .zero-reauest {
     width: 870px;
+  }
+}
+.zero-reauest {
+  margin: 0px;
+}
+.zero-reauest .spsp span {
+  font-size: 20px;
+}
+@media (max-width: 950px) {
+  .spsp span {
+    font-size: 2.3vw;
   }
 }
 .upper-block-3 {

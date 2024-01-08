@@ -875,7 +875,7 @@ body
 // 		     Карточки:	         //
 // ----------------------------- // 
 
-.result-cards 
+.result-cards, .zero-reauest 
 	//background rgb(255, 255, 255)
 	border-radius: 15px
 	width 90%
@@ -908,8 +908,20 @@ body
 
 // Широкие экраны (десктоп)
 @media (min-width: 950px) 
-	.result-cards  
+	.result-cards, .zero-reauest 
 		width: 870px
+
+.zero-reauest 
+	margin 0px
+	.spsp
+		span
+			font-size: 20px
+
+// Узкие экраны
+@media (max-width: 950px) 
+	.spsp
+		span
+			font-size: 2.3vw;
 
 .upper-block-3
 	//bord()

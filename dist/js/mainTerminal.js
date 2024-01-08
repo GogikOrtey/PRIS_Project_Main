@@ -100,6 +100,7 @@ h_NoControl = 0
 
 // Ждём, пока DOM-модель полностью загрузится
 document.addEventListener('DOMContentLoaded', function() { 
+    UpdateDevelomMode();
 
     // Скрывет все блоки с классом "block-qu", в начале
     const elements = document.querySelectorAll('.block-qu');
@@ -114,6 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.querySelector('.loadd').style.display = 'none';
     document.querySelector('.result-cards').style.display = 'none';
+    document.querySelector('.zero-reauest').style.display = 'none';
 
     // Для кнопки старта прописываем событие по нажатию
     document.querySelector('.butt-start').addEventListener('click', function() {
@@ -125,16 +127,19 @@ document.addEventListener('DOMContentLoaded', function() {
         isStart = true;
     });
 
-    // Для кнопки старта прописываем событие по нажатию
     document.querySelector('.butt-final').addEventListener('click', function() {
-        // По нажатию кнопки Старт, скрываем один блок, и показываем другой:
 
         if(_mainCounter == 10) {
             _mainCounter = -1;
-            document.getElementsByClassName('block-request')[0].style.display = 'grid';
+            if(isDevelopModActive === true) {
+                document.getElementsByClassName('block-request')[0].style.display = 'grid';
+            }
+            
             document.getElementsByClassName('butt-final')[0].style.display = 'none';
             document.querySelector('.butt-final-2').style.display = 'flex';
             document.querySelector('.loadd').style.display = 'grid';
+            document.querySelector('.loadd').scrollIntoView({behavior: "smooth"});
+
             //debugPrint_2();
 
             //let SQL_Rq = CreateSQLequest();
@@ -143,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let SQL_Rq = CreateSQLequest();
             document.querySelector('.block-request .req p').textContent = SQL_Rq;
 
-            let BD_Answer = SQL_RQ_FromSwever(SQL_Rq);
+            SQL_RQ_FromSwever(SQL_Rq);
             //document.querySelector('.block-request .answ p').textContent = BD_Answer;            
 
             elements.forEach(element => {
@@ -154,18 +159,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Массив цветов
-    //var colors = ["#197de0", "rgb(14, 182, 204)", "#5d33da", "#38ec0f", "#e9e51f", "#ecbc0c", "#e24916", "#ec34be", "#a619da"];
-
-    // // Получаем все кнопки
-    // var buttons = document.querySelectorAll('.butt-answ');
-
-    // // Применяем случайный цвет фона к каждой кнопке
-    // for (var i = 0; i < buttons.length; i++) {
-    //     buttons[i].style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-    // }
-
-    // Получаем все кнопки
     var buttons = document.querySelectorAll('.butt-answ');
 
     // Применяем случайный цвет фона к каждой кнопке - от красного до зелёного
@@ -177,9 +170,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Добавляю событие: При нажатии на любую кнопку
     document.querySelectorAll('.butt-answ').forEach(button => {
         button.addEventListener('click', function() {
+            
             //CheckAllBlocks(); // Вызываю обновление всех блоков
             setTimeout(() => {
                 CheckAllBlocks(); // Update all the blocks after a 10 millisecond delay
+                UpdateDevelomMode();
             }, 1);
 
             // Добавляю стиль "Нажатой" кнопки к той, которую нажал пользователь
@@ -205,6 +200,22 @@ document.addEventListener('DOMContentLoaded', function() {
     });    
 });
 
+function UpdateDevelomMode() {
+    let elements = Array.from(document.getElementsByClassName('letter-abbr'));
+
+    if(isDevelopModActive === true) {
+        elements.forEach(element => {
+            element.style.display = 'block';
+        });
+    } else {
+        elements.forEach(element => {
+            element.style.display = 'none';
+        });
+    }
+}
+
+let isDevelopModActive = false;
+
 let _mainCounter = 0;               // Счётчик состояний
 
 let isStart = false;
@@ -214,9 +225,6 @@ let isColorCucsSelected = false;
 
 let isRevertQuwerty = 0;
 let RQ_2 = 0;
-
-
-
 
 
 // Скрывает указанный блок
@@ -233,21 +241,17 @@ function ShowBlock(nameBlock) {
     block.scrollIntoView({behavior: "smooth"});
 }
 
-
-
-
-
-
-
 // Перераспределение блоков
 // Процедура вызывается после нажатия на кнопку в любом блоке
-function CheckAllBlocks(){
+function CheckAllBlocks() {
 
     if(isStart == true) {
         _mainCounter = 1;
     }
 
     console.log("Update all blocks")    
+
+    
 
     if(_mainCounter >= 1) {
         if(a_InHome == 1) {
@@ -1123,10 +1127,15 @@ function SQL_RQ_FromSwever(sql_2) {
                 console.log("Пустой ответ");
                 docWrite_01("Пустой ответ");
                 isEmptyBDAnswer = false;
+                //.zero-reauest 
+                document.querySelector('.zero-reauest').style.display = 'grid';
+                document.querySelector('.result-cards').style.display = 'none';
             } else if(data_inp.startsWith("Неверный запрос")) { //if(data_inp == "Неверный запрос") {
                 console.log(data_inp);
                 docWrite_01(data_inp);
                 isEmptyBDAnswer = false;
+                document.querySelector('.zero-reauest').style.display = 'grid';
+                document.querySelector('.result-cards').style.display = 'none';
             } else {
                 isNotEmptyBDAnswer = true;
                 var data = JSON.parse(data_inp);
