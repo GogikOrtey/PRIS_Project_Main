@@ -2,7 +2,8 @@ html
   head
     include headCode
     //script(src="js/bgTestIteration.js")
-    //script(src="js/mainTerminal.js")
+    script(src="js/mainTerminal.js")
+    // Побуквенное появление текста
     
     header 
       div.bg-fone-header
@@ -71,6 +72,98 @@ html
             p Влажно
           .butt-answ.answ-block-4-s
             p Умеренная влажность
+
+      .block-qu#block-b
+        p.qu-answ Вы хотите подобрать одно растение, или сразу несколько?
+        p.letter-abbr b
+        .butt-bar
+          .butt-answ.answ-block-1
+            p Одно
+          .butt-answ.answ-block-2
+            p Несколько
+
+      .block-qu#block-c
+        p.qu-answ Вы хотите, что бы это растение было с цветами, или без?
+        p.letter-abbr c
+        .butt-bar
+          .butt-answ.answ-block-1
+            p Без цветов
+          .butt-answ.answ-block-2
+            p Не важно
+          .butt-answ.answ-block-3
+            p С цветами
+
+      .block-qu#block-c-3
+        p.qu-answ Выберете желаемый цвет - один или несколько
+        p.letter-abbr c-3
+        .butt-bar
+          .butt-answ.answ-block-1
+            p Выбор цветов [...]
+
+      .block-qu#block-d
+        p.qu-answ Вы хотите, что бы это растение было плодоносным?
+        p.letter-abbr d
+        .butt-bar
+          .butt-answ.answ-block-1
+            p Да
+          .butt-answ.answ-block-2
+            p Не важно
+          .butt-answ.answ-block-3
+            p Нет
+
+      .block-qu#block-e
+        p.qu-answ Вы будете ставить растения на окне?
+        p.letter-abbr e
+        .butt-bar
+          .butt-answ.answ-block-1
+            p Да
+          .butt-answ.answ-block-2
+            p Нет
+
+      .block-qu#block-e-1
+        p.qu-answ На ваше окно падает прямой солнечный свет?
+        p.letter-abbr e-1
+        .butt-bar
+          .butt-answ.answ-block-1
+            p Да
+          .butt-answ.answ-block-2
+            p Иногда
+          .butt-answ.answ-block-3
+            p Очень редко
+
+      .block-qu#block-f
+        p.qu-answ Для вас важно, что бы растение вырабатывало кислород?
+        p.letter-abbr f
+        .butt-bar
+          .butt-answ.answ-block-1
+            p Да, важно
+          .butt-answ.answ-block-2
+            p Было бы неплохо, но это не очень важно
+          .butt-answ.answ-block-3
+            p Мне без разницы на это
+
+      .block-qu#block-g
+        p.qu-answ Как много пространства под растения, в вашем доме?
+        p.letter-abbr g
+        .butt-bar
+          .butt-answ.answ-block-1
+            p Очень мало
+          .butt-answ.answ-block-2
+            p Средне
+          .butt-answ.answ-block-3
+            p Достаточно много
+
+      .block-qu#block-h
+        p.qu-answ Насколько вы хотите оставлять растения без присмотра?
+        //-> Вот тут добавить дополнительную информацию
+        p.letter-abbr h
+        .butt-bar
+          .butt-answ.answ-block-1
+            p Ненадолго (на 3-5 дней)
+          .butt-answ.answ-block-2
+            p На 1-2 недели
+          .butt-answ.answ-block-3
+            p До месяца
 
 
   footer 
