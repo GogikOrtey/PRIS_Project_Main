@@ -1030,4 +1030,23 @@ body {
     margin: 15px;
     height: 60px;
   }
+  .nav-menu-bar .content-nav-menu .nav-nav-menu .butt-info {
+    margin-bottom: 0px;
+    margin-left: 10px;
+    height: 70px;
+  }
+  .nav-menu-bar .content-nav-menu .nav-nav-menu .butt-all-pants {
+    margin-right: 10px;
+  }
+  .nav-menu-bar .content-nav-menu .nav-nav-menu img {
+    width: 25px;
+    height: auto;
+  }
+  .nav-menu-bar span {
+    font-size: 18px;
+  }
+  .nav-menu-bar .sp-4 {
+    color: #000;
+    font-style: italic;
+  }
 }
