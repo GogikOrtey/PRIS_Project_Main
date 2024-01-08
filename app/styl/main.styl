@@ -271,7 +271,7 @@ body
 	background: linear-gradient(to bottom left, #00aeff, #2078fc);
 
 	width: 100%
-	height: 250px
+	height: 275px
 	margin-bottom: 25px
 	border-radius: 19px
 
@@ -303,9 +303,10 @@ body
 	//bottom: 20px;
 	// background color4
 	background white
-	width 300px
-	height 50px
-	border-radius: 10px
+	// width 300px
+	width 95%
+	height 75px
+	border-radius: 12px
 	margin: auto
 	margin-top: 20px
 	//width 50%
@@ -315,11 +316,81 @@ body
 	// border solid 4px #20f00d
 	border dashed 2px black
 	font-style: italic
-	p
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	span
 		height 50px
 		padding: 0px
 		padding-top: 6px
 		//font-weight: bold
+		font-size: 25px
+		font-style: normal
+
+
+
+.butt-start	 
+	//border-radius: 15px; /* Закругленные углы */
+	border: 5px solid transparent; /* Ширина границы */
+	background: 
+		linear-gradient(white, white), 
+		repeating-linear-gradient(
+			-45deg, 
+			#20f00d, /* Цвет границы */
+			#20f00d 15px, /* Ширина линии */
+			transparent 5px, 
+			transparent 30.5px /* Расстояние между линиями */
+		);
+	background-clip: padding-box, border-box; 
+	background-origin: padding-box, border-box; 
+	box-sizing: border-box; 
+	background-position: 0 0; /* Добавлено */
+
+	
+//     animation: moving-dashes 2s linear infinite;
+// 	-webkit-animation: moving-dashes 2s linear infinite; /* Для Safari и Chrome */
+// 	-moz-animation: moving-dashes 2s linear infinite; /* Для Firefox */
+// 	-o-animation: moving-dashes 2s linear infinite; /* Для Opera */
+// }
+
+// @keyframes moving-dashes {
+//     to {
+//         background-position: 100% 0;
+//     }
+// }
+
+// .butt-start {
+// 	position: relative;
+// 	background: linear-gradient(60deg, #f0f 6%, transparent 6%) 0 0, 
+// 	            linear-gradient(240deg, #f0f 6%, transparent 6%) 0 0, 
+// 	            linear-gradient(60deg, transparent 94%, #f0f 94%) 14px 0, 
+// 	            linear-gradient(240deg, transparent 94%, #f0f 94%) 14px 0;
+// 	background-size: 28px 50px;
+// 	background-color: #333;
+// 	animation: gradient 5s linear infinite;
+// 	padding: 10px;
+// 	color: white;
+// }
+
+// .butt-start:before {
+// 	content: "";
+// 	position: absolute;
+// 	top: -3px;
+// 	bottom: -3px;
+// 	left: -3px;
+// 	right: -3px;
+// 	background: inherit;
+// 	z-index: -1;
+// }
+
+// @keyframes gradient {
+// 	0% {
+// 	  background-position: 0 0, 0 0, 0 0, 0 0;
+// 	}
+// 	100% {
+// 	  background-position: 28px 50px, 28px 50px, 28px 50px, 28px 50px;
+// 	}
+// }
 
 
 
@@ -335,8 +406,10 @@ body
 // 	//letter-spacing: -0.05em 
 
 .butt-start:hover
-	font-style: italic
-	border solid 3px #20f00d
+	border solid 5px #20f00d
+	span
+		//font-style: italic
+		letter-spacing: 0.04em
 
 .butt-start:active
 	background #20f00d
@@ -573,7 +646,11 @@ body
 // 		 Финальная кнопка:	     //
 // ----------------------------- // 
 
-.butt-final
+.butt-final, .butt-final-2, .block-request  
+	width 100%
+	margin: auto
+
+.butt-final, .butt-final-2
 	width 90%
 	height 80px
 	background white
@@ -588,12 +665,30 @@ body
 	span	
 		font-size: 26px
 
-.butt-final:hover
-	background bg-blue
-.butt-final:active
-	font-weight: bold
-	border 6px solid #001aff
+	//border-radius: 15px; /* Закругленные углы */
+	border: 6px solid transparent; /* Ширина границы */
+	background: 
+		linear-gradient(white, white), 
+		repeating-linear-gradient(
+			-45deg, 
+			bg-blue, /* Цвет границы */
+			bg-blue 15px, /* Ширина линии */
+			transparent 5px, 
+			transparent 31.2px /* Расстояние между линиями */
+		);
+	background-clip: padding-box, border-box; 
+	background-origin: padding-box, border-box; 
+	box-sizing: border-box; 
+	background-position: 0 0; /* Добавлено */
 
+.butt-final:hover, .butt-final-2:hover
+	background bg-blue
+.butt-final:active, .butt-final-2:active
+	font-weight: bold
+	background #001aff
+
+.butt-final-2
+	margin-top: 35px
 
 .block-request  
 	width 90%
@@ -613,8 +708,6 @@ body
 
 // Широкие экраны (десктоп)
 @media (min-width: 950px) 
-	.butt-final
+	.butt-final, .butt-final-2, .block-request  
 		width: 870px
 		//color red
-	.block-request  
-		width: 870px

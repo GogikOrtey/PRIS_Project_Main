@@ -108,6 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.getElementsByClassName('butt-final')[0].style.display = 'none';
     document.getElementsByClassName('block-request')[0].style.display = 'none';
+    document.querySelector('.butt-final-2').style.display = 'none';
 
     // Для кнопки старта прописываем событие по нажатию
     document.querySelector('.butt-start').addEventListener('click', function() {
@@ -127,6 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
             _mainCounter = -1;
             document.getElementsByClassName('block-request')[0].style.display = 'grid';
             document.getElementsByClassName('butt-final')[0].style.display = 'none';
+            document.querySelector('.butt-final-2').style.display = 'flex';
             debugPrint_2();
 
             elements.forEach(element => {
@@ -323,6 +325,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // var block = document.getElementById('block-a');
     // var buttons = block.querySelectorAll('.answ-block-1, .answ-block-2');
+
+    document.querySelector('.butt-final-2').addEventListener('click', function() {
+        location.reload();
+    });    
 });
 
 // function HideAll() {
@@ -584,7 +590,8 @@ function CheckAllBlocks(){
     }
     
 
-    if(_mainCounter >= 8 || (_mainCounter >= 7 && a_InHome == 1)) {
+    if(_mainCounter >= 8 || (_mainCounter >= 7 && a_InHome == 2)) {
+        // Либо прошли все блоки по дому, либо мы выбрали улицу
         if(g_AFreeProstr != 0 || (a_InHome == 2 && d_IsPlod != 0)) {
             ShowBlock('block-h');
             _mainCounter = 9;
