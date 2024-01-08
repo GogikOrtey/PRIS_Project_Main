@@ -160,6 +160,301 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let currentLetterButtonDown = "";
 
+    SetButtonSelection();
+
+    // var block = document.getElementById('block-a');
+    // var buttons = block.querySelectorAll('.answ-block-1, .answ-block-2');
+
+    document.querySelector('.butt-final-2').addEventListener('click', function() {
+        location.reload();
+    });    
+});
+
+let _mainCounter = 0;               // Счётчик состояний
+
+let isStart = false;
+let isTempCorrect = false;
+let isHumCorrect = false;
+let isColorCucsSelected = false;
+
+let isRevertQuwerty = 0;
+let RQ_2 = 0;
+
+
+
+
+
+// Скрывает указанный блок
+function HideBlock(nameBlock) {
+    document.getElementById(nameBlock).style.display = 'none'; // Скрываю весь блок со страницы
+    removeActiveClass(nameBlock); // Убираю выделение у последней нажатой кнопки в этом блоке
+}
+
+// Показывает указанный блок
+function ShowBlock(nameBlock) {
+    let block = document.getElementById(nameBlock);
+
+    block.style.display = 'grid';       
+    block.scrollIntoView({behavior: "smooth"});
+}
+
+
+
+
+
+
+
+// Перераспределение блоков
+// Процедура вызывается после нажатия на кнопку в любом блоке
+function CheckAllBlocks(){
+
+    if(isStart == true) {
+        _mainCounter = 1;
+    }
+
+    console.log("Update all blocks")    
+
+    if(_mainCounter >= 1) {
+        if(a_InHome == 1) {
+            // Дом
+
+            HideBlock('block-a-1');             
+            ShowBlock('block-a-2');
+
+            a_2_AVGTempInRegion = 0;
+            _mainCounter = 2;
+
+            if(isRevertQuwerty>0) isRevertQuwerty--;
+        } else if (a_InHome == 2) {
+            // Улица
+
+            ShowBlock('block-a-1');
+            HideBlock('block-a-2');
+
+            a_1_MinTempInHome = 0;
+            a_2_1_AVGHum = 0;
+            _mainCounter = 3;
+
+            isRevertQuwerty = 2;
+            RQ_2 = 2;
+
+        }
+    } else {
+        a_InHome = 0;
+
+        HideBlock('block-a-2');
+        HideBlock('block-a-1');
+    }
+
+    if(_mainCounter >= 2 && isRevertQuwerty <= 0) {
+        if(isTempCorrect == true && a_InHome == 1) {
+            ShowBlock('block-a-2-1');
+            _mainCounter = 3;
+            if(RQ_2 > 0) RQ_2--;
+        } else {
+            HideBlock('block-a-2-1');
+            a_2_1_AVGHum = 0;
+        }
+    } else {
+        HideBlock('block-a-2-1');
+        a_2_1_AVGHum = 0;
+    }
+
+    if(_mainCounter >= 3) {
+        if(
+            (a_InHome == 1 && isHumCorrect == true) ||
+            (a_InHome == 2 && a_2_AVGTempInRegion == 2) ||
+            (a_InHome == 2 && a_2_AVGTempInRegion == 1 && isTempCorrect == true)
+            // a_InHome == 2
+            // // (a_InHome == 2 &&
+            // //     ((isHumCorrect == true)
+            // //     || (a_2_1_AVGHum != 0)))
+            // || (RQ_2 <= 0 && a_InHome == 1)
+            // || (a_2_1_AVGHum != 0 && isHumCorrect == true)
+        )
+
+
+        // if(
+        //     a_InHome == 2
+        //     // (a_InHome == 2 &&
+        //     //     ((isHumCorrect == true)
+        //     //     || (a_2_1_AVGHum != 0)))
+        //     || (RQ_2 <= 0 && a_InHome == 1)
+        //     || (a_2_1_AVGHum != 0 && isHumCorrect == true)
+        // )     
+        
+        // (((a_2_AVGTempInRegion != 0 
+        //     || (a_2_1_AVGHum != 0 && isHumCorrect == true)) 
+        //     && (isTempCorrect == true))
+        //     && (RQ_2 <= 0 && a_InHome == 1)
+        //     ) || ((a_InHome == 1 && isHumCorrect == true))
+            
+            
+            
+            {
+            ShowBlock('block-b');
+            _mainCounter = 4;
+        } else {
+            HideBlock('block-b');
+            b_OncePlant = 0;
+        }
+    } else {
+        HideBlock('block-b');
+        b_OncePlant = 0;
+    }
+
+    if(_mainCounter >= 4) {
+        if(b_OncePlant != 0) {
+            ShowBlock('block-c');
+            _mainCounter = 6;
+        } else {
+            HideBlock('block-c');
+            c_AFlowers = 0;
+        }
+    } else {
+        HideBlock('block-c');
+        c_AFlowers = 0;
+    }
+
+
+    if(_mainCounter >= 5) {
+        if(c_AFlowers == 3) { ////// ЦВЕТА!!!
+            ShowBlock('block-c-3');
+            isColorCucsSelected = false
+            //_mainCounter = 6;
+            // Здесь нужно будет верно обработать ввод цветов
+        } else {
+            // removeActiveClass('block-c-3');
+            HideBlock('block-c-3');
+            //_mainCounter = 6;
+        }
+    } else {
+        HideBlock('block-c-3');
+    }
+
+
+    if(_mainCounter >= 6) {
+        if(c_AFlowers == 1 || c_AFlowers == 2 || isColorCucsSelected == true) {
+            ShowBlock('block-d');
+            _mainCounter = 7;
+        } else {
+            HideBlock('block-d');
+            d_IsPlod = 0;
+        }
+    } else {
+        HideBlock('block-d');
+        d_IsPlod = 0;
+    }
+
+    if ((_mainCounter >= 7) && (a_InHome == 1)) {
+        if(d_IsPlod != 0) {
+            ShowBlock('block-e');
+        } else {
+            HideBlock('block-e');
+            e_StandOnWindow = 0;
+        }
+    
+        if(e_StandOnWindow == 1) {
+            ShowBlock('block-e-1');
+        } else {
+            HideBlock('block-e-1');
+            e_1_ASunLight = 0;
+        }
+    
+        if(e_StandOnWindow == 2 || e_1_ASunLight != 0) {
+            ShowBlock('block-f');
+        } else {
+            HideBlock('block-f');
+            f_GenerateAOxugen = 0;
+        }
+    
+        if(f_GenerateAOxugen != 0) {
+            ShowBlock('block-g');
+            _mainCounter = 8;
+        } else {
+            HideBlock('block-g');
+            g_AFreeProstr = 0;
+        }
+    } else {
+        HideBlock('block-g');
+        HideBlock('block-e');
+        HideBlock('block-e-1');
+        HideBlock('block-f');
+
+        e_StandOnWindow = 0;
+        e_1_ASunLight = 0;
+        f_GenerateAOxugen = 0;
+        g_AFreeProstr = 0;
+
+        //_mainCounter = 8;
+    }
+    
+
+    if(_mainCounter >= 8 || (_mainCounter >= 7 && a_InHome == 2)) {
+        // Либо прошли все блоки по дому, либо мы выбрали улицу
+        if(g_AFreeProstr != 0 || (a_InHome == 2 && d_IsPlod != 0)) {
+            ShowBlock('block-h');
+            _mainCounter = 9;
+        } else {
+            HideBlock('block-h');
+            h_NoControl = 0;
+        }
+    } else {
+        HideBlock('block-h');
+        h_NoControl = 0;
+    }
+
+    // Финальная кнопка:
+    if(_mainCounter >= 9) {
+        if(h_NoControl != 0) {
+            _mainCounter = 10;
+            let block = document.getElementsByClassName('butt-final')[0];
+
+            block.style.display = 'flex';     
+            block.scrollIntoView({behavior: "smooth"});
+        }
+    } else {
+        document.getElementsByClassName('butt-final')[0].style.display = 'none';
+        document.getElementsByClassName('block-request')[0].style.display = 'none';
+    }
+
+    document.querySelectorAll('.main-counter')[0].textContent = _mainCounter;    
+    //console.log("Main-counter = " + _mainCounter);
+}
+
+function removeActiveClass(parentId) {
+    let elements = document.getElementById(parentId).querySelectorAll('.butt-answ');
+    for(let i=0; i<elements.length; i++){
+        elements[i].classList.remove('active');
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function SetButtonSelection() {
     document.querySelector('#block-a .answ-block-1').addEventListener('click', function() {
         a_InHome = 1
         currentLetterButtonDown = "a";
@@ -321,15 +616,53 @@ document.addEventListener('DOMContentLoaded', function() {
         h_NoControl = 3
         currentLetterButtonDown = "h";
     });
+}
+
+// Вставляем полученные значения переменных в форму запроса
+function debugPrint_2(){
+    let output = "Текст запроса: [Тестовый]\n";
+    output += "Debug Print:\n";
+    output += `a_InHome: ${a_InHome}\n`;
+    if (a_InHome == 1) {
+        output += `a_1_MinTempInHome: ${a_1_MinTempInHome}\n`;
+        if (a_1_MinTempInHome == 1) {
+            output += `a_1_input_MinTempInHome: ${a_1_input_MinTempInHome}\n`;
+        }
+    } else {
+        output += `a_2_AVGTempInRegion: ${a_2_AVGTempInRegion}\n`;
+        if (a_2_AVGTempInRegion == 1) {
+            output += `a_2_input_AVGTempInRegion: ${a_2_input_AVGTempInRegion}\n`;
+        }
+        output += `a_2_1_AVGHum: ${a_2_1_AVGHum}\n`;
+        if (a_2_1_AVGHum == 1) {
+            output += `a_2_1_input_AVGHum: ${a_2_1_input_AVGHum}\n`;
+        }
+    }
+    
+    output += `b_OncePlant: ${b_OncePlant}\n`;
+    
+    output += `c_AFlowers: ${c_AFlowers}\n`;
+    if (c_AFlowers == 3) {
+        output += `c_3_SelectAColor: ${c_3_SelectAColor}\n`;
+    }
+    
+    output += `d_IsPlod: ${d_IsPlod}\n`;
+    
+    output += `e_StandOnWindow: ${e_StandOnWindow}\n`;
+    if (e_StandOnWindow == 1) {
+        output += `e_1_ASunLight: ${e_1_ASunLight}\n`;
+    }
+    
+    output += `f_GenerateAOxugen: ${f_GenerateAOxugen}\n`;
+    
+    output += `g_AFreeProstr: ${g_AFreeProstr}\n`;
+    
+    output += `h_NoControl: ${h_NoControl}\n`;    
+
+    document.querySelector('.block-request .req p').textContent = output;
+}
 
 
-    // var block = document.getElementById('block-a');
-    // var buttons = block.querySelectorAll('.answ-block-1, .answ-block-2');
-
-    document.querySelector('.butt-final-2').addEventListener('click', function() {
-        location.reload();
-    });    
-});
 
 // function HideAll() {
 //     a_1_MinTempInHome = 0
@@ -375,260 +708,6 @@ document.addEventListener('DOMContentLoaded', function() {
 //     document.getElementById('block-gh').style.display = 'none';
 // }
 
-// function CheckAllBlocks_2(inp) {
-//     HideAll()
-
-//     if(inp == "a_1") {
-//         document.getElementById('block-a-1').style.display = 'grid';
-//         a_1_MinTempInHome = 1
-//         // input-элемент
-//     }
-//     else if(inp == "a_2") {
-//         document.getElementById('block-a-2').style.display = 'grid';
-//         a_2_AVGTempInRegion = 1
-//         // input-элемент
-//     }
-// }
-
-let _mainCounter = 0;               // Счётчик состояний
-
-let isStart = false;
-let isTempCorrect = false;
-let isHumCorrect = false;
-let isColorCucsSelected = false;
-
-let isRevertQuwerty = 0;
-let RQ_2 = 0;
-
-// Скрывает указанный блок
-function HideBlock(nameBlock) {
-    document.getElementById(nameBlock).style.display = 'none'; // Скрываю весь блок со страницы
-    removeActiveClass(nameBlock); // Убираю выделение у последней нажатой кнопки в этом блоке
-}
-
-// Показывает указанный блок
-function ShowBlock(nameBlock) {
-    let block = document.getElementById(nameBlock);
-
-    block.style.display = 'grid';       
-    block.scrollIntoView({behavior: "smooth"});
-}
-
-// Перераспределение блоков
-// Процедура вызывается после нажатия на кнопку в любом блоке
-function CheckAllBlocks(){
-
-    if(isStart == true) {
-        _mainCounter = 1;
-    }
-
-    console.log("Update all blocks")
-    
-
-    if(_mainCounter >= 1) {
-        if(a_InHome == 1) {
-            // Дом
-
-            HideBlock('block-a-1');             
-            ShowBlock('block-a-2');
-
-            a_2_AVGTempInRegion = 0;
-            _mainCounter = 2;
-
-            if(isRevertQuwerty>0) isRevertQuwerty--;
-        } else if (a_InHome == 2) {
-            // Улица
-
-            ShowBlock('block-a-1');
-            HideBlock('block-a-2');
-
-            a_1_MinTempInHome = 0;
-            a_2_1_AVGHum = 0;
-            _mainCounter = 3;
-
-            isRevertQuwerty = 2;
-            RQ_2 = 2;
-
-        }
-    } else {
-        a_InHome = 0;
-
-        HideBlock('block-a-2');
-        HideBlock('block-a-1');
-    }
-
-    if(_mainCounter >= 2 && isRevertQuwerty <= 0) {
-        if(isTempCorrect == true && a_InHome == 1) {
-            ShowBlock('block-a-2-1');
-            _mainCounter = 3;
-            if(RQ_2 > 0) RQ_2--;
-        } else {
-            HideBlock('block-a-2-1');
-            a_2_1_AVGHum = 0;
-        }
-    } else {
-        HideBlock('block-a-2-1');
-        a_2_1_AVGHum = 0;
-    }
-
-    if(_mainCounter >= 3) {
-        if(
-            a_InHome == 2
-            // (a_InHome == 2 &&
-            //     ((isHumCorrect == true)
-            //     || (a_2_1_AVGHum != 0)))
-            || (RQ_2 <= 0 && a_InHome == 1)
-            || (a_2_1_AVGHum != 0 && isHumCorrect == true)
-        )
-        
-        
-        
-        // (((a_2_AVGTempInRegion != 0 
-        //     || (a_2_1_AVGHum != 0 && isHumCorrect == true)) 
-        //     && (isTempCorrect == true))
-        //     && (RQ_2 <= 0 && a_InHome == 1)
-        //     ) || ((a_InHome == 1 && isHumCorrect == true))
-            
-            
-            
-            {
-            ShowBlock('block-b');
-            _mainCounter = 4;
-        } else {
-            HideBlock('block-b');
-            b_OncePlant = 0;
-        }
-    } else {
-        HideBlock('block-b');
-        b_OncePlant = 0;
-    }
-
-    if(_mainCounter >= 4) {
-        if(b_OncePlant != 0) {
-            ShowBlock('block-c');
-            _mainCounter = 6;
-        } else {
-            HideBlock('block-c');
-            c_AFlowers = 0;
-        }
-    } else {
-        HideBlock('block-c');
-        c_AFlowers = 0;
-    }
-
-
-    if(_mainCounter >= 5) {
-        if(c_AFlowers == 3) { ////// ЦВЕТА!!!
-            ShowBlock('block-c-3');
-            isColorCucsSelected = false
-            //_mainCounter = 6;
-            // Здесь нужно будет верно обработать ввод цветов
-        } else {
-            // removeActiveClass('block-c-3');
-            HideBlock('block-c-3');
-            //_mainCounter = 6;
-        }
-    } else {
-        HideBlock('block-c-3');
-    }
-
-
-    if(_mainCounter >= 6) {
-        if(c_AFlowers == 1 || c_AFlowers == 2 || isColorCucsSelected == true) {
-            ShowBlock('block-d');
-            _mainCounter = 7;
-        } else {
-            HideBlock('block-d');
-            d_IsPlod = 0;
-        }
-    } else {
-        HideBlock('block-d');
-        d_IsPlod = 0;
-    }
-
-    if ((_mainCounter >= 7) && (a_InHome == 1)) {
-        if(d_IsPlod != 0) {
-            ShowBlock('block-e');
-        } else {
-            HideBlock('block-e');
-            e_StandOnWindow = 0;
-        }
-    
-        if(e_StandOnWindow == 1) {
-            ShowBlock('block-e-1');
-        } else {
-            HideBlock('block-e-1');
-            e_1_ASunLight = 0;
-        }
-    
-        if(e_StandOnWindow == 2 || e_1_ASunLight != 0) {
-            ShowBlock('block-f');
-        } else {
-            HideBlock('block-f');
-            f_GenerateAOxugen = 0;
-        }
-    
-        if(f_GenerateAOxugen != 0) {
-            ShowBlock('block-g');
-            _mainCounter = 8;
-        } else {
-            HideBlock('block-g');
-            g_AFreeProstr = 0;
-        }
-    } else {
-        HideBlock('block-g');
-        HideBlock('block-e');
-        HideBlock('block-e-1');
-        HideBlock('block-f');
-
-        e_StandOnWindow = 0;
-        e_1_ASunLight = 0;
-        f_GenerateAOxugen = 0;
-        g_AFreeProstr = 0;
-
-        //_mainCounter = 8;
-    }
-    
-
-    if(_mainCounter >= 8 || (_mainCounter >= 7 && a_InHome == 2)) {
-        // Либо прошли все блоки по дому, либо мы выбрали улицу
-        if(g_AFreeProstr != 0 || (a_InHome == 2 && d_IsPlod != 0)) {
-            ShowBlock('block-h');
-            _mainCounter = 9;
-        } else {
-            HideBlock('block-h');
-            h_NoControl = 0;
-        }
-    } else {
-        HideBlock('block-h');
-        h_NoControl = 0;
-    }
-
-    // Финальная кнопка:
-    if(_mainCounter >= 9) {
-        if(h_NoControl != 0) {
-            _mainCounter = 10;
-            let block = document.getElementsByClassName('butt-final')[0];
-
-            block.style.display = 'flex';     
-            block.scrollIntoView({behavior: "smooth"});
-        }
-    } else {
-        document.getElementsByClassName('butt-final')[0].style.display = 'none';
-        document.getElementsByClassName('block-request')[0].style.display = 'none';
-    }
-
-    document.querySelectorAll('.main-counter')[0].textContent = _mainCounter;    
-    //console.log("Main-counter = " + _mainCounter);
-}
-
-function removeActiveClass(parentId) {
-    let elements = document.getElementById(parentId).querySelectorAll('.butt-answ');
-    for(let i=0; i<elements.length; i++){
-        elements[i].classList.remove('active');
-    }
-}
-
 // function debugPrint(){
 //     console.log("----------");
 //     console.log("Debug Print:");
@@ -672,51 +751,3 @@ function removeActiveClass(parentId) {
 
 
 // Передаю набор переменных в финальное окошко
-
-function debugPrint_2(){
-    let output = "Текст запроса: [Тестовый]\n";
-    output += "Debug Print:\n";
-    output += `a_InHome: ${a_InHome}\n`;
-    if (a_InHome == 1) {
-        output += `a_1_MinTempInHome: ${a_1_MinTempInHome}\n`;
-        if (a_1_MinTempInHome == 1) {
-            output += `a_1_input_MinTempInHome: ${a_1_input_MinTempInHome}\n`;
-        }
-    } else {
-        output += `a_2_AVGTempInRegion: ${a_2_AVGTempInRegion}\n`;
-        if (a_2_AVGTempInRegion == 1) {
-            output += `a_2_input_AVGTempInRegion: ${a_2_input_AVGTempInRegion}\n`;
-        }
-        output += `a_2_1_AVGHum: ${a_2_1_AVGHum}\n`;
-        if (a_2_1_AVGHum == 1) {
-            output += `a_2_1_input_AVGHum: ${a_2_1_input_AVGHum}\n`;
-        }
-    }
-    
-    output += `b_OncePlant: ${b_OncePlant}\n`;
-    
-    output += `c_AFlowers: ${c_AFlowers}\n`;
-    if (c_AFlowers == 3) {
-        output += `c_3_SelectAColor: ${c_3_SelectAColor}\n`;
-    }
-    
-    output += `d_IsPlod: ${d_IsPlod}\n`;
-    
-    output += `e_StandOnWindow: ${e_StandOnWindow}\n`;
-    if (e_StandOnWindow == 1) {
-        output += `e_1_ASunLight: ${e_1_ASunLight}\n`;
-    }
-    
-    output += `f_GenerateAOxugen: ${f_GenerateAOxugen}\n`;
-    
-    output += `g_AFreeProstr: ${g_AFreeProstr}\n`;
-    
-    output += `h_NoControl: ${h_NoControl}\n`;    
-
-    // Вставляем текст в элемент с тегом p
-    // let pElement = document.createElement('p');
-    // pElement.textContent = output;
-    //document.getElementsByClassName('block-request')[0].appendChild(pElement);
-    document.querySelector('.block-request .req p').textContent = output;
-
-}
