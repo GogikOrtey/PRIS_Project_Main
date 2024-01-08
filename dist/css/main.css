@@ -151,7 +151,7 @@ body {
   height: auto;
   margin: 20px;
   border-radius: 15px;
-  margin-top: 32px;
+  margin-top: 17px;
 }
 @media (min-width: 950px) {
   .main-body {
@@ -213,4 +213,58 @@ body {
   padding: 5px;
   padding-top: 9px;
   font-weight: bold;
+}
+.nav-button {
+  width: 100%;
+}
+@media (min-width: 950px) {
+  .nav-button {
+    width: 871px;
+  }
+}
+.nav-button {
+  height: 65px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+  margin-top: 15px;
+}
+.butt-info,
+.butt-all-pants {
+  font-style: italic;
+  width: 95%;
+  height: 80%;
+  border-radius: 10px;
+  background: #fff;
+}
+.butt-info p,
+.butt-all-pants p {
+  font-size: 17px;
+  text-align: center;
+  margin-top: 2px;
+}
+.butt-info:hover,
+.butt-all-pants:hover {
+  letter-spacing: 0.025em;
+}
+.butt-info:hover {
+  border: solid 4px #2078fc;
+}
+.butt-all-pants:hover {
+  font-weight: bold;
+  border: solid 4px #20f00d;
+}
+.butt-info {
+  justify-self: start;
+}
+.butt-all-pants {
+  justify-self: end;
+}
+.sss {
+  font-style: normal;
+  font-weight: none;
+  display: inline;
+  margin: 0px;
+  padding: 0px;
 }
