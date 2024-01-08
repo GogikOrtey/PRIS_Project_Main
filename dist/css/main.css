@@ -296,17 +296,14 @@ body {
   top: -10;
   left: 0;
 }
-#block-a .butt-answ {
-  background: #38ec0f;
+.good-button {
+  background: #00c900;
 }
-#block-a-1 .butt-answ {
-  background: #e9e51f;
+.gerat-button {
+  background: #e2e200;
 }
-#block-a-2 .butt-answ {
-  background: #ecbc0c;
-}
-#block-a-2-1 .butt-answ {
-  background: #e24916;
+.bad-batton {
+  background: #e70e0e;
 }
 .nav-button {
   width: 100%;

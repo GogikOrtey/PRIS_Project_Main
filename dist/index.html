@@ -13,7 +13,7 @@
     <!--script(src="js/mysql-test-bundle.js")-->
     <!--script(src="js/bundle.js")    -->
     <!--script(src="js/GetDBReq-Test.js")-->
-    <script src="js/plant-cards.js"></script>
+    <!--script(src="js/plant-cards.js")-->
     <script src="js/mainTerminal.js"></script>
     <!-- Побуквенное появление текста-->
     <header> 
@@ -50,10 +50,10 @@
         <p class="qu-answ">Вы будете выращивать растения дома, или на улице?</p>
         <p class="letter-abbr">a</p>
         <div class="butt-bar">
-          <div class="butt-answ answ-block-1">
+          <div class="butt-answ answ-block-1 good-button">
             <p>Дома</p>
           </div>
-          <div class="butt-answ answ-block-2">
+          <div class="butt-answ answ-block-2 gerat-button">
             <p>На улице</p>
           </div>
         </div>
@@ -62,11 +62,11 @@
         <p class="qu-answ">Какая наименьшая температура бывает в вашем регионе?</p>
         <p class="letter-abbr">a-1</p>
         <div class="butt-bar">
-          <div class="butt-answ answ-block-1 input-butt">
+          <div class="butt-answ answ-block-1 input-butt good-button">
             <p>Введите, в ℃</p>
-            <input class="my-input-1" type="text"/>
+            <input class="my-input-1" type="text" placeholder="от -20 до 35"/>
           </div>
-          <div class="butt-answ answ-block-2">
+          <div class="butt-answ answ-block-2 gerat-button">
             <p>Не имеет значения, так как я планирую выращивать растения летом</p>
           </div>
         </div>
@@ -76,9 +76,9 @@
         <p class="qu-answ">Какая средняя температура в вашем доме?</p>
         <p class="letter-abbr">a-2</p>
         <div class="butt-bar">
-          <div class="butt-answ answ-block-1" id="block-a-2-butt">
+          <div class="butt-answ answ-block-1 good-button" id="block-a-2-butt">
             <p>Введите, в ℃</p>
-            <input class="my-input-2" type="text" placeholder="25"/>
+            <input class="my-input-2" type="text" placeholder="от 15 до 30"/>
           </div>
         </div>
         <p class="err-inp-2">Нужно ввести число, от 15 до 30</p>
@@ -87,17 +87,17 @@
         <p class="qu-answ">Какая примерная влажность в вашем доме?</p>
         <p class="letter-abbr">a-2-1</p>
         <div class="butt-bar">
-          <div class="butt-answ answ-block-1-s input-butt">
+          <div class="butt-answ answ-block-1-s input-butt gerat-button">
             <p>Введите (от 20 до 90)</p>
             <input class="my-input-3" type="text"/>
           </div>
-          <div class="butt-answ answ-block-2-s">
+          <div class="butt-answ answ-block-2-s bad-batton">
             <p>Сухо</p>
           </div>
-          <div class="butt-answ answ-block-3-s">
+          <div class="butt-answ answ-block-3-s bad-batton">
             <p>Влажно</p>
           </div>
-          <div class="butt-answ answ-block-4-s">
+          <div class="butt-answ answ-block-4-s good-button">
             <p>Умеренная влажность</p>
           </div>
         </div>
@@ -107,10 +107,10 @@
         <p class="qu-answ">Вы хотите подобрать одно растение, или сразу несколько?</p>
         <p class="letter-abbr">b</p>
         <div class="butt-bar">
-          <div class="butt-answ answ-block-1">
+          <div class="butt-answ answ-block-1 gerat-button">
             <p>Одно</p>
           </div>
-          <div class="butt-answ answ-block-2">
+          <div class="butt-answ answ-block-2 good-button">
             <p>Несколько</p>
           </div>
         </div>
@@ -119,13 +119,13 @@
         <p class="qu-answ">Вы хотите, что бы это растение было с цветами, или без?</p>
         <p class="letter-abbr">c</p>
         <div class="butt-bar">
-          <div class="butt-answ answ-block-1">
+          <div class="butt-answ answ-block-1 bad-batton">
             <p>Без цветов</p>
           </div>
-          <div class="butt-answ answ-block-2">
+          <div class="butt-answ answ-block-2 gerat-button">
             <p>Не важно</p>
           </div>
-          <div class="butt-answ answ-block-3">
+          <div class="butt-answ answ-block-3 good-button">
             <p>С цветами</p>
           </div>
         </div>
@@ -147,7 +147,7 @@
             <div class="color-s" id="multicolor"></div>
           </div>
         </div>
-        <p class="hhid">Подсказка: Не забывайте выбирать зелёный цвет!)</p>
+        <p class="hhid">Подсказка: Чем больше цветов вы выберете, тем больше будет результатов</p>
         <!--.butt-bar
         .butt-answ.answ-block-1
           p Выбор цветов [...]
@@ -158,13 +158,13 @@
         <p class="qu-answ">Вы хотите, что бы это растение было плодоносным?</p>
         <p class="letter-abbr">d</p>
         <div class="butt-bar">
-          <div class="butt-answ answ-block-1">
+          <div class="butt-answ answ-block-1 good-button">
             <p>Да</p>
           </div>
-          <div class="butt-answ answ-block-2">
+          <div class="butt-answ answ-block-2 gerat-button">
             <p>Не важно</p>
           </div>
-          <div class="butt-answ answ-block-3">
+          <div class="butt-answ answ-block-3 bad-batton">
             <p>Нет</p>
           </div>
         </div>
@@ -173,10 +173,10 @@
         <p class="qu-answ">Вы будете ставить растения на окне?</p>
         <p class="letter-abbr">e</p>
         <div class="butt-bar">
-          <div class="butt-answ answ-block-1">
+          <div class="butt-answ answ-block-1 good-button">
             <p>Да</p>
           </div>
-          <div class="butt-answ answ-block-2">
+          <div class="butt-answ answ-block-2 gerat-button">
             <p>Нет</p>
           </div>
         </div>
@@ -185,13 +185,13 @@
         <p class="qu-answ">На ваше окно падает прямой солнечный свет?</p>
         <p class="letter-abbr">e-1</p>
         <div class="butt-bar">
-          <div class="butt-answ answ-block-1">
+          <div class="butt-answ answ-block-1 good-button">
             <p>Да</p>
           </div>
-          <div class="butt-answ answ-block-2">
+          <div class="butt-answ answ-block-2 gerat-button">
             <p>Иногда</p>
           </div>
-          <div class="butt-answ answ-block-3">
+          <div class="butt-answ answ-block-3 bad-batton">
             <p>Очень редко</p>
           </div>
         </div>
@@ -200,13 +200,13 @@
         <p class="qu-answ">Для вас важно, что бы растение вырабатывало кислород?</p>
         <p class="letter-abbr">f</p>
         <div class="butt-bar">
-          <div class="butt-answ answ-block-1">
+          <div class="butt-answ answ-block-1 good-button">
             <p>Да, важно</p>
           </div>
-          <div class="butt-answ answ-block-2">
+          <div class="butt-answ answ-block-2 gerat-button">
             <p>Было бы неплохо, но это не очень важно</p>
           </div>
-          <div class="butt-answ answ-block-3">
+          <div class="butt-answ answ-block-3 bad-batton">
             <p>Мне без разницы на это</p>
           </div>
         </div>
@@ -215,13 +215,13 @@
         <p class="qu-answ">Как много пространства под растения, в вашем доме?</p>
         <p class="letter-abbr">g</p>
         <div class="butt-bar">
-          <div class="butt-answ answ-block-1">
+          <div class="butt-answ answ-block-1 bad-batton">
             <p>Очень мало</p>
           </div>
-          <div class="butt-answ answ-block-2">
+          <div class="butt-answ answ-block-2 gerat-button">
             <p>Средне</p>
           </div>
-          <div class="butt-answ answ-block-3">
+          <div class="butt-answ answ-block-3 good-button">
             <p>Достаточно много</p>
           </div>
         </div>
@@ -231,13 +231,13 @@
         <div class="add-info"> <span>i</span></div>
         <p class="letter-abbr">h</p>
         <div class="butt-bar">
-          <div class="butt-answ answ-block-1">
+          <div class="butt-answ answ-block-1 bad-batton">
             <p>Ненадолго (на 3-5 дней)</p>
           </div>
-          <div class="butt-answ answ-block-2">
+          <div class="butt-answ answ-block-2 gerat-button">
             <p>На 1-2 недели</p>
           </div>
-          <div class="butt-answ answ-block-3">
+          <div class="butt-answ answ-block-3 good-button">
             <p>До месяца</p>
           </div>
         </div>

@@ -98,7 +98,30 @@ h_NoControl = 0
 // 2 - На 1-2 недели
 // 3 - До месяца
 
-// Ждём, пока DOM-модель полностью загрузится
+// ------------------------------------------------------------------- //
+// 	                   Как работает этот скрипт:	                   //                                              
+// ------------------------------------------------------------------- // 
+
+/*
+
+*/
+
+/*
+    По названиям:
+
+    "Блок" - это элемент, с классом ".block-qu"
+    У всех у них есть свой уникальный маркер - это буква (например, a, b, c или a-1, ...)
+
+    Переходы между блоками (какой появляется после какого), можно посмотреть в диаграмме
+    Она должна лежать где-то недалеко от всех фалов этого проекта
+
+
+*/
+
+// ------------------------------------------------------------------- //
+// 	            Ждём, пока DOM-модель полностью загрузится:	           //                                              
+// ------------------------------------------------------------------- // 
+
 document.addEventListener('DOMContentLoaded', function() { 
     UpdateDevelomMode();
 
@@ -109,6 +132,7 @@ document.addEventListener('DOMContentLoaded', function() {
       element.style.display = 'none';
     });
 
+    // Также скрывает все особые блоки и кнопки, в начале
     document.getElementsByClassName('butt-final')[0].style.display = 'none';
     document.getElementsByClassName('block-request')[0].style.display = 'none';
     document.querySelector('.butt-final-2').style.display = 'none';
@@ -118,7 +142,10 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('.result-cards').style.display = 'none';
     document.querySelector('.zero-reauest').style.display = 'none';
 
-    // Для кнопки старта прописываем событие по нажатию
+    // ------------------------------------------------------------------- //
+    // 	             Обработчик событий для кнопки старта:	               //                                              
+    // ------------------------------------------------------------------- // 
+
     document.querySelector('.butt-start').addEventListener('click', function() {
         // По нажатию кнопки Старт, скрываем один блок, и показываем другой:
 
@@ -128,45 +155,56 @@ document.addEventListener('DOMContentLoaded', function() {
         isStart = true;
     });
 
-    document.querySelector('.butt-final').addEventListener('click', function() {
+    // ------------------------------------------------------------------- //
+    // 	            Обрабатываю нажатие на финальную кнопку:	           //                                              
+    // ------------------------------------------------------------------- // 
 
-        if(_mainCounter == 10) {
-            _mainCounter = -1;
-            if(isDevelopModActive === true) {
-                document.getElementsByClassName('block-request')[0].style.display = 'grid';
-            }
-            
-            document.getElementsByClassName('butt-final')[0].style.display = 'none';
-            //document.querySelector('.butt-final-2').style.display = 'flex';
-            document.querySelector('.loadd').style.display = 'grid';
-            document.querySelector('.loadd').scrollIntoView({behavior: "smooth"});
+    FinalButtonProc();
+    
+    // ------------------------------------------------------------------- //
+    // 	                Случайный цвет для кнопок ответа:	               //
+    // ------------------------------------------------------------------- // 
 
-            //debugPrint_2();
+    // Новая реализация: Случайный цвет (зелёный/жёлтый/красный),
+    // в зависимости от класса кнопки:
 
-            //let SQL_Rq = CreateSQLequest();
-            //document.querySelector('.block-request .req p').textContent = SQL_Rq;
+    var buttons = document.querySelectorAll('.good-button, .gerat-button, .bad-batton');
 
-            let SQL_Rq = CreateSQLequest();
-            document.querySelector('.block-request .req p').textContent = SQL_Rq;
-
-            SQL_RQ_FromSwever(SQL_Rq);
-            //document.querySelector('.block-request .answ p').textContent = BD_Answer;            
-
-            elements.forEach(element => {
-                element.style.display = 'none';
-            });
-
-            console.log("Final*");
-        }
-    });
-
-    var buttons = document.querySelectorAll('.butt-answ');
-
-    // Применяем случайный цвет фона к каждой кнопке - от красного до зелёного
-    for (var i = 0; i < buttons.length; i++) {
-        var hue = Math.floor(Math.random() * 81) + 20;
-        buttons[i].style.backgroundColor = 'hsl(' + hue + ', 100%, 50%)';
+    function getRandomColor(minHue, maxHue) {
+        var hue = Math.floor(Math.random() * (maxHue - minHue + 1)) + minHue;
+        return 'hsl(' + hue + ', 100%, 50%)';
     }
+
+    buttons.forEach(function(button) {
+        var color;
+
+        // Устанавливаю случайные цвета для кнопок ответов, в зависимости от их классов:
+        if (button.classList.contains('good-button')) {
+            color = getRandomColor(120, 60);    // От зелёного до жёлтого
+        } else if (button.classList.contains('gerat-button')) {
+            color = getRandomColor(60, 30);     // От жёлтого до ораньжевого
+        } else if (button.classList.contains('bad-batton')) {
+            color = getRandomColor(30, 0);      // От ораньжевого до красного
+        }
+        button.style.backgroundColor = color;
+    });
+    
+    // Старая реализация (случайный цвет от зелёного до красного, для всех кнопок):
+
+    // var buttons = document.querySelectorAll('.butt-answ');
+    // function getRandomColor(minHue, maxHue) {
+    //     var hue = Math.floor(Math.random() * (maxHue - minHue + 1)) + minHue;
+    //     return 'hsl(' + hue + ', 100%, 50%)';
+    // }    
+    // // Применяем случайный цвет фона к каждой кнопке - от красного до зелёного
+    // for (var i = 0; i < buttons.length; i++) {
+    //     var hue = Math.floor(Math.random() * 81) + 20;
+    //     buttons[i].style.backgroundColor = 'hsl(' + hue + ', 100%, 50%)';
+    // }
+
+    // ------------------------------------------------------------------- //
+    // 	      Добавляю событие: При нажатии на любую кнопку ответа         //
+    // ------------------------------------------------------------------- // 
 
     // Добавляю событие: При нажатии на любую кнопку
     document.querySelectorAll('.butt-answ').forEach(button => {
@@ -187,20 +225,374 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    //document.querySelector('#block-a-1').style.display = 'block';
-
-    //let currentLetterButtonDown = "";
+    // ------------------------------------------------------------------- //
+    // 	  Обработчик событий для всех кнопок ответов, во всех формах:      //
+    // ------------------------------------------------------------------- // 
 
     SetButtonSelection();
 
-    // var block = document.getElementById('block-a');
-    // var buttons = block.querySelectorAll('.answ-block-1, .answ-block-2');
+    // ------------------------------------------------------------------- //
+    // 	        Обработчик событий для кнопки "Пройти ещё раз"             //
+    // ------------------------------------------------------------------- // 
 
-    document.querySelector('.butt-final-2').addEventListener('click', function() {
-        location.reload();
-    });    
+    // Перезагружаю страницу, если нажата кнопка "Пройти ещё раз"
+    ReloadPageButtonProc();
 });
 
+// Здесь я прописываю обработчики событий, для всех кнопок ответов, во всех формах
+// Тут я устанавливаю для переменных нужные значения. Эти переменные объявлены в самом начале этого скрипта
+// Далее, по значениям этих переменных, я собираю SQL-запрос
+
+function SetButtonSelection() {
+
+    SetColorAction();
+
+    // a
+    document.querySelector('#block-a .answ-block-1').addEventListener('click', function() {
+        a_InHome = 1
+        document.getElementById('block-b').style.display = 'none';
+        removeActiveClass('block-b');
+        b_OncePlant = 0;
+        isTempCorrect = false;
+        ZeroingAllVar();
+    });    
+    document.querySelector('#block-a .answ-block-2').addEventListener('click', function() {
+        a_InHome = 2
+        document.getElementById('block-b').style.display = 'none';
+        removeActiveClass('block-b');
+        b_OncePlant = 0;
+        document.querySelector('.err-inp-2').style.display = 'none';
+        document.querySelector('.my-input-2').value = '';
+        isTempCorrect = false;
+        ZeroingAllVar();
+    });
+
+    // a-2
+    document.querySelector('#block-a-2 .answ-block-1').addEventListener('click', function() {
+        a_1_MinTempInHome = 1
+        document.querySelector('.err-inp-3').style.display = 'none';
+        document.querySelector('.my-input-3').value = '';
+        isHumCorrect = false;
+    });
+    document.querySelector('.my-input-2').addEventListener('input', function(e) {
+        // Если значение поля ввода изменилось:
+        isTempCorrect = false;
+        CheckCorrectInput2();
+
+        document.querySelector('.err-inp-3').style.display = 'none';
+        document.querySelector('.my-input-3').value = '';
+        isHumCorrect = false;
+    });
+
+    // a-1
+    document.querySelector('#block-a-1 .answ-block-1').addEventListener('click', function() {
+        a_2_AVGTempInRegion = 1
+        isTempCorrect = false;
+        CheckCorrectInput1();
+    });    
+    document.querySelector('.my-input-1').addEventListener('input', function(e) {
+        // Если значение поля ввода изменилось:
+        CheckCorrectInput1();
+    });
+    document.querySelector('#block-a-1 .answ-block-2').addEventListener('click', function() {
+        a_2_AVGTempInRegion = 2
+        isTempCorrect = true
+        document.querySelector('.err-inp-1').style.display = 'none';
+        document.querySelector('.my-input-1').value = '';
+    });    
+
+    // a-2-1
+    document.querySelector('#block-a-2-1 .answ-block-1-s').addEventListener('click', function() {
+        a_2_1_AVGHum = 1
+        isHumCorrect = false
+        CheckCorrectInput3();
+    });    
+    document.querySelector('.my-input-3').addEventListener('input', function(e) {
+        // Если значение поля ввода изменилось:
+        CheckCorrectInput3();
+    });
+    document.querySelector('#block-a-2-1 .answ-block-2-s').addEventListener('click', function() {
+        a_2_1_AVGHum = 2
+        isHumCorrect = true
+        document.querySelector('.err-inp-3').style.display = 'none';
+        document.querySelector('.my-input-3').value = '';
+    });    
+    document.querySelector('#block-a-2-1 .answ-block-3-s').addEventListener('click', function() {
+        a_2_1_AVGHum = 3
+        isHumCorrect = true
+        document.querySelector('.err-inp-3').style.display = 'none';
+        document.querySelector('.my-input-3').value = '';
+    });    
+    document.querySelector('#block-a-2-1 .answ-block-4-s').addEventListener('click', function() {
+        a_2_1_AVGHum = 4
+        isHumCorrect = true
+        document.querySelector('.err-inp-3').style.display = 'none';
+        document.querySelector('.my-input-3').value = '';
+    });    
+
+    // b
+    document.querySelector('#block-b .answ-block-1').addEventListener('click', function() {
+        b_OncePlant = 1
+    });    
+    document.querySelector('#block-b .answ-block-2').addEventListener('click', function() {
+        b_OncePlant = 2
+    });
+
+    // c
+    document.querySelector('#block-c .answ-block-1').addEventListener('click', function() {
+        c_AFlowers = 1
+        ColorZeroing() 
+    });    
+    document.querySelector('#block-c .answ-block-2').addEventListener('click', function() {
+        c_AFlowers = 2
+        ColorZeroing() 
+    });
+    document.querySelector('#block-c .answ-block-3').addEventListener('click', function() {
+        c_AFlowers = 3
+    });
+
+    // c-3 - обработчик выбора цветов - прописан отдельно (выше этой функции)
+
+    // d
+    document.querySelector('#block-d .answ-block-1').addEventListener('click', function() {
+        d_IsPlod = 1
+    });    
+    document.querySelector('#block-d .answ-block-2').addEventListener('click', function() {
+        d_IsPlod = 2
+    });
+    document.querySelector('#block-d .answ-block-3').addEventListener('click', function() {
+        d_IsPlod = 3
+    });
+
+    // e
+    document.querySelector('#block-e .answ-block-1').addEventListener('click', function() {
+        e_StandOnWindow = 1
+    });    
+    document.querySelector('#block-e .answ-block-2').addEventListener('click', function() {
+        e_StandOnWindow = 2
+    });
+
+    // e-1
+    document.querySelector('#block-e-1 .answ-block-1').addEventListener('click', function() {
+        e_1_ASunLight = 1
+    });    
+    document.querySelector('#block-e-1 .answ-block-2').addEventListener('click', function() {
+        e_1_ASunLight = 2
+    });
+    document.querySelector('#block-e-1 .answ-block-3').addEventListener('click', function() {
+        e_1_ASunLight = 3
+    });
+
+    // f
+    document.querySelector('#block-f .answ-block-1').addEventListener('click', function() {
+        f_GenerateAOxugen = 1
+    });    
+    document.querySelector('#block-f .answ-block-2').addEventListener('click', function() {
+        f_GenerateAOxugen = 2
+    });
+    document.querySelector('#block-f .answ-block-3').addEventListener('click', function() {
+        f_GenerateAOxugen = 3
+    });
+
+    // g
+    document.querySelector('#block-g .answ-block-1').addEventListener('click', function() {
+        g_AFreeProstr = 1
+    });    
+    document.querySelector('#block-g .answ-block-2').addEventListener('click', function() {
+        g_AFreeProstr = 2
+    });
+    document.querySelector('#block-g .answ-block-3').addEventListener('click', function() {
+        g_AFreeProstr = 3
+    });
+
+    // h
+    document.querySelector('#block-h .answ-block-1').addEventListener('click', function() {
+        h_NoControl = 1
+    });    
+    document.querySelector('#block-h .answ-block-2').addEventListener('click', function() {
+        h_NoControl = 2
+    });
+    document.querySelector('#block-h .answ-block-3').addEventListener('click', function() {
+        h_NoControl = 3
+    });
+}
+
+// ------------------------------------------------------------------- //
+// 	     Все процедуры, которые использует SetButtonSelection():       //
+// ------------------------------------------------------------------- // 
+
+// ------------------------------------------ //
+// 	        Проверка input-элементов:         //
+// ------------------------------------------ // 
+
+// Проверка правильности ввода, в input-элементах (всех 3х)
+
+function CheckCorrectInput1() {
+    document.querySelector('.my-input-1').addEventListener('input', function(e) {
+        var value = e.target.value;
+        var errorElement = document.querySelector('.err-inp-1');
+        
+        if (value == "" || isNaN(value) || value < -20 || value > 35) {
+            // Проверка на попадание числа в нужные границы
+            errorElement.style.display = 'block'; 
+            // Если ввод пользователя выходит за границы - мы показываем красный текст ошибки
+            isTempCorrect = false;
+            a_2_input_AVGTempInRegion = 0;
+            a_2_AVGTempInRegion = 0;
+        } else {
+            errorElement.style.display = 'none';
+            isTempCorrect = true;
+            a_2_input_AVGTempInRegion = parseInt(value);
+            a_2_AVGTempInRegion = 1;
+        }
+
+        CheckAllBlocks();
+    });
+}
+
+function CheckCorrectInput2() {
+    document.querySelector('.my-input-2').addEventListener('input', function(e) {
+        var value = e.target.value;
+        var errorElement = document.querySelector('.err-inp-2');
+        
+        if (value == "" || isNaN(value) || value < 15 || value > 30) {
+            errorElement.style.display = 'block';
+            isTempCorrect = false;
+            a_1_input_MinTempInHome = 0;
+            a_1_MinTempInHome = 0
+        } else {
+            errorElement.style.display = 'none';
+            isTempCorrect = true;
+            a_1_input_MinTempInHome = parseInt(value);
+            a_1_MinTempInHome = 1
+        }
+
+        CheckAllBlocks();
+    });
+}
+
+function CheckCorrectInput3() {
+    document.querySelector('.my-input-3').addEventListener('input', function(e) {
+        var value = e.target.value;
+        var errorElement = document.querySelector('.err-inp-3');
+        
+        if (value == "" || isNaN(value) || value < 10 || value > 90) {
+            errorElement.style.display = 'block';
+            isHumCorrect = false;
+            a_2_1_input_AVGHum = 0;
+            a_2_1_AVGHum = 0
+        } else {
+            errorElement.style.display = 'none';
+            isHumCorrect = true;
+            a_2_1_input_AVGHum = parseInt(value);
+            a_2_1_AVGHum = 1
+        }
+
+        CheckAllBlocks();
+    });
+}
+
+// ------------------------------------------ //
+// 	         Обработка ввода цветов:          //
+// ------------------------------------------ // 
+
+// Массив всех значений цветов (выбраны, или нет)
+// Используется только в том случае, если пользователь выбрал блок c-3
+let colors = {
+    green: false,
+    red: false,
+    orange: false,
+    yellow: false,
+    lightBlue: false,
+    blue: false,
+    violet: false,
+    pink: false,
+    silver: false,
+    multicolor: false
+};
+
+function SetColorAction() {
+    // Получение всех кнопок цветов
+    let buttons = document.querySelectorAll('.butt-bar-colors .color-s');
+    
+    // Добавление обработчика событий для каждой кнопки
+    buttons.forEach(button => {
+      button.addEventListener('click', function() {
+          // Получение id кнопки (цвета)
+          let color = this.id;
+
+          console.log("Нажата кнопка цвета: " + color);
+    
+          // Изменение значения булевой переменной на противоположное
+          colors[color] = !colors[color];
+    
+          // Изменение стиля элемента в зависимости от значения булевой переменной
+          if (colors[color]) {
+            this.classList.add('active-2');
+          } else {
+            this.classList.remove('active-2');
+          }
+
+          isColorCucsSelected = CheckCorrectColors();
+          //console.log("isColorCucsSelected = " + isColorCucsSelected + " _");
+
+          CheckAllBlocks();
+      });
+    });  
+}
+
+// Сброс всех цветов, и выделения кнопок цветов
+// Используется, при надатии любой кнопки в блоке c
+function ColorZeroing() {
+    for (let color in colors) {
+        colors[color] = false;
+    }
+
+    // Получение всех элементов .color-s внутри .color-other
+    let colorButtons = document.querySelectorAll('.color-other .color-s');
+
+    // Обход всех кнопок цветов
+    colorButtons.forEach(button => {
+      // Удаление стиля active-2
+      button.classList.remove('active-2');
+    });
+}
+
+// Проверка, выбрал ли пользователь хотя бы один цвет
+// Используется только в том случае, если пользователь выбрал блок c-3
+function CheckCorrectColors() {
+    // Создание переменной
+    let isAnyColorActive = false;
+
+    // Проверка, есть ли хотя бы один цвет, который равен true
+    for (let color in colors) {
+      if (colors[color]) {
+        isAnyColorActive = true;
+        break;
+      }
+    }
+
+    return isAnyColorActive;
+}
+
+// ------------------------------------------ //
+// 	        Все основные переменные:          //
+// ------------------------------------------ // 
+
+let isDevelopModActive = false;     // Включён ли режим разработчика?
+
+let _mainCounter = 0;               // Счётчик состояний
+
+let isStart = false;                // Ползователь начал выбирать ответы?
+let isTempCorrect = false;          // Значение температуры в поле ввода корректно? (и для дома, и для улицы)
+let isHumCorrect = false;           // Значение влажности в поле ввода корректно?
+let isColorCucsSelected = false;    // Хотя бы один цвет выбран? (если показан блок выбора цветов c-3)
+
+// ------------------------------------------------------------------- //
+// 	       Все процедуры, которые использует CheckAllBlocks():         //
+// ------------------------------------------------------------------- // 
+
+// Процедура обновления блоков, для активации элементов разработчика
 function UpdateDevelomMode() {
     let elements = Array.from(document.getElementsByClassName('letter-abbr'));
 
@@ -215,23 +607,18 @@ function UpdateDevelomMode() {
     }
 }
 
-let isDevelopModActive = true;
-
-let _mainCounter = 0;               // Счётчик состояний
-
-let isStart = false;
-let isTempCorrect = false;
-let isHumCorrect = false;
-let isColorCucsSelected = false;
-
-let isRevertQuwerty = 0;
-let RQ_2 = 0;
-
-
 // Скрывает указанный блок
 function HideBlock(nameBlock) {
     document.getElementById(nameBlock).style.display = 'none'; // Скрываю весь блок со страницы
-    removeActiveClass(nameBlock); // Убираю выделение у последней нажатой кнопки в этом блоке
+    removeActiveClass(nameBlock); // Убираю выделение у всех нажатых кнопок в этом блоке
+}
+
+// Убираю выделение у всех нажатых кнопок в этом блоке
+function removeActiveClass(parentId) {
+    let elements = document.getElementById(parentId).querySelectorAll('.butt-answ');
+    for(let i=0; i<elements.length; i++){
+        elements[i].classList.remove('active');
+    }
 }
 
 // Показывает указанный блок
@@ -242,17 +629,28 @@ function ShowBlock(nameBlock) {
     block.scrollIntoView({behavior: "smooth"});
 }
 
-// Перераспределение блоков
+// Служебные переменные
+let isRevertQuwerty = 0;
+let RQ_2 = 0;
+
+// ------------------------------------------------------------------- //
+// 	          Основная процедура: Перераспределение блоков             //
+// ------------------------------------------------------------------- // 
+
 // Процедура вызывается после нажатия на кнопку в любом блоке
+// Эта процедура скрывает или показывает нужные блоки
+
+// Если пользователь нажал ответ в одном блоке, показывается следующий за ним,
+// при этом, все блоки, которые ниже него - скрываются, их переменные обнуляются, а выделение кнопочек - сбрасывается.
+// Это чем-то похоже на рекурсивную обработку. Если _mainCounter < значения конкретного блока, 
+// то обнуляется этот блок, и все блоки которые идут ниже него
 function CheckAllBlocks() {
 
     if(isStart == true) {
         _mainCounter = 1;
     }
 
-    console.log("Update all blocks")    
-
-    
+    console.log("Update all blocks");    
 
     if(_mainCounter >= 1) {
         if(a_InHome == 1) {
@@ -331,19 +729,12 @@ function CheckAllBlocks() {
         c_AFlowers = 0;
     }
 
-
     if(_mainCounter >= 5) {
         if(c_AFlowers == 3) {
-            ShowBlock('block-c-3');
-            //let block = document.getElementById('block-c-3');
-            //block.style.display = 'grid';   
+            ShowBlock('block-c-3');  
             window.scrollTo(0, document.body.scrollHeight);
-
-            //isColorCucsSelected = false
-            //_mainCounter = 6;
         } else {
             HideBlock('block-c-3');
-            //_mainCounter = 6;
             isColorCucsSelected = false
 
             ColorZeroing();
@@ -352,7 +743,6 @@ function CheckAllBlocks() {
         HideBlock('block-c-3');
         isColorCucsSelected = false
     }
-
 
     if(_mainCounter >= 6) {
         if(c_AFlowers == 1 || c_AFlowers == 2 || isColorCucsSelected == true) {
@@ -408,8 +798,7 @@ function CheckAllBlocks() {
         g_AFreeProstr = 0;
 
         //_mainCounter = 8;
-    }
-    
+    }    
 
     if(_mainCounter >= 8 || (_mainCounter >= 7 && a_InHome == 2)) {
         // Либо прошли все блоки по дому, либо мы выбрали улицу
@@ -443,397 +832,54 @@ function CheckAllBlocks() {
     //console.log("Main-counter = " + _mainCounter);
 }
 
-function removeActiveClass(parentId) {
-    let elements = document.getElementById(parentId).querySelectorAll('.butt-answ');
-    for(let i=0; i<elements.length; i++){
-        elements[i].classList.remove('active');
-    }
-}
+// ------------------------------------------------------------------- //
+// 	             Нажатие на кнопку "Подобрать растения"                //
+// ------------------------------------------------------------------- // 
 
+// Обработка нажатий на финальную кнопку 
+// [Эта процедура вызывается после загрузки всей DOM-модели страницы, в самом верху этого скрипта]
+function FinalButtonProc() {
+    document.querySelector('.butt-final').addEventListener('click', function() {
+        _mainCounter = -1;      // Обнуляем счётчик блоков
 
+        let elements = Array.from(document.getElementsByClassName('block-qu'));
 
-function CheckCorrectInput1() {
-    document.querySelector('.my-input-1').addEventListener('input', function(e) {
-        var value = e.target.value;
-        var errorElement = document.querySelector('.err-inp-1');
-        
-        if (value == "" || isNaN(value) || value < -20 || value > 35) {
-            errorElement.style.display = 'block';
-            isTempCorrect = false;
-            a_2_input_AVGTempInRegion = 0;
-            a_2_AVGTempInRegion = 0;
-        } else {
-            errorElement.style.display = 'none';
-            isTempCorrect = true;
-            a_2_input_AVGTempInRegion = parseInt(value);
-            a_2_AVGTempInRegion = 1;
-        }
-
-        CheckAllBlocks();
-    });
-}
-
-function CheckCorrectInput2() {
-    document.querySelector('.my-input-2').addEventListener('input', function(e) {
-        var value = e.target.value;
-        var errorElement = document.querySelector('.err-inp-2');
-        
-        if (value == "" || isNaN(value) || value < 15 || value > 30) {
-            errorElement.style.display = 'block';
-            isTempCorrect = false;
-            a_1_input_MinTempInHome = 0;
-            a_1_MinTempInHome = 0
-        } else {
-            errorElement.style.display = 'none';
-            isTempCorrect = true;
-            a_1_input_MinTempInHome = parseInt(value);
-            a_1_MinTempInHome = 1
-        }
-
-        CheckAllBlocks();
-    });
-}
-
-function CheckCorrectInput3() {
-    document.querySelector('.my-input-3').addEventListener('input', function(e) {
-        var value = e.target.value;
-        var errorElement = document.querySelector('.err-inp-3');
-        
-        if (value == "" || isNaN(value) || value < 10 || value > 90) {
-            errorElement.style.display = 'block';
-            isHumCorrect = false;
-            a_2_1_input_AVGHum = 0;
-            a_2_1_AVGHum = 0
-        } else {
-            errorElement.style.display = 'none';
-            isHumCorrect = true;
-            a_2_1_input_AVGHum = parseInt(value);
-            a_2_1_AVGHum = 1
-        }
-
-        CheckAllBlocks();
-    });
-}
-
-//let isTempCorrect = false;
-//let isHumCorrect = false;
-
-
-
-
-
-let colors = {
-    green: false,
-    red: false,
-    orange: false,
-    yellow: false,
-    lightBlue: false,
-    blue: false,
-    violet: false,
-    pink: false,
-    silver: false,
-    multicolor: false
-};
-
-
-function SetColorAction() {
-    // Создание объекта для хранения булевых переменных
-
-      
-      // Получение всех кнопок цветов
-      let buttons = document.querySelectorAll('.butt-bar-colors .color-s');
-      
-      // Добавление обработчика событий для каждой кнопки
-      buttons.forEach(button => {
-        button.addEventListener('click', function() {
-            // Получение id кнопки (цвета)
-            let color = this.id;
-
-            console.log("Нажата кнопка цвета: " + color);
-      
-            // Изменение значения булевой переменной на противоположное
-            colors[color] = !colors[color];
-      
-            // Изменение стиля элемента в зависимости от значения булевой переменной
-            if (colors[color]) {
-              this.classList.add('active-2');
-            } else {
-              this.classList.remove('active-2');
-            }
-
-            isColorCucsSelected = CheckCorrectColors();
-            //console.log("isColorCucsSelected = " + isColorCucsSelected + " _");
-
-            CheckAllBlocks();
+        // Скрываю все блоки
+        elements.forEach(element => { 
+            element.style.display = 'none';
         });
-    });  
-}
 
-function ColorZeroing() {
-    for (let color in colors) {
-        colors[color] = false;
-    }
-
-    //console.log("Сбрасываем все кнопки цвета");
-
-    // Получение всех элементов .color-s внутри .color-other
-    let colorButtons = document.querySelectorAll('.color-other .color-s');
-
-    // Обход всех кнопок цветов
-    colorButtons.forEach(button => {
-      // Удаление стиля active-2
-      button.classList.remove('active-2');
-    });
-}
-
-function CheckCorrectColors() {
-    // Создание переменной
-    let isAnyColorActive = false;
-
-    // Проверка, есть ли хотя бы один цвет, который равен true
-    for (let color in colors) {
-      if (colors[color]) {
-        isAnyColorActive = true;
-        break;
-      }
-    }
-
-    return isAnyColorActive;
-}
-
-// ------------> Вот тут надо добавить обработчик выбранных цветов
-
-
-
-
-
-
-
-function SetButtonSelection() {
-
-    SetColorAction();
-
-    document.querySelector('#block-a .answ-block-1').addEventListener('click', function() {
-        a_InHome = 1
-        //currentLetterButtonDown = "a";
-
-        document.getElementById('block-b').style.display = 'none';
-        removeActiveClass('block-b');
-        b_OncePlant = 0;
-        isTempCorrect = false;
-        ZeroingAllVar();
-    });    
-    document.querySelector('#block-a .answ-block-2').addEventListener('click', function() {
-        a_InHome = 2
-        //currentLetterButtonDown = "a";
-
-        document.getElementById('block-b').style.display = 'none';
-        removeActiveClass('block-b');
-        b_OncePlant = 0;
-        document.querySelector('.err-inp-2').style.display = 'none';
-        document.querySelector('.my-input-2').value = '';
-        isTempCorrect = false;
-        ZeroingAllVar();
-    });
-
-    document.querySelector('#block-a-2 .answ-block-1').addEventListener('click', function() {
-        //a_InHome = 1
-        a_1_MinTempInHome = 1
-        // Ввод из поля ввода
-        //a_1_input_MinTempInHome = ...
-        // Если корректно - то isTempCorrect = true
+        // Если режим разработчика включён
+        if(isDevelopModActive === true) {
+            // Показываем блок с окошечками запроса и ответа от БД:
+            document.getElementsByClassName('block-request')[0].style.display = 'grid';
+        }
         
-        //isTempCorrect = true
-        //currentLetterButtonDown = "a-2";
-        document.querySelector('.err-inp-3').style.display = 'none';
-        document.querySelector('.my-input-3').value = '';
-        isHumCorrect = false;
-    });
-    document.querySelector('.my-input-2').addEventListener('input', function(e) {
-        //console.log('Значение поля ввода изменилось: ', e.target.value);
-        isTempCorrect = false;
-        CheckCorrectInput2();
+        // Показываем блок с гифкой загрузки (пока нам не придёт ответ от БД)
+        document.getElementsByClassName('butt-final')[0].style.display = 'none';
+        document.querySelector('.loadd').style.display = 'grid';
+        document.querySelector('.loadd').scrollIntoView({behavior: "smooth"});
 
-        document.querySelector('.err-inp-3').style.display = 'none';
-        document.querySelector('.my-input-3').value = '';
-        isHumCorrect = false;
-    });
+        // Выводим значения всех полученных переменных, в консоль:
+        // debugPrint_2();
 
-    document.querySelector('#block-a-1 .answ-block-1').addEventListener('click', function() {
-        a_2_AVGTempInRegion = 1
-        // Ввод из поля ввода
-        //a_2_input_AVGTempInRegion = ...
-        // Если корректно - то isTempCorrect = true
-        isTempCorrect = false;
-        CheckCorrectInput1();
-        //currentLetterButtonDown = "a-1";
-    });    
-    document.querySelector('.my-input-1').addEventListener('input', function(e) {
-        //console.log('Значение поля ввода изменилось: ', e.target.value);
-        CheckCorrectInput1();
-    });
-    document.querySelector('#block-a-1 .answ-block-2').addEventListener('click', function() {
-        a_2_AVGTempInRegion = 2
-        isTempCorrect = true
-        //currentLetterButtonDown = "a-1";
-        document.querySelector('.err-inp-1').style.display = 'none';
-        document.querySelector('.my-input-1').value = '';
-    });    
+        // Собираем SQL-запрос
+        let SQL_Rq = CreateSQLequest();
+        document.querySelector('.block-request .req p').textContent = SQL_Rq;
 
-    document.querySelector('#block-a-2-1 .answ-block-1-s').addEventListener('click', function() {
-        a_2_1_AVGHum = 1
-        // Ввод из поля ввода
-        //a_2_1_input_AVGHum = ...
-        isHumCorrect = false
-        //currentLetterButtonDown = "a-2-1";
-        CheckCorrectInput3();
-    });    
-    document.querySelector('.my-input-3').addEventListener('input', function(e) {
-        //console.log('Значение поля ввода изменилось: ', e.target.value);
-        CheckCorrectInput3();
-    });
-    document.querySelector('#block-a-2-1 .answ-block-2-s').addEventListener('click', function() {
-        a_2_1_AVGHum = 2
-        isHumCorrect = true
-        document.querySelector('.err-inp-3').style.display = 'none';
-        document.querySelector('.my-input-3').value = '';
-        //currentLetterButtonDown = "a-2-1";
-    });    
-    document.querySelector('#block-a-2-1 .answ-block-3-s').addEventListener('click', function() {
-        a_2_1_AVGHum = 3
-        isHumCorrect = true
-        document.querySelector('.err-inp-3').style.display = 'none';
-        document.querySelector('.my-input-3').value = '';
-        //currentLetterButtonDown = "a-2-1";
-    });    
-    document.querySelector('#block-a-2-1 .answ-block-4-s').addEventListener('click', function() {
-        a_2_1_AVGHum = 4
-        isHumCorrect = true
-        document.querySelector('.err-inp-3').style.display = 'none';
-        document.querySelector('.my-input-3').value = '';
-        //currentLetterButtonDown = "a-2-1";
-    });    
+        // Отправляем этот SQL-запрос на сервер
+        SQL_RQ_FromSwever(SQL_Rq);  
 
-    document.querySelector('#block-b .answ-block-1').addEventListener('click', function() {
-        b_OncePlant = 1
-        //currentLetterButtonDown = "b";
-    });    
-    document.querySelector('#block-b .answ-block-2').addEventListener('click', function() {
-        b_OncePlant = 2
-        //currentLetterButtonDown = "b";
+        //console.log("Final*");
     });
+}    
 
-    document.querySelector('#block-c .answ-block-1').addEventListener('click', function() {
-        c_AFlowers = 1
-        //currentLetterButtonDown = "c";
-        ColorZeroing() 
-    });    
-    document.querySelector('#block-c .answ-block-2').addEventListener('click', function() {
-        c_AFlowers = 2
-        //currentLetterButtonDown = "c";
-        ColorZeroing() 
-    });
-    document.querySelector('#block-c .answ-block-3').addEventListener('click', function() {
-        c_AFlowers = 3
-        //currentLetterButtonDown = "c";
-    });
+// ------------------------------------------ //
+// 	          Создание SQL-запроса:            //
+// ------------------------------------------ // 
 
-    //c-3
-
-    document.querySelector('#block-d .answ-block-1').addEventListener('click', function() {
-        d_IsPlod = 1
-        //currentLetterButtonDown = "d";
-    });    
-    document.querySelector('#block-d .answ-block-2').addEventListener('click', function() {
-        d_IsPlod = 2
-        //currentLetterButtonDown = "d";
-    });
-    document.querySelector('#block-d .answ-block-3').addEventListener('click', function() {
-        d_IsPlod = 3
-        //currentLetterButtonDown = "d";
-    });
-
-    document.querySelector('#block-e .answ-block-1').addEventListener('click', function() {
-        e_StandOnWindow = 1
-        //currentLetterButtonDown = "e";
-    });    
-    document.querySelector('#block-e .answ-block-2').addEventListener('click', function() {
-        e_StandOnWindow = 2
-        //currentLetterButtonDown = "e";
-    });
-
-    document.querySelector('#block-e-1 .answ-block-1').addEventListener('click', function() {
-        e_1_ASunLight = 1
-        //currentLetterButtonDown = "e-1";
-    });    
-    document.querySelector('#block-e-1 .answ-block-2').addEventListener('click', function() {
-        e_1_ASunLight = 2
-        //currentLetterButtonDown = "e-1";
-    });
-    document.querySelector('#block-e-1 .answ-block-3').addEventListener('click', function() {
-        e_1_ASunLight = 3
-        //currentLetterButtonDown = "e-1";
-    });
-
-    document.querySelector('#block-f .answ-block-1').addEventListener('click', function() {
-        f_GenerateAOxugen = 1
-        //currentLetterButtonDown = "f";
-    });    
-    document.querySelector('#block-f .answ-block-2').addEventListener('click', function() {
-        f_GenerateAOxugen = 2
-        //currentLetterButtonDown = "f";
-    });
-    document.querySelector('#block-f .answ-block-3').addEventListener('click', function() {
-        f_GenerateAOxugen = 3
-        //currentLetterButtonDown = "f";
-    });
-
-    document.querySelector('#block-g .answ-block-1').addEventListener('click', function() {
-        g_AFreeProstr = 1
-        //currentLetterButtonDown = "g";
-    });    
-    document.querySelector('#block-g .answ-block-2').addEventListener('click', function() {
-        g_AFreeProstr = 2
-        //currentLetterButtonDown = "g";
-    });
-    document.querySelector('#block-g .answ-block-3').addEventListener('click', function() {
-        g_AFreeProstr = 3
-        //currentLetterButtonDown = "g";
-    });
-
-    document.querySelector('#block-h .answ-block-1').addEventListener('click', function() {
-        h_NoControl = 1
-        //currentLetterButtonDown = "h";
-    });    
-    document.querySelector('#block-h .answ-block-2').addEventListener('click', function() {
-        h_NoControl = 2
-        //currentLetterButtonDown = "h";
-    });
-    document.querySelector('#block-h .answ-block-3').addEventListener('click', function() {
-        h_NoControl = 3
-        //currentLetterButtonDown = "h";
-    });
-}
-
-// function SQLteReq() {
-//     // Подключаем модуль sqlite3
-//     var sqlite3 = require('sqlite3').verbose();
-
-//     // Открываем базу данных SQLite
-//     var db = new sqlite3.Database('/путь/к/вашей/базе/данных.db');
-
-//     db.serialize(function() {
-//       // Выполняем запрос SELECT
-//       db.each("SELECT rowid AS id, info FROM lorem", function(err, row) {
-//         // Выводим результаты в консоль
-//         console.log(row.id + ": " + row.info);
-//       });
-//     });
-
-//     // Закрываем базу данных
-//     db.close();
-// }
-
+// Эта процедура собирает SQL-запрос из значений переменных, 
+// которые были получены, когда пользователь нажимал на кнопочки ответов
 function CreateSQLequest() {
     let strRequare = "SELECT plant_name FROM MainTable WHERE ";
     let windowCompare = 7; // Окно на температуру
@@ -856,7 +902,7 @@ function CreateSQLequest() {
 
     if (a_2_AVGTempInRegion === 1) {
         if(a_2_input_AVGTempInRegion < 15) {
-            strRequare += " min_temperature >= " + (a_2_input_AVGTempInRegion - windowCompare);
+            strRequare += " min_temperature <= " + (a_2_input_AVGTempInRegion + windowCompare);
         }        
     }
 
@@ -891,6 +937,7 @@ function CreateSQLequest() {
         strRequare += "plant_color_description LIKE '%елёный%'";
     }
 
+    // Все цвета:
 
     /*
     let colors = {
@@ -1036,9 +1083,7 @@ function CreateSQLequest() {
     return(outputRequare)
 }
 
-
-
-// Вставляем полученные значения переменных в форму запроса
+// Вывод значений всех переменных в форму запроса
 function debugPrint_2(){
     let output = "Текст запроса: [Тестовый]\n";
     output += `a_InHome: ${a_InHome}\n`;
@@ -1059,9 +1104,12 @@ function debugPrint_2(){
     output += `h_NoControl: ${h_NoControl}\n`;    
 
     document.querySelector('.block-request .req p').textContent = output;
+
+    // Сейчас эта процедура не используется
 }
 
-
+// Обнуляем все переменные
+// Используется, если мы нажали на любую кнопку в блоке a
 function ZeroingAllVar() {
     a_1_MinTempInHome = 0
     a_1_input_MinTempInHome = 0
@@ -1117,10 +1165,10 @@ str_SortMainReq = ''; // Пока что, для тестов
 //     oxygen_production DESC;
 // `;
 
-// return "Неверный запрос";
+let allCountOfRequ = 0; // Общее количество запросов к БД
 
-let allCountOfRequ = 0;
-
+// 2й запрос к БД - выборка по всем выбранным цветам, без учёта других параметров
+// Выполняется, если первый запрос вернул пустой результат
 function Requ_2_OnlyGettingColor() {
     if(colors['green'] == true) {
         isGreenZeroRequest = true;
@@ -1133,7 +1181,6 @@ function Requ_2_OnlyGettingColor() {
 
         let addStr1 = "";
     
-        //addStr1 += " AND (";
         if(colors['red'] == true) {
             addStr1 += "plant_color_description LIKE '%расный%' OR ";
         } 
@@ -1160,18 +1207,13 @@ function Requ_2_OnlyGettingColor() {
         } 
         if(colors['multicolor'] == true) {
             addStr1 += "plant_color_description LIKE '%азноцветный%' OR ";
-        } 
-
-        
+        }         
     
         addStr1 = addStr1.trim(); // Удаляю пробелы в конце строки
     
         if (addStr1.endsWith(' OR')) {
-            addStr1 = addStr1.slice(0, -3); // Удаляю AND, если он вылез в коне запроса
+            addStr1 = addStr1.slice(0, -3); // Удаляю OR, если он вылез в коне запроса
         }
-    
-        //addStr1 += ")";
-        //strRequare += addStr1;      
 
         let strRequare = "SELECT plant_name FROM MainTable WHERE ";
         strRequare += addStr1;
@@ -1186,13 +1228,20 @@ function Requ_2_OnlyGettingColor() {
     }
 }
 
-//var sql_2 = "SELECT plant_name FROM MainTable WHERE plant_type_description = 'Уличное' AND (allelopathy_description = 'Нейтральная' OR allelopathy_description = 'Положительная') AND (care_instructions >= 6) ORDER BY is_famous DESC, CASE allelopathy_description WHEN 'Положительная' THEN 1 WHEN 'Нейтральная' THEN 2 ELSE 3 END, CASE plant_color_description WHEN 'разноцветный' THEN 1 WHEN 'белый' THEN 2 WHEN 'жёлтый' THEN 3 WHEN 'голубой' THEN 4 WHEN 'серебристый' THEN 5 WHEN 'бордовый' THEN 6 WHEN 'красный' THEN 7 WHEN 'оранжевый' THEN 8 WHEN 'пёстрый' THEN 9 WHEN 'пурпурный' THEN 10 WHEN 'розовый' THEN 11 WHEN 'синий' THEN 12 WHEN 'фиолетовый' THEN 13 WHEN 'Зелёный с белой каймой' THEN 14 WHEN 'Зелёный с белыми или розовыми разводами' THEN 15 WHEN 'Зелёный с красными прицветниками' THEN 16 WHEN 'Зелёный с пятнами' THEN 17 WHEN 'Зелёный с разноцветными прожилками' THEN 18 WHEN 'Зелёный с серебристым оттенком' THEN 19 ELSE 20 END, area_covered ASC, oxygen_production DESC;";
-var sql_2 = "";
-let isEmptyBDAnswer = false; // Мы получили непустой ответ от БД?
-let isGreenZeroRequest = false;
+// ------------------------------------------------------------------- //
+// 	   Запрос к серверу, и выполнение SQL-кода, через php скрипт:      //
+// ------------------------------------------------------------------- // 
+
+var sql_2 = ""; // Запрос, который мы посылаем к БД чезе подкючение к php скрипту
+
+// Пример запроса:
+// var sql_2 = "SELECT plant_name FROM MainTable WHERE plant_type_description = 'Уличное' AND (allelopathy_description = 'Нейтральная' OR allelopathy_description = 'Положительная') AND (care_instructions >= 6)";
+
+let isEmptyBDAnswer = false;    // Мы получили непустой ответ от БД?
+let isGreenZeroRequest = false; // Если в нашем 1м запросе уже был указан зелёный цвет (тогда мы не посылаем 2й запрос, а выводим, что нет результатов)
 
 function SQL_RQ_FromSwever(sql_2) {
-    // Запрос к БД ратсений:
+    // Запрос к БД растений:
     $.ajax({
         type: "POST",
         url: "https://gogortey.ru/res/getdata_2.php",
@@ -1200,8 +1249,14 @@ function SQL_RQ_FromSwever(sql_2) {
         success: function(data_inp) {
             if(data_inp == "0 results[]") {
                 console.log("Пустой ответ");
-                docWrite_01("Пустой ответ");
                 isEmptyBDAnswer = false;
+                docWrite_01("Пустой ответ");                
+                if(allCountOfRequ >= 2) {
+                    isGreenZeroRequest = true;
+                    document.querySelector('.zero-reauest').style.display = 'grid';
+                    document.querySelector('.result-cards').style.display = 'none';
+                    document.querySelector('.reauest-2-only-color').style.display = 'none';
+                }
                 if(colors['green'] == false) {
                     Requ_2_OnlyGettingColor();
                 } else {
@@ -1214,31 +1269,36 @@ function SQL_RQ_FromSwever(sql_2) {
                 // document.querySelector('.result-cards').style.display = 'none';
             } else if(data_inp.startsWith("Неверный запрос")) { //if(data_inp == "Неверный запрос") {
                 console.log(data_inp);
-                docWrite_01(data_inp);
                 isEmptyBDAnswer = false;
+                docWrite_01(data_inp);
+                
                 document.querySelector('.zero-reauest').style.display = 'grid';
                 document.querySelector('.result-cards').style.display = 'none';
             } else {
-                allCountOfRequ = 3;
+                allCountOfRequ = 3; // Устанавливаем, что бы 2й запрос точно не прошёл
                 isEmptyBDAnswer = true;
+
                 var data = JSON.parse(data_inp);
-                JSON_Parser_OnConsole(data);
-                JSON_Parser_OnHTMLPage(data);
+
+                JSON_Parser_OnConsole(data);    // Сначала выводим полученный из БД ответ, в консоль
+                JSON_Parser_OnHTMLPage(data);   // Затем, обрабатываем, для вывода на страницу, в карточках
+
                 return(data);
             }
             //console.log(data);
         }
     });
 
+    // Вывод полученного ответа от БД в консоль
     function JSON_Parser_OnConsole(data) {
-        //var data = JSON.parse(xhr.responseText); // преобразуем ответ в JSON
         for (var i = 0; i < data.length; i++) {
-            console.log(data[i]); // выводим каждую строку в консоль
+            console.log(data[i]); // Выводим каждую строку в консоль
         }
     }
 
+    // Обработка полученного ответа от БД, для вывода в карточки
     function JSON_Parser_OnHTMLPage(data) {
-        var plantNames = ""; // создаем пустую строку
+        var plantNames = ""; 
 
         // Перемешиваем получившийся массив в случайном порядке
         data.sort(function(a, b) {
@@ -1246,62 +1306,31 @@ function SQL_RQ_FromSwever(sql_2) {
         });        
 
         plantNames = OnPageWeu_02(data);
-        
-        //document.getElementById("your-p-tag-id").innerText = plantNames; // устанавливаем текст для вашего тега <p>
-        docWrite_01(plantNames);
+
+        if(plantNames == "Пустой ответ" || isGreenZeroRequest === true || data.length == 0) {
+            // Показываем карточку "Мы не смогли подобрать для вас растения"
+
+            document.querySelector('.zero-reauest').style.display = 'grid';
+            document.querySelector('.result-cards').style.display = 'none';
+            document.querySelector('.reauest-2-only-color').style.display = 'none';
+        } else {
+            docWrite_01(plantNames, data);
+        }  
     }    
 }
 
-function docWrite_01(text) {
-    document.querySelector('.block-request .answ p').innerText = text;
-    
-    document.querySelector('.loadd').style.display = 'none';
-    if(isEmptyBDAnswer == true) {
-        document.querySelector('.result-cards').style.display = 'grid';    
-    }
-
-    document.querySelector('.butt-final-2').style.display = 'flex';
-    document.querySelector('.butt-final-2').scrollIntoView({behavior: "smooth"});
-
-    if(isGreenZeroRequest === true) {
-        document.querySelector('.zero-reauest').style.display = 'grid';
-        document.querySelector('.result-cards').style.display = 'none';
-        document.querySelector('.reauest-2-only-color').style.display = 'none';
-    }
-
-    console.log("Отправляем вот такую строку:" + text);
-    window.plantCards_plantNames = text;
-    window.setCards();
-}
-
+// Перебираем данные из массива в строку
 function OnPageWeu_02(data) {
     let plantNames = "";
-    let plantNames_top3 = "";
-    let plantNames_next3 = "";
 
     console.log("Обрабатываем такую строку:" + data);
     
     if (isEmptyBDAnswer) {
-        if (data.length > 7) {
-            for (let i = 0; i < 3; i++) {
-                plantNames_top3 += data[i].plant_name;
-                if (i < 2) { // если это не последнее растение, добавляем запятую и пробел
-                    plantNames_top3 += ", ";
-                }
-            }
-            for (let i = 3; i < 7; i++) {
-                plantNames_next3 += data[i].plant_name;
-                if (i < 6) { // если это не последнее растение, добавляем запятую и пробел
-                    plantNames_next3 += ", ";
-                }
-            }
-            plantNames = plantNames_top3 + ", " + plantNames_next3;
-        } else {
-            for (let i = 0; i < data.length; i++) {
-                plantNames += data[i].plant_name;
-                if (i < data.length - 1) { // если это не последнее растение, добавляем запятую и пробел
-                    plantNames += ", ";
-                }
+        for (let i = 0; i < data.length; i++) {
+            plantNames += data[i].plant_name;
+            if (i < data.length - 1) { 
+                // Если это не последнее растение, добавляем запятую и пробел
+                plantNames += ", ";
             }
         }
     } else {
@@ -1313,9 +1342,145 @@ function OnPageWeu_02(data) {
     return plantNames;
 }
 
+// function OnPageWeu_02(data) {
+//     let plantNames = "";
+//     let plantNames_top3 = "";
+//     let plantNames_next3 = "";
+
+//     console.log("Обрабатываем такую строку:" + data);
+    
+//     if (isEmptyBDAnswer) {
+//         if (data.length > 7) {
+//             for (let i = 0; i < 3; i++) {
+//                 plantNames_top3 += data[i].plant_name;
+//                 if (i < 2) { // если это не последнее растение, добавляем запятую и пробел
+//                     plantNames_top3 += ", ";
+//                 }
+//             }
+//             for (let i = 3; i < 7; i++) {
+//                 plantNames_next3 += data[i].plant_name;
+//                 if (i < 6) { // если это не последнее растение, добавляем запятую и пробел
+//                     plantNames_next3 += ", ";
+//                 }
+//             }
+//             plantNames = plantNames_top3 + ", " + plantNames_next3;
+//         } else {
+//             for (let i = 0; i < data.length; i++) {
+//                 plantNames += data[i].plant_name;
+//                 if (i < data.length - 1) { // если это не последнее растение, добавляем запятую и пробел
+//                     plantNames += ", ";
+//                 }
+//             }
+//         }
+//     } else {
+//         plantNames = "Пустой ответ";
+//     }
+
+//     console.log("На выходе получили такую:" + plantNames);
+
+//     return plantNames;
+// }
+
+// Показываем блок карточек, и отправляем данные в другой скрипт,
+// который обработает их, и выведет на карточки в нужном порядке
+function docWrite_01(text, data) {
+    document.querySelector('.loadd').style.display = 'none';
+    document.querySelector('.block-request .answ p').innerText = text;
+    document.querySelector('.result-cards').style.display = 'grid';   
+
+    document.querySelector('.butt-final-2').style.display = 'flex';
+    document.querySelector('.butt-final-2').scrollIntoView({behavior: "smooth"});
+
+    // if(isGreenZeroRequest === true) {
+    //     document.querySelector('.zero-reauest').style.display = 'grid';
+    //     document.querySelector('.result-cards').style.display = 'none';
+    //     document.querySelector('.reauest-2-only-color').style.display = 'none';
+    // }
+
+    console.log("Отправляем вот такую строку:" + text);
+
+    // Отправляем строку, с разделёнными названиями цветов, в другой скрипт
+    // через обшую область переменных   
+
+    //plantCards_plantNames = text;
+    randomImgPlantsCard()
+    //SetNamePlants(text);
+    SetNamePlants(data);
+    //setCards(); // И запускаем там-же процедуру обрабтки
+}
 
 
+// window.setCards = function() {
+//     console.log("Получили такую строку: " + plantCards_plantNames);
+//     randomImgPlantsCard();
+//     SetNamePlants(plantCards_plantNames);
+// }
 
+// Устанавливает случайные картинки из набора, на все карточки
+function randomImgPlantsCard() {
+    //document.querySelector('.result-cards')
+
+    // Получаем все элементы img внутри .card
+    let images = document.querySelectorAll('.card img');
+
+    // Создаем массив с именами файлов изображений
+    let imageNames = Array.from({length: 13}, (_, i) => `img/plant-image/P_${String(i+1).padStart(2, '0')}.png`);
+
+    // Перемешиваем массив
+    imageNames.sort(() => Math.random() - 0.5);
+
+    // Присваиваем каждому элементу img случайное изображение из массива
+    images.forEach((img, index) => {
+        img.src = imageNames[index];
+    });
+}
+
+//plantCards_plantNames = ""; //"Геликония, Бувардия, Будра, Жакаранда, Камнеломка, Лаванда, Осока";
+
+// Устанавливает нжные названия для карточек, из массива
+function SetNamePlants(plantNames_mass) {
+    // Получаем все элементы span внутри .card
+    let spans = document.querySelectorAll('.card span');
+
+    // Получаем строку с названиями растений
+
+    // Преобразуем строку в массив
+    //plantNames_mass = plantNames.split(', ');
+
+    // console.log("Разбили на такой массив: " + plantNames_mass);
+    // console.log("Его длинна: " + plantNames_mass.length);
+
+    // Присваиваем каждому элементу span название растения из массива
+    spans.forEach((span, index) => {
+        if (index < plantNames_mass.length) {
+            span.textContent = plantNames_mass[index].plant_name;
+            span.parentElement.style.display = 'grid';
+        } else {
+            span.parentElement.style.display = 'none'; // скрываем лишние карточки
+        }
+    });
+
+    // Если названий растений меньше 7, но больше 3, показываем только первые 3 карточки
+    if (plantNames_mass.length < 7 && plantNames_mass.length > 3) {
+        for (let i = 3; i < spans.length; i++) {
+            spans[i].parentElement.style.display = 'none';
+        }
+    }
+
+    // Вот тут добавить логику, что если выбрано "Подобрать 1 растение", то он показывает только 1 карточку --------------------------------------< ВАЖНО
+}
+
+// Перезагружаю страницу, если нажата кнопка "Пройти ещё раз"
+// [Эта процедура вызывается после загрузки всей DOM-модели страницы, в самом верху этого скрипта]
+function ReloadPageButtonProc() {
+    document.querySelector('.butt-final-2').addEventListener('click', function() {
+        location.reload();
+    });    
+}
+
+
+// ...
+// Прячет все блоки, и обнуляет все переменные
 // function HideAll() {
 //     a_1_MinTempInHome = 0
 //     a_1_input_MinTempInHome = 0
