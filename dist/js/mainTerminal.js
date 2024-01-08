@@ -156,11 +156,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
     //document.querySelector('#block-a-1').style.display = 'block';
 
+    let currentLetterButtonDown = "";
+
     document.querySelector('#block-a .answ-block-1').addEventListener('click', function() {
         a_InHome = 1
+        currentLetterButtonDown = "a";
+
+        document.getElementById('block-b').style.display = 'none';
+        removeActiveClass('block-b');
+        b_OncePlant = 0;
     });    
     document.querySelector('#block-a .answ-block-2').addEventListener('click', function() {
         a_InHome = 2
+        currentLetterButtonDown = "a";
+
+        document.getElementById('block-b').style.display = 'none';
+        removeActiveClass('block-b');
+        b_OncePlant = 0;
     });
 
     document.querySelector('#block-a-2 .answ-block-1').addEventListener('click', function() {
@@ -170,6 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
         //a_1_input_MinTempInHome = ...
         // Если корректно - то isTempCorrect = true
         isTempCorrect = true
+        currentLetterButtonDown = "a-2";
     });
 
     document.querySelector('#block-a-1 .answ-block-1').addEventListener('click', function() {
@@ -178,10 +191,12 @@ document.addEventListener('DOMContentLoaded', function() {
         //a_2_input_AVGTempInRegion = ...
         // Если корректно - то isTempCorrect = true
         isTempCorrect = true
+        currentLetterButtonDown = "a-1";
     });    
     document.querySelector('#block-a-1 .answ-block-2').addEventListener('click', function() {
         a_2_AVGTempInRegion = 2
         isTempCorrect = true
+        currentLetterButtonDown = "a-1";
     });    
 
     document.querySelector('#block-a-2-1 .answ-block-1-s').addEventListener('click', function() {
@@ -189,137 +204,204 @@ document.addEventListener('DOMContentLoaded', function() {
         // Ввод из поля ввода
         //a_2_1_input_AVGHum = ...
         isHumCorrect = false
+        currentLetterButtonDown = "a-2-1";
     });    
     document.querySelector('#block-a-2-1 .answ-block-2-s').addEventListener('click', function() {
         a_2_1_AVGHum = 2
         isHumCorrect = true
+        currentLetterButtonDown = "a-2-1";
     });    
     document.querySelector('#block-a-2-1 .answ-block-3-s').addEventListener('click', function() {
         a_2_1_AVGHum = 3
         isHumCorrect = true
+        currentLetterButtonDown = "a-2-1";
     });    
     document.querySelector('#block-a-2-1 .answ-block-4-s').addEventListener('click', function() {
         a_2_1_AVGHum = 4
         isHumCorrect = true
+        currentLetterButtonDown = "a-2-1";
     });    
 
     document.querySelector('#block-b .answ-block-1').addEventListener('click', function() {
         b_OncePlant = 1
+        currentLetterButtonDown = "b";
     });    
     document.querySelector('#block-b .answ-block-2').addEventListener('click', function() {
         b_OncePlant = 2
+        currentLetterButtonDown = "b";
     });
 
     document.querySelector('#block-c .answ-block-1').addEventListener('click', function() {
         c_AFlowers = 1
+        currentLetterButtonDown = "c";
     });    
     document.querySelector('#block-c .answ-block-2').addEventListener('click', function() {
         c_AFlowers = 2
+        currentLetterButtonDown = "c";
     });
     document.querySelector('#block-c .answ-block-3').addEventListener('click', function() {
         c_AFlowers = 3
+        currentLetterButtonDown = "c";
     });
 
     //c-3
 
     document.querySelector('#block-d .answ-block-1').addEventListener('click', function() {
         d_IsPlod = 1
+        currentLetterButtonDown = "d";
     });    
     document.querySelector('#block-d .answ-block-2').addEventListener('click', function() {
         d_IsPlod = 2
+        currentLetterButtonDown = "d";
     });
     document.querySelector('#block-d .answ-block-3').addEventListener('click', function() {
         d_IsPlod = 3
+        currentLetterButtonDown = "d";
     });
 
     document.querySelector('#block-e .answ-block-1').addEventListener('click', function() {
         e_StandOnWindow = 1
+        currentLetterButtonDown = "e";
     });    
     document.querySelector('#block-e .answ-block-2').addEventListener('click', function() {
         e_StandOnWindow = 2
+        currentLetterButtonDown = "e";
     });
 
     document.querySelector('#block-e-1 .answ-block-1').addEventListener('click', function() {
         e_1_ASunLight = 1
+        currentLetterButtonDown = "e-1";
     });    
     document.querySelector('#block-e-1 .answ-block-2').addEventListener('click', function() {
         e_1_ASunLight = 2
+        currentLetterButtonDown = "e-1";
     });
     document.querySelector('#block-e-1 .answ-block-3').addEventListener('click', function() {
         e_1_ASunLight = 3
+        currentLetterButtonDown = "e-1";
     });
 
     document.querySelector('#block-f .answ-block-1').addEventListener('click', function() {
         f_GenerateAOxugen = 1
+        currentLetterButtonDown = "f";
     });    
     document.querySelector('#block-f .answ-block-2').addEventListener('click', function() {
         f_GenerateAOxugen = 2
+        currentLetterButtonDown = "f";
     });
     document.querySelector('#block-f .answ-block-3').addEventListener('click', function() {
         f_GenerateAOxugen = 3
+        currentLetterButtonDown = "f";
     });
 
     document.querySelector('#block-g .answ-block-1').addEventListener('click', function() {
         g_AFreeProstr = 1
+        currentLetterButtonDown = "g";
     });    
     document.querySelector('#block-g .answ-block-2').addEventListener('click', function() {
         g_AFreeProstr = 2
+        currentLetterButtonDown = "g";
     });
     document.querySelector('#block-g .answ-block-3').addEventListener('click', function() {
         g_AFreeProstr = 3
+        currentLetterButtonDown = "g";
     });
 
     document.querySelector('#block-h .answ-block-1').addEventListener('click', function() {
         h_NoControl = 1
+        currentLetterButtonDown = "h";
     });    
     document.querySelector('#block-h .answ-block-2').addEventListener('click', function() {
         h_NoControl = 2
+        currentLetterButtonDown = "h";
     });
     document.querySelector('#block-h .answ-block-3').addEventListener('click', function() {
         h_NoControl = 3
+        currentLetterButtonDown = "h";
     });
 
 
     // var block = document.getElementById('block-a');
     // var buttons = block.querySelectorAll('.answ-block-1, .answ-block-2');
-
-
-    // for (var i = 0; i < buttons.length; i++) {
-    //     buttons[i].addEventListener('click', function() {
-    //         setTimeout(() => {
-    //             mainCounter = 1
-                
-    //             a_1_MinTempInHome = 0
-    //             a_1_input_MinTempInHome = 0
-    //             a_2_AVGTempInRegion = 0
-    //             a_2_input_AVGTempInRegion = 0
-    //             a_2_1_AVGHum = 0
-    //             a_2_1_input_AVGHum = 0
-    //             b_OncePlant = 0
-    //             c_AFlowers = 0
-    //             c_3_SelectAColor = ""
-    //             d_IsPlod = 0
-    //             e_StandOnWindow = 0
-    //             e_1_ASunLight = 0
-    //             f_GenerateAOxugen = 0
-    //             g_AFreeProstr = 0
-    //             h_NoControl = 0
-
-    //             CheckAllBlocks();
-    //         }, 2);
-    //     });
-//}
 });
+
+// function HideAll() {
+//     a_1_MinTempInHome = 0
+//     a_1_input_MinTempInHome = 0
+//     a_2_AVGTempInRegion = 0
+//     a_2_input_AVGTempInRegion = 0
+//     a_2_1_AVGHum = 0
+//     a_2_1_input_AVGHum = 0
+//     b_OncePlant = 0
+//     c_AFlowers = 0
+//     c_3_SelectAColor = ""
+//     d_IsPlod = 0
+//     e_StandOnWindow = 0
+//     e_1_ASunLight = 0
+//     f_GenerateAOxugen = 0
+//     g_AFreeProstr = 0
+//     h_NoControl = 0
+
+//     removeActiveClass('block-a-1');
+//     removeActiveClass('block-a-2');
+//     removeActiveClass('block-a-2-1');
+//     removeActiveClass('block-b');
+//     removeActiveClass('block-c');
+//     removeActiveClass('block-c-3');
+//     removeActiveClass('block-d');
+//     removeActiveClass('block-e');
+//     removeActiveClass('block-e-1');
+//     removeActiveClass('block-f');
+//     removeActiveClass('block-g');
+//     removeActiveClass('block-h');
+
+//     document.getElementById('block-a-1').style.display = 'none';
+//     document.getElementById('block-a-2').style.display = 'none';
+//     document.getElementById('block-a-2-1').style.display = 'none';
+//     document.getElementById('block-b').style.display = 'none';
+//     document.getElementById('block-c').style.display = 'none';
+//     document.getElementById('block-c-3').style.display = 'none';
+//     document.getElementById('block-d').style.display = 'none';
+//     document.getElementById('block-e').style.display = 'none';
+//     document.getElementById('block-e-1').style.display = 'none';
+//     document.getElementById('block-f').style.display = 'none';
+//     document.getElementById('block-g').style.display = 'none';
+//     document.getElementById('block-gh').style.display = 'none';
+// }
+
+// function CheckAllBlocks_2(inp) {
+//     HideAll()
+
+//     if(inp == "a_1") {
+//         document.getElementById('block-a-1').style.display = 'grid';
+//         a_1_MinTempInHome = 1
+//         // input-элемент
+//     }
+//     else if(inp == "a_2") {
+//         document.getElementById('block-a-2').style.display = 'grid';
+//         a_2_AVGTempInRegion = 1
+//         // input-элемент
+//     }
+// }
 
 let isStart = false;
 let isTempCorrect = false;
 let isHumCorrect = false;
 let isColorCucsSelected = false;
 let mainCounter = 0;
+let isRevertQuwerty = 0;
+let RQ_2 = 0;
+
+
+// Здесь очень костыльным методом написана логика отображения блоков
+// У меня не было свободного времени, что бы разработать хорошую схему взаимодействия
+// По этому я набросал всё как-то вот так:
 
 // Перераспределение блоков
 // Процедура вызывается после нажатия на кнопку в любом блоке
 function CheckAllBlocks(){
+    //CheckAllBlocks_2();
+
     if(isStart == true) {
         mainCounter = 1;
     }
@@ -333,11 +415,19 @@ function CheckAllBlocks(){
             removeActiveClass('block-a-2');
             a_1_MinTempInHome = 0;
             a_2_1_AVGHum = 0;
-            mainCounter = 4;
-            document.getElementById('block-a-2-1').style.display = 'none';
-            removeActiveClass('block-a-2-1');
-            document.getElementById('block-b').style.display = 'none';
-            removeActiveClass('block-b');
+            mainCounter = 3;
+            isRevertQuwerty = 2;
+            RQ_2 = 2;
+
+            removeActiveClass('block-e');
+            removeActiveClass('block-e-1');
+            removeActiveClass('block-f');
+            removeActiveClass('block-g');
+
+            e_StandOnWindow = 0;
+            e_1_ASunLight = 0;
+            f_GenerateAOxugen = 0;
+            g_AFreeProstr = 0;
 
         } else if(a_InHome == 1) {
             // Дом
@@ -346,6 +436,7 @@ function CheckAllBlocks(){
             removeActiveClass('block-a-1');
             a_2_AVGTempInRegion = 0;
             mainCounter = 2;
+            if(isRevertQuwerty>0) isRevertQuwerty--;
         }
     } else {
         a_InHome = 0;
@@ -353,16 +444,14 @@ function CheckAllBlocks(){
         document.getElementById('block-a-2').style.display = 'none';
         removeActiveClass('block-a-1');
         removeActiveClass('block-a-2');
-        document.getElementById('block-a-2-1').style.display = 'none';
-        removeActiveClass('block-a-2-1');
-        document.getElementById('block-b').style.display = 'none';
-        removeActiveClass('block-b');
+
     }
 
-    if(mainCounter >= 2) {
+    if(mainCounter >= 2 && isRevertQuwerty <= 0) {
         if(isTempCorrect == true && a_InHome == 1) {
             document.getElementById('block-a-2-1').style.display = 'grid';
             mainCounter = 3;
+            if(RQ_2 > 0) RQ_2--;
         } else {
             document.getElementById('block-a-2-1').style.display = 'none';
             removeActiveClass('block-a-2-1');
@@ -375,10 +464,26 @@ function CheckAllBlocks(){
     }
 
     if(mainCounter >= 3) {
-        if((a_2_AVGTempInRegion != 0 
-            || (a_2_1_AVGHum != 0 && isHumCorrect == true)) 
-            && (isTempCorrect == true) 
-            || (a_InHome == 1 && isHumCorrect == true)){
+        if(
+            a_InHome == 2
+            // (a_InHome == 2 &&
+            //     ((isHumCorrect == true)
+            //     || (a_2_1_AVGHum != 0)))
+            || (RQ_2 <= 0 && a_InHome == 1)
+            || (a_2_1_AVGHum != 0 && isHumCorrect == true)
+        )
+        
+        
+        
+        // (((a_2_AVGTempInRegion != 0 
+        //     || (a_2_1_AVGHum != 0 && isHumCorrect == true)) 
+        //     && (isTempCorrect == true))
+        //     && (RQ_2 <= 0 && a_InHome == 1)
+        //     ) || ((a_InHome == 1 && isHumCorrect == true))
+            
+            
+            
+            {
             document.getElementById('block-b').style.display = 'grid';
             mainCounter = 4;
         } else {
@@ -507,19 +612,6 @@ function CheckAllBlocks(){
             mainCounter = 10;
             document.getElementsByClassName('butt-final')[0].style.display = 'flex';
         }
-
-        // if(h_NoControl != 0) {
-        //     //document.getElementById('block-h').style.display = 'grid';
-        //     document.getElementsByClassName('butt-final')[0].style.display = 'flex';
-        //     document.getElementsByClassName('block-request')[0].style.display = 'block';
-        //     //console.log("I'ts Final!!!");
-        //     mainCounter = 10;
-        //     //debugPrint();
-        // } else {
-        //     document.getElementsByClassName('butt-final')[0].style.display = 'none';
-        //     document.getElementsByClassName('block-request')[0].style.display = 'none';
-        //     //document.getElementById('block-h').style.display = 'none';
-        // }
     }
 }
 
