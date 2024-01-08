@@ -1288,188 +1288,62 @@ body
 // ------------
 
 .card-holder
+	//bord()
 	width 90%
 	margin 20px
 	display: grid
-	grid-template-columns: 1fr 1fr 1fr 1fr
+	//grid-template-columns: 1fr 1fr 1fr 1fr
+	grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
+	gap: 15px;
+	grid-row-gap: 0px;
 	justify-items: center;
 	align-items: center;
 	.card
+		margin 10px 0px 
 		height 270px
 		width 195px
 		margin-left: 0px
 		margin-right: 0px
 		img	
+			margin: 5px
 			box-shadow: none
-			width: 85%
-			max-height: 150px
+			width: 93%
+			max-height: 170px
 			align-self: start;
 			//height 100%
 			//overflow: hidden;
-
-
-// Широкие экраны:
-
-.card-holder
-	//bord()
-	//all: unset
-	display: block
-
-.card1
-	height 250px
-	width 400px
-	margin 20px
-	padding 10px
-	background white
-	border-radius: 12px
-	box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.25)
-	span	
-		all: unset
-	display: grid
-	grid-template-rows: 30px auto //200px
-
-	.name
-		margin 0px 4px
-		overflow: hidden
-		span
+		span	
+			//overflow-wrap: break-word;
 			font-size: 20px
-	
-	.other
-		margin-top 10px
-		//bord()
-		display: grid
-		grid-template-columns: 60% 40%
-		img			
-			align-self: end;
-			justify-self: start;
-			margin auto 0px
-			height auto
-			width 100%
-			//max-width: 60%
-		.haract
-			display: grid
-			grid-template-rows: 25px auto
-			//bord()
-			padding 5px
-			padding-left 10px
-			padding-top 0px
-			.klimat
-				text-align: center
-				//bord()
-			img
-				height 25px
-				width auto
-				display: inline-block
-				box-shadow: none
-			.other-har 
-				display: grid
-				grid-template-columns: 1fr 1fr
-				grid-template-rows: auto auto auto auto
-				justify-items: center;
-				align-items: center;
-				span
-					font-size: 16px
-					padding-right: 5px
-					margin 0px
-				img
-					margin: auto
-
-			
-
-.card1:hover
-	box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.4)
 
 
-.obozn-1
-	text-align: left 
-	align-items: left;
-	display: block
-	padding-left 30px
-	//position: relative;
-	.ssrr
-		text-align: center
-	img
-		height 25px
-		width auto
-		display: inline-block
-		box-shadow: none
+@media (min-width: 950px) 
+	.go-back-to-main
+		width: 870px
 
-	.add-info-22
-		background #000
-
-.add-info-2
-	//position: absolute;
-	right: 10px;
-	top 10px
-	width 30px
-	height 30px
-	padding: 5px
-	border-radius: 5px
-	background #f0f0f0
-	.dfrd
-		width 2000px
-		height 2000px
-	span
-		font-size: 16px
-
-.add-info-2:hover
-	background #e6e6e6
-
-.add-info-2::after 
-	content: 'Это подсказка';
-	display: none;
-
-.add-info-2:hover::after, .add-info-2:active::after
-	display: block
-	//color red
-	//bord()
-	position: absolute;
-	top: -45px;
-	right 15px
+.please-wait, .load-more
+	width 90%
+	border-radius: 10px
 	background white
-	border-radius: 7px
-	padding 5px
-	width 200px
-	border solid 2px rgb(175, 175, 175)
+	height 60px
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	span
+		font-size: 21px
 
+@media (min-width: 950px) 
+	.please-wait, .load-more
+		width: 870px
 
+.load-more:hover
+	border solid 4px #20f00d
+	
+.load-more:active
+	background #20f00d
 
-
-
-
-
-
-// // Широкие экраны (десктоп)
-// @media (min-width: 950px) 
-// 	.card-holder
-// 		//width: 870px
-// 		//grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr
-// 		grid-template-columns: 1fr 1fr 1fr 1fr
-// 		.card
-// 			display: grid
-// 			grid-template-columns: 1fr 1fr
-// 			height 250px
-// 			width 400px
-// 			.haract
-// 				display: grid
-// 				grid-template-rows: 1fr 1fr
-// 				//bord()
-// 				height 230px
-// 				span
-// 					align-self: start;
-// 					height auto
-// 					width  auto
-// 					padding 10px
-// 					margin 10px
-// 				.hhh2
-// 					height: 50px
-// 					span
-// 						bord()
-// 				.hhh1
-// 					height 250px
-
-
-			
-
-
-
+.go-back-to-main
+	margin-top 20px
+	margin-bottom 20px
+	span
+		font-size: 23px

@@ -4,7 +4,11 @@
 // ------------------------------------------------------------------- // 
 
 document.addEventListener('DOMContentLoaded', function() { 
-    
+    document.querySelector('.load-more').style.display = 'none';
+    document.querySelector('.go-back-to-main').style.display = 'none';
+    document.querySelector('#main-2').style.display = 'none';
+    document.querySelector('#main-1').style.display = 'none';
+    document.querySelector('.please-wait').style.display = 'flex';
     //UpdateDevelomMode();
 
     // Скрывет все блоки с классом "block-qu", в начале
@@ -13,6 +17,27 @@ document.addEventListener('DOMContentLoaded', function() {
     elements.forEach(element => {
       element.style.display = 'none';
     });
+
+    document.querySelector('.load-more').addEventListener('click', function() {
+        limitter = 24;
+        showCards(data_Plants);      
+        document.querySelector('#main-2').style.display = 'flex';  
+    });
+
+    let GoToMainPage = document.querySelector('.go-back-to-main');
+    
+    GoToMainPage.addEventListener('click', function() {
+        window.location.href = 'index.html';
+    });
+
+    let span = document.querySelector('.please-wait span');
+    let colors = ['darkgray', 'lightgray'];
+    let i = 0;
+    
+    setInterval(function() {
+      span.style.color = colors[i % colors.length];
+      i++;
+    }, 500);
 
     // Также скрывает все особые блоки и кнопки, в начале
     // document.getElementsByClassName('butt-final')[0].style.display = 'none';
@@ -98,14 +123,13 @@ str_SortMainReq = '';
 
 // Не использую сортировку в SQL-запросе, т.к. я всё равно перемешиваю все навания, когда получаю их
 
+str_SortMainReq = `
+ORDER BY 
+    is_famous DESC
+`;
 // str_SortMainReq = `
 // ORDER BY 
-//     is_famous DESC,
-//     CASE allelopathy_description 
-//         WHEN 'Положительная' THEN 1 
-//         WHEN 'Нейтральная' THEN 2 
-//         ELSE 3 
-//     END,    
+//     is_famous DESC,  
 //     CASE plant_color_description 
 //         WHEN 'разноцветный' THEN 1 
 //         WHEN 'белый' THEN 2 
@@ -127,10 +151,10 @@ str_SortMainReq = '';
 //         WHEN 'Зелёный с разноцветными прожилками' THEN 18
 //         WHEN 'Зелёный с серебристым оттенком' THEN 19
 //         ELSE 20
-//     END,
-//     area_covered ASC,
-//     oxygen_production DESC;
+//     END
 // `;
+
+strRequare += str_SortMainReq;
 
 // ------------------------------------------------------------------- //
 // 	   Запрос к серверу, и выполнение SQL-кода, через php скрипт:      //
@@ -227,8 +251,8 @@ function SQL_RQ_FromSwever(sql_2) {
 
             ZeroReauest_Show(); 
         } else {
-
-            ShowAllCards(data);
+            data_Plants = data;
+            showCards(data);
 
             //docWrite_01(plantNames, data);
 
@@ -246,6 +270,8 @@ function SQL_RQ_FromSwever(sql_2) {
         }  
     }    
 }
+
+data_Plants = [];
 
 // Перебираем данные из массива в строку
 function OnPageWeu_02(data) {
@@ -274,36 +300,94 @@ function OnPageWeu_02(data) {
 // 	         Отображение карточек:            //
 // ------------------------------------------ // 
 
-function ShowAllCards(data) {
-    // Получаем элемент, в который будем добавлять карточки
+let loadedCards = 0;
+let limitter = 18;
+let boolIsFinalLoad = false;
+
+function showCards(data) {
     let container = document.querySelector('.card-holder');
 
-    let limitter = 18;
-    let intCounter = 0;
+    for(let i = loadedCards; i < loadedCards + limitter && i < data.length; i++) {
+        let item = data[i];
 
-    // Проходим по каждому элементу в массиве данных
-    data.forEach(item => {
-        if(intCounter < limitter) {
-            // Создаем элементы для карточки
+        if(item.plant_name != "Бересклет") {
             let card = document.createElement('div');
             let img = document.createElement('img');
             let span = document.createElement('span');
-            
-            // Устанавливаем атрибуты и содержимое для элементов
+    
             card.className = 'card';
             img.src = `img/all-plants-photo/Растение ${item.plant_name}.jpg`;
+            img.onerror = function() {
+                // Обработка ошибки
+                // Создаем массив с именами файлов изображений
+                let imageNames = Array.from({length: 13}, (_, i) => `img/plant-image/P_${String(i+1).padStart(2, '0')}.png`);
+
+                // Перемешиваем массив
+                imageNames.sort(() => Math.random() - 0.5);
+
+                img.src = imageNames[0];
+
+                console.log('Ошибка при загрузке изображения "' + item.plant_name + '"');
+
+            };
             span.textContent = item.plant_name;
-            
-            // Добавляем img и span в card
+    
             card.appendChild(img);
             card.appendChild(span);
-            
-            // Добавляем card в container
+    
             container.appendChild(card);
-            intCounter++;
+
+            if(i == (data.length - 1)) {
+                boolIsFinalLoad = true;
+            }
         }
-    });
+    }
+
+    if(boolIsFinalLoad == false) {
+        document.querySelector('.load-more').style.display = 'flex';
+    } else {
+        document.querySelector('.load-more').style.display = 'none';
+    }
+    document.querySelector('.please-wait').style.display = 'none';
+    document.querySelector('#main-1').style.display = 'flex';
+
+    loadedCards += limitter;    
 }
+
+
+
+
+
+// function ShowAllCards(data) {
+//     // Получаем элемент, в который будем добавлять карточки
+//     let container = document.querySelector('.card-holder');
+
+//     let limitter = 18;
+//     let intCounter = 0;
+
+//     // Проходим по каждому элементу в массиве данных
+//     data.forEach(item => {
+//         if(intCounter < limitter) {
+//             // Создаем элементы для карточки
+//             let card = document.createElement('div');
+//             let img = document.createElement('img');
+//             let span = document.createElement('span');
+            
+//             // Устанавливаем атрибуты и содержимое для элементов
+//             card.className = 'card';
+//             img.src = `img/all-plants-photo/Растение ${item.plant_name}.jpg`;
+//             span.textContent = item.plant_name;
+            
+//             // Добавляем img и span в card
+//             card.appendChild(img);
+//             card.appendChild(span);
+            
+//             // Добавляем card в container
+//             container.appendChild(card);
+//             intCounter++;
+//         }
+//     });
+// }
 
 // Показываем блок карточек, и выводим их в нужном порядке
 function docWrite_01(text, data) {
