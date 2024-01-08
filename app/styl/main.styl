@@ -1,0 +1,245 @@
+// Шаблон Stylus-стилей v2
+
+
+// --------------------- //
+// 		  Colors:		 //
+// --------------------- // 
+
+bg-1 = gray
+bg-2 = lightgray
+bg-3 = rgb(240, 240, 240)
+
+col-1 = yellow
+col-2 = gray
+col-3 = blue 
+my-orange = #ff9900
+bg-yel = #ffd600
+bg-blue = #00a3ff
+
+// Подборка цветов:
+
+color1 = #197de0;
+color2 = rgb(14, 182, 204);
+color3 = #5d33da;
+color4 = #07f36a;
+color5 = #38ec0f;
+color6 = #e9e51f;
+color7 = #ecbc0c;
+color8 = #e24916;
+color9 = #ec34be;
+color10 = #a619da;
+
+bord() // Для отладки
+	border solid black 1px
+
+// Основные настройки:
+
+html
+	text-align: center
+	p
+		padding: 10px
+		font-size: larger;
+
+body
+	background-color: bg-3
+
+// --------------------- //
+// 		   Image:		 //
+// --------------------- // 
+
+img
+	align middle 
+	width 200px
+	height 200px
+	margin 10px
+	border-radius: 7px
+	box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5)
+
+// --------------------- //
+// 		  Footer:		 //
+// --------------------- // 
+
+.page-footer 
+	padding: 1rem;
+	background: #333;
+	color: #fff;
+	text-align: center;
+
+footer
+	width: 100%
+	background-color: #333;
+	padding: 20px
+	margin-top: auto;
+	// position: fixed;
+	// bottom: 0;
+	// left: 0;
+	p
+		padding: 0px
+		font-size: 19
+		color: #fff;
+		text-align: center;
+	a:hover
+		color: #2f0dec;
+		text-decoration: none
+	a:active
+		color: #7a00cc;
+
+// --------------------- //
+// 		  Header:		 //
+// --------------------- // 
+
+header
+	width: 100%
+	height: 110px
+	// background-color: rgb(184, 184, 184)
+	background-color: rgb(117, 117, 117)
+	//border-radius 0px 0px 20px 20px
+	// background-image: href="img/Header_Photo/B (1).jpeg"
+
+
+.bg-fone-header
+	background-image: url("img/Header_Photo/B (1).jpeg");
+	filter: blur(5px);
+
+.head-bottom-line
+	width: 100%
+	height: 15px
+	background: linear-gradient(to right, #20f00d, #21d111);
+	//background: linear-gradient(to right, #2dff1a, #21c012);
+
+.head-title
+	p
+		font-size: 35px
+		color: white
+		text-align: center
+		margin: 10px
+		padding-top 15px
+
+// Конкретно этот код делает хедер с отступами и закруглёнными углами:
+header
+	margin-top: 10px
+	width: calc(100vw - 15px)
+	border-radius: 10px
+	.head-bottom-line
+		border-radius: 0px 0px 10px 10px
+		margin-top 13px
+
+	.head-title
+		p
+			padding-top 9px
+
+	
+// --------------------- //
+// 		   Body:		 //
+// --------------------- // 
+
+body
+	//bord()
+	margin: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	//height: 100vh;
+	flex-direction: column;
+	min-height: 100vh;
+
+// -------------------------------------- //
+// 		 Основной родительский блок:	  //
+// -------------------------------------- // 
+
+.main-body
+	//bord()
+	background-color: bg-3
+	width: 90%
+	height: auto
+	margin: 20px
+	border-radius: 15px
+	margin-top: 32px
+	// display: flex;
+	// justify-content: center;
+	// flex-direction: column;
+	//align-items: center;
+
+// Широкие экраны (десктоп)
+@media (min-width: 950px) 
+	.main-body
+		width: 870px
+		//color red
+
+// ------------------------------ //
+// 		 Блоки внутри него:	      //
+// ------------------------------ // 
+
+.center-orient
+	width: calc(100% - 15px);
+	height calc(100% - 15px);
+	//margin-left: 5px
+
+.descr-qu-1, .block-qu-1      // <-- Вот здесь также стили для обычного блока
+	text-align: center
+	background-color: white
+	border-radius: 15px
+	width: 100%
+	height 100%
+	p
+		padding: 20px
+		font-size: larger;
+
+// Описание
+.descr-qu-1-grad
+	//background: linear-gradient(to bottom left, #00D9FF, #0066FF);
+	background: linear-gradient(to bottom left, #00aeff, #2078fc);
+
+	width: 100%
+	height: 250px
+	margin-bottom: 25px
+	border-radius: 19px
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+.descr-qu-1
+	//position: relative;
+	width: calc(100% - 15px);
+	height: calc(100% - 15px);
+	p	
+		padding: 3px
+		margin 0px
+	//p, div
+		//bord()
+	.pp1
+		padding-top 10px
+		padding-bottom 3px
+	.pp3
+		padding-top 40px
+
+//.block-qu-1
+
+.butt-start	
+	//position: absolute;
+	//bottom: 20px;
+	background color5
+	width 300px
+	height 50px
+	border-radius: 10px
+	margin: auto
+	margin-top: 20px
+	//width 50%
+	//bord()
+	//border none
+	p
+		height 50px
+		padding: 5px
+		padding-top: 9px
+		font-weight: bold
+// .butt-start:hover
+// 	//border none
+// .butt-start:active
+// 	border none
+
+// ------------------------------------- //
+// 		 Стили для обычного блока:	     //
+// ------------------------------------- // 
+
+//.block-qu-1
