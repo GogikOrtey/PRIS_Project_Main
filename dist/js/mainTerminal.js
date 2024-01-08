@@ -205,6 +205,27 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // ------------------ //
+    // 	      Меню        //
+    // ------------------ // 
+
+    // Добавляю событие: При нажатии на кнопку разработчика в меню
+    let buttDevModEnable = document.querySelectorAll('.butt-develop-mode')[0];
+    let CircleDevMode = document.querySelectorAll('.butt-develop-mode .circle-dev-mode')[0];
+
+    buttDevModEnable.addEventListener('click', function() {
+        if(isDevelopModActive === true) {
+            isDevelopModActive = false;
+            CircleDevMode.classList.remove('circle-dev-mode-enable-style');
+        } else {
+            isDevelopModActive = true;
+            CircleDevMode.classList.add('circle-dev-mode-enable-style');
+        }
+
+        //console.log("isDevelopModActive = " + isDevelopModActive);
+        UpdateDevelomMode();
+    });
+
     // ------------------------------------------------------------------- //
     // 	  Обработчик событий для всех кнопок ответов, во всех формах:      //
     // ------------------------------------------------------------------- // 

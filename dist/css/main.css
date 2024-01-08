@@ -336,10 +336,6 @@ body {
   text-align: center;
   margin-top: 2px;
 }
-.butt-info:hover,
-.butt-all-pants:hover {
-  letter-spacing: 0.025em;
-}
 .butt-info:hover {
   border: solid 4px #2078fc;
 }
@@ -703,4 +699,123 @@ body {
   .card span {
     font-size: 2.3vw;
   }
+}
+.nav-menu-bar {
+  width: 90%;
+  height: auto;
+  display: grid;
+  grid-template-rows: auto auto;
+  background: #fff;
+  justify-items: center;
+  align-items: center;
+  margin: 25px;
+  padding: 5px;
+  border-radius: 10px;
+}
+.decr-nav-menu {
+  height: auto;
+  width: 60%;
+  background: #fff;
+  border-radius: 12.5px;
+  padding: 10px;
+  margin: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid 4px #f0f0f0;
+}
+.decr-nav-menu span {
+  font-size: 20px;
+}
+@media (min-width: 950px) {
+  .nav-menu-bar,
+  .content-nav-menu {
+    width: 870px;
+  }
+}
+.decr-nav-menu:hover {
+  border: solid 4px #2078fc;
+}
+.decr-nav-menu:active {
+  background: #2078fc;
+}
+.decr-nav-menu {
+  display: none;
+}
+.content-nav-menu {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto auto;
+  justify-items: center;
+  align-items: center;
+}
+.nav-nav-menu {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+}
+.butt-info,
+.butt-all-pants {
+  border: solid 4px #f0f0f0;
+  height: 70px;
+  width: 90%;
+  margin: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.butt-info span,
+.butt-all-pants span {
+  padding: 10px;
+  text-align: center;
+}
+.butt-develop-mode,
+.butt-hide-menu {
+  width: 95%;
+  height: auto;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: solid 4px #f0f0f0;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.butt-develop-mode span,
+.butt-hide-menu span {
+  padding: 0px;
+  text-align: center;
+}
+.butt-develop-mode:hover,
+.butt-hide-menu:hover {
+  border: solid 4px #2078fc;
+}
+.butt-develop-mode:active,
+.butt-hide-menu:active {
+  background: #2078fc;
+}
+.butt-develop-mode {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  justify-items: center;
+  align-items: center;
+}
+.swither-dev-mode {
+  width: 50px;
+  height: 30px;
+  background: #f0f0f0;
+  border-radius: 8px;
+  border: 2px solid #000;
+  padding: 2px;
+}
+.circle-dev-mode {
+  border-radius: 30%;
+  background: #f36201;
+  width: 23px;
+  height: 23px;
+}
+.circle-dev-mode-enable-style {
+  margin-left: 20px;
+  background: #00d100;
 }

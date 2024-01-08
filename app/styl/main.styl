@@ -583,7 +583,7 @@ body
 		margin-top 2px
 
 .butt-info:hover, .butt-all-pants:hover
-	letter-spacing: 0.025em;
+	//letter-spacing: 0.025em;
 	//font-style: italic;
 
 .butt-info:hover
@@ -784,8 +784,6 @@ body
 	color gray
 	padding 0px
 	margin-bottom 7px
-
-
 
 #white 
 	background-color: white;
@@ -990,3 +988,127 @@ body
 		//border red solid 1px
 		span
 			font-size: 2.3vw;
+
+// ----------------------------- //
+// 	   Новое меню навигации:     //
+// ----------------------------- // 
+
+
+.nav-menu-bar
+	width 90%
+	height auto
+	display: grid
+	grid-template-rows: auto auto
+	background white
+	justify-items: center;
+	align-items: center;
+	margin 25px
+	padding 5px
+	border-radius: 10px
+
+.decr-nav-menu
+	height auto
+	width 60%
+	background white
+	border-radius: 12.5px
+	padding 10px
+	margin 25px
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border solid 4px bg-3
+	span
+		font-size: 20px
+
+// Широкие экраны (десктоп)
+@media (min-width: 950px) 
+	.nav-menu-bar, .content-nav-menu
+		width: 870px
+
+.decr-nav-menu:hover
+	border solid 4px #2078fc
+	
+.decr-nav-menu:active
+	background #2078fc
+
+// .content-nav-menu
+// 	display: none
+
+.decr-nav-menu 
+	display: none
+
+.content-nav-menu
+	display: grid
+	grid-template-columns: 1fr
+	grid-template-rows: auto auto auto
+	justify-items: center;
+	align-items: center;
+
+.nav-nav-menu
+	display: grid
+	grid-template-columns: 1fr 1fr
+	justify-items: center;
+	align-items: center;
+
+.butt-info, .butt-all-pants
+	border solid 4px bg-3
+	height 70px
+	width 90%
+	margin 15px
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	span
+		padding 10px
+		text-align: center;
+
+.butt-develop-mode, .butt-hide-menu
+	width 95%
+	height auto
+	padding 10px
+	margin-bottom 15px
+	border solid 4px bg-3
+	border-radius: 10px
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	span
+		padding 0px
+		text-align: center;
+
+.butt-develop-mode:hover, .butt-hide-menu:hover
+	border solid 4px #2078fc
+	
+.butt-develop-mode:active, .butt-hide-menu:active
+	background #2078fc
+
+.butt-develop-mode
+	display: grid
+	grid-template-columns: 4fr 1fr
+	justify-items: center;
+	align-items: center;
+	//bord()
+
+.swither-dev-mode
+	width 50px
+	height 30px
+	background bg-3
+	border-radius: 8px
+	border 2px solid black
+	padding 2px
+
+.circle-dev-mode
+	border-radius: 30%
+	//border 3px solid bg-2
+	//border 2px solid black
+	background rgb(243, 98, 1)
+	width 23px
+	height 23px
+
+.circle-dev-mode-enable-style
+	margin-left 20px
+	background rgb(0, 209, 0)
+
+// .circle-dev-mode:hover
+// 	background #2078fc
+// 	border 3px solid black
