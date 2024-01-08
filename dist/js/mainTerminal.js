@@ -96,8 +96,6 @@ h_NoControl = 0
 // 2 - На 1-2 недели
 // 3 - До месяца
 
-let isStart = false;
-
 // Ждём, пока DOM-модель полностью загрузится
 document.addEventListener('DOMContentLoaded', function() { 
 
@@ -150,6 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Ввод из поля ввода
         //a_1_input_MinTempInHome = ...
         // Если корректно - то isTempCorrect = true
+        isTempCorrect = true
     });
 
     document.querySelector('#block-a-1 .answ-block-1').addEventListener('click', function() {
@@ -157,7 +156,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Ввод из поля ввода
         //a_2_input_AVGTempInRegion = ...
         // Если корректно - то isTempCorrect = true
-        isTempCorrect = false
+        isTempCorrect = true
     });    
     document.querySelector('#block-a-1 .answ-block-2').addEventListener('click', function() {
         a_2_AVGTempInRegion = 2
@@ -168,15 +167,19 @@ document.addEventListener('DOMContentLoaded', function() {
         a_2_1_AVGHum = 1
         // Ввод из поля ввода
         //a_2_1_input_AVGHum = ...
+        isHumCorrect = false
     });    
     document.querySelector('#block-a-2-1 .answ-block-2-s').addEventListener('click', function() {
         a_2_1_AVGHum = 2
+        isHumCorrect = true
     });    
     document.querySelector('#block-a-2-1 .answ-block-3-s').addEventListener('click', function() {
         a_2_1_AVGHum = 3
+        isHumCorrect = true
     });    
     document.querySelector('#block-a-2-1 .answ-block-4-s').addEventListener('click', function() {
         a_2_1_AVGHum = 4
+        isHumCorrect = true
     });    
 
     document.querySelector('#block-b .answ-block-1').addEventListener('click', function() {
@@ -257,7 +260,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
+let isStart = false;
 let isTempCorrect = false;
+let isHumCorrect = false;
 let isColorCucsSelected = false;
 let mainCounter = 0;
 
@@ -269,83 +274,160 @@ function CheckAllBlocks(){
     }
     console.log("Update all blocks")
 
-    if (a_InHome == 2) {
-        document.getElementById('block-a-1').style.display = 'grid';
-        document.getElementById('block-a-2').style.display = 'none';
-        //document.getElementsByClassName('descr-qu-1-grad')[0].style.display = 'none';
-    } else if(a_InHome == 1) {
+    if(mainCounter >= 1) {
+        if (a_InHome == 2) {
+            document.getElementById('block-a-1').style.display = 'grid';
+            document.getElementById('block-a-2').style.display = 'none';
+            a_1_MinTempInHome = 0;
+            mainCounter = 4;
+        } else if(a_InHome == 1) {
+            document.getElementById('block-a-1').style.display = 'none';
+            document.getElementById('block-a-2').style.display = 'grid';
+            a_2_AVGTempInRegion = 0;
+            mainCounter = 2;
+        }
+    } else {
+        a_InHome = 0;
         document.getElementById('block-a-1').style.display = 'none';
-        document.getElementById('block-a-2').style.display = 'grid';
+        document.getElementById('block-a-2').style.display = 'none';
     }
 
-    // Влажность
+    if(mainCounter >= 2) {
+        if(isTempCorrect == true && a_InHome == 1) {
+            document.getElementById('block-a-2-1').style.display = 'grid';
+            mainCounter = 3;
+        } else {
+            document.getElementById('block-a-2-1').style.display = 'none';
+            a_2_1_AVGHum = 0;
+        }
+    } else {
+        document.getElementById('block-a-2-1').style.display = 'none';
+        a_2_1_AVGHum = 0;
+    }
 
-    if((a_2_AVGTempInRegion != 0 || a_2_1_AVGHum != 0) && (isTempCorrect == true)){
-        document.getElementById('block-b').style.display = 'grid';
+    if(mainCounter >= 3) {
+        if((a_2_AVGTempInRegion != 0 
+            || (a_2_1_AVGHum != 0 && isHumCorrect == true)) 
+            && (isTempCorrect == true) 
+            || (a_InHome == 1 && isHumCorrect == true)){
+            document.getElementById('block-b').style.display = 'grid';
+            mainCounter = 4;
+        } else {
+            document.getElementById('block-b').style.display = 'none';
+            b_OncePlant = 0;
+        }
     } else {
         document.getElementById('block-b').style.display = 'none';
+        b_OncePlant = 0;
     }
 
-    if(b_OncePlant != 0) {
-        document.getElementById('block-c').style.display = 'grid';
+    if(mainCounter >= 4) {
+        if(b_OncePlant != 0) {
+            document.getElementById('block-c').style.display = 'grid';
+            mainCounter = 6;
+        } else {
+            document.getElementById('block-c').style.display = 'none';
+            c_AFlowers = 0;
+        }
     } else {
         document.getElementById('block-c').style.display = 'none';
+        c_AFlowers = 0;
     }
 
-    if(c_AFlowers == 3) { ////// ЦВЕТА!!!
-        document.getElementById('block-c-3').style.display = 'grid';
-        isColorCucsSelected = false
-        // Здесь нужно будет верно обработать ввод цветов
+    if(mainCounter >= 5) {
+        if(c_AFlowers == 3) { ////// ЦВЕТА!!!
+            document.getElementById('block-c-3').style.display = 'grid';
+            isColorCucsSelected = false
+            //mainCounter = 6;
+            // Здесь нужно будет верно обработать ввод цветов
+        } else {
+            document.getElementById('block-c-3').style.display = 'none';
+            //mainCounter = 6;
+        }
     } else {
         document.getElementById('block-c-3').style.display = 'none';
     }
 
-    if(c_AFlowers == 1 || c_AFlowers == 2 || isColorCucsSelected == true) {
-        document.getElementById('block-d').style.display = 'grid';
+    if(mainCounter >= 6) {
+        if(c_AFlowers == 1 || c_AFlowers == 2 || isColorCucsSelected == true) {
+            document.getElementById('block-d').style.display = 'grid';
+            mainCounter = 7;
+        } else {
+            document.getElementById('block-d').style.display = 'none';
+            d_IsPlod = 0;
+        }
     } else {
         document.getElementById('block-d').style.display = 'none';
+        d_IsPlod = 0;
     }
 
-    if(a_InHome == 2) {
-        if(d_IsPlod != 0) {
-            document.getElementById('block-e').style.display = 'grid';
+    if(mainCounter >= 7) {
+        if(a_InHome == 1) {
+            if(d_IsPlod != 0) {
+                document.getElementById('block-e').style.display = 'grid';
+            } else {
+                document.getElementById('block-e').style.display = 'none';
+                e_StandOnWindow = 0;
+            }
+    
+            if(e_StandOnWindow == 1) {
+                document.getElementById('block-e-1').style.display = 'grid';
+            } else {
+                document.getElementById('block-e-1').style.display = 'none';
+                e_1_ASunLight = 0;
+            }
+    
+            if(e_StandOnWindow == 2 || e_1_ASunLight != 0) {
+                document.getElementById('block-f').style.display = 'grid';
+            } else {
+                document.getElementById('block-f').style.display = 'none';
+                f_GenerateAOxugen = 0;
+            }
+    
+            if(f_GenerateAOxugen != 0) {
+                document.getElementById('block-g').style.display = 'grid';
+                mainCounter = 8;
+            } else {
+                document.getElementById('block-g').style.display = 'none';
+                g_AFreeProstr = 0;
+            }
         } else {
-            document.getElementById('block-e').style.display = 'none';
-        }
+            e_StandOnWindow = 0;
+            e_1_ASunLight = 0;
+            f_GenerateAOxugen = 0;
+            g_AFreeProstr = 0;
 
-        if(e_StandOnWindow == 1) {
-            document.getElementById('block-e-1').style.display = 'grid';
-        } else {
-            document.getElementById('block-e-1').style.display = 'none';
-        }
-
-        if(e_StandOnWindow == 2 || e_1_ASunLight != 0) {
-            document.getElementById('block-f').style.display = 'grid';
-        } else {
-            document.getElementById('block-f').style.display = 'none';
-        }
-
-        if(f_GenerateAOxugen != 0) {
-            document.getElementById('block-g').style.display = 'grid';
-        } else {
-            document.getElementById('block-g').style.display = 'none';
+            mainCounter = 8;
         }
     }
 
-    if(g_AFreeProstr != 0 || (a_InHome == 2 && d_IsPlod != 0)) {
-        document.getElementById('block-h').style.display = 'grid';
+    if(mainCounter >= 8) {
+        if(g_AFreeProstr != 0 || (a_InHome == 2 && d_IsPlod != 0)) {
+            document.getElementById('block-h').style.display = 'grid';
+            mainCounter = 9;
+        } else {
+            document.getElementById('block-h').style.display = 'none';
+            h_NoControl = 0;
+        }
     } else {
         document.getElementById('block-h').style.display = 'none';
+        h_NoControl = 0;
     }
-    
-    if(h_NoControl != 0) {
-        //document.getElementById('block-h').style.display = 'grid';
-        console.log("I'ts Final!!!");
-        debugPrint();
-    } else {
-        //document.getElementById('block-h').style.display = 'none';
+
+    if(mainCounter >= 9) {
+        // Тут добавить кнопочку, по типу "Подобрать растение"
+        if(h_NoControl != 0) {
+            //document.getElementById('block-h').style.display = 'grid';
+            console.log("I'ts Final!!!");
+            mainCounter = 10;
+            debugPrint();
+        } else {
+            //document.getElementById('block-h').style.display = 'none';
+        }
     }
 }
+
+// Когда вопросы скрываются, их перемменные не обнуляются
 
 function debugPrint(){
     console.log("----------");
