@@ -917,30 +917,6 @@ body {
 .gray-color-page-3 {
   color: #cfcfcf;
 }
-.simple-text-block {
-  display: grid;
-  grid-template-rows: auto auto;
-  justify-items: center;
-  align-items: center;
-}
-.simple-text-block .block-request {
-  width: 95%;
-}
-.simple-text-block .load-req {
-  width: 90%;
-  height: 60px;
-  margin: 15px;
-  padding: 7px;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 12.5px;
-  border: solid 4px #d3d3d3;
-}
-.simple-text-block .load-req span {
-  font-size: 20px;
-}
 .load-req:hover {
   border: solid 4px #2078fc;
 }
@@ -1011,4 +987,27 @@ body {
 }
 .go-back-to-main span {
   font-size: 23px;
+}
+@media (max-width: 650px) {
+  html p,
+  html span {
+    color: #f00;
+  }
+  .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  .header .head-title {
+    margin: 35px;
+    padding-bottom: 20px;
+  }
+  .header .head-title p {
+    font-size: 30px;
+  }
+  .header .head-bottom-line {
+    position: absolute;
+    bottom: 0px;
+  }
 }

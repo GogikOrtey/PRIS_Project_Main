@@ -1263,27 +1263,27 @@ body
 .gray-color-page-3
 	color rgb(207, 207, 207)
 
-.simple-text-block 
-	display: grid;
-	grid-template-rows: auto auto
-	justify-items: center;
-	align-items: center;	
-	.block-request  
-		width 95%
-	.load-req 
-		width 90%
-		height 60px
-		margin 15px
-		padding 7px
-		text-align: center
-		//bord()
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		border-radius: 12.5px
-		border solid 4px bg-2
-		span
-			font-size: 20px
+// .simple-text-block
+// 	display: grid;
+// 	grid-template-rows: auto auto
+// 	justify-items: center;
+// 	align-items: center;	
+// 	.block-request  
+// 		width 95%
+// 	.load-req 
+// 		width 90%
+// 		height 60px
+// 		margin 15px
+// 		padding 7px
+// 		text-align: center
+// 		//bord()
+// 		display: flex;
+// 		justify-content: center;
+// 		align-items: center;
+// 		border-radius: 12.5px
+// 		border solid 4px bg-2
+// 		span
+// 			font-size: 20px
 
 .load-req:hover
 	border solid 4px #2078fc
@@ -1354,3 +1354,33 @@ body
 	margin-bottom 20px
 	span
 		font-size: 23px
+
+
+
+// ------------------------------------------------------------- //
+//
+// 					Под мобильные телефоны: 
+//
+// ------------------------------------------------------------- //
+
+
+@media (max-width: 650px) 
+	html
+		p, span
+			color red
+
+	.header
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: relative;
+		.head-title
+			margin 35px
+			padding-bottom: 20px
+			p
+				//font-size: 7vw;
+				font-size: 30px;
+				
+		.head-bottom-line
+			position: absolute;
+			bottom: 0px;
