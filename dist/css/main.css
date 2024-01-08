@@ -999,9 +999,6 @@ body {
     margin: 35px;
     padding-bottom: 20px;
   }
-  .header .head-title p {
-    font-size: 30px;
-  }
   .header .head-bottom-line {
     position: absolute;
     bottom: 0px;
@@ -1016,9 +1013,6 @@ body {
   }
   .nav-menu-bar .decr-nav-menu span {
     font-size: 20px;
-  }
-  .nav-menu-bar .content-nav-menu {
-    display: grid;
   }
   .nav-menu-bar .content-nav-menu .nav-nav-menu {
     grid-template-columns: 1fr;
@@ -1048,5 +1042,68 @@ body {
   .nav-menu-bar .sp-4 {
     color: #000;
     font-style: italic;
+  }
+  .descr-qu-1-grad {
+    height: 350px;
+  }
+  .descr-qu-1-grad .descr-qu-1 {
+    position: relative;
+    padding: 10px;
+    padding-top: 5px;
+  }
+  .descr-qu-1-grad .descr-qu-1 .butt-start {
+    position: absolute;
+    top: 230;
+    left: 2vw;
+  }
+  .block-qu .letter-abbr {
+    top: -18;
+    left: -5;
+  }
+  .block-qu .qu-answ {
+    height: auto;
+    margin-bottom: 0px;
+    padding-bottom: 10px;
+  }
+  .block-qu .butt-bar {
+    all: unset;
+    width: 100%;
+    margin-top: 0px;
+    margin-bottom: 7px;
+  }
+  .block-qu .butt-bar .butt-answ {
+    width: 95%;
+    margin-left: 0px;
+    margin: 5px auto;
+  }
+  .block-qu .hhid {
+    padding: 10px;
+    font-size: 16px;
+  }
+  .block-qu .butt-bar-colors {
+    margin-bottom: 0px;
+  }
+  .block-qu .butt-bar-colors {
+    width: 90%;
+  }
+  .block-qu .butt-bar-colors .color-green,
+  .block-qu .butt-bar-colors .color-s {
+    width: 80%;
+  }
+  .block-qu#block-h .qu-answ {
+    width: 80%;
+  }
+}
+@media (max-width: 400px) {
+  .head-title p {
+    font-size: 21px;
+  }
+  .hhid {
+    font-size: 4.5vw;
+  }
+}
+@media (min-width: 400px) and (max-width: 650px) {
+  .head-title p {
+    font-size: 30px;
   }
 }

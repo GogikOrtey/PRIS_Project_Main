@@ -1433,7 +1433,7 @@ function SetNamePlants(plantNames_mass) {
         });
     
     } else { // Только одно растение // if(b_OncePlant == 0 || 1)
-        spans.forEach((span, index) => {     
+        spans.for Each((span, index) => {     
             if(index != 1) span.parentElement.style.display = 'none';
         });
 

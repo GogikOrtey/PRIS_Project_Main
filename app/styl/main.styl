@@ -1364,10 +1364,18 @@ body
 // ------------------------------------------------------------- //
 
 
-@media (max-width: 650px) 
+
+// Ультраузкие
+@media (max-width: 500px) 
 	html
 		p, span
 			//color red
+
+// Обычные узкие
+@media (max-width: 650px)
+	html
+		p, span
+			//color green
 
 	.header
 		display: flex;
@@ -1377,9 +1385,9 @@ body
 		.head-title
 			margin 35px
 			padding-bottom: 20px
-			p
-				//font-size: 7vw;
-				font-size: 30px;
+			// p
+			// 	//font-size: 7vw;
+			// 	font-size: 30px;
 				
 		.head-bottom-line
 			position: absolute;
@@ -1396,7 +1404,7 @@ body
 			span
 				font-size: 20px
 		.content-nav-menu
-			display: grid
+			//display: grid
 			.nav-nav-menu
 				grid-template-columns: 1fr
 				.butt-info, .butt-all-pants
@@ -1419,3 +1427,86 @@ body
 		.sp-4
 			color black
 			font-style: italic
+
+	.descr-qu-1-grad
+		height 350px
+		.descr-qu-1
+			position: relative;
+			.butt-start
+				position: absolute;
+				top: 230;
+				left 2vw
+				//margin-top 40px
+			padding 10px
+			padding-top 5px
+			p
+				//font-size: 4.5vw
+
+	.block-qu
+		p
+			//color red
+		.letter-abbr
+			top: -18;
+			left: -5
+		.qu-answ
+			//bord()
+			// padding-left 15px
+			// padding-right 15px
+		.qu-answ
+			//bord()
+			height auto
+			margin-bottom 0px
+			padding-bottom 10px
+		.butt-bar
+			all: unset
+			width 100%
+			margin-top 0px
+			margin-bottom 7px
+			//bord()
+			.butt-answ
+				width 95%
+				margin-left 0px
+				margin 5px auto
+		.hhid
+			//color red
+			//bord()
+			//padding-top 0px
+			//margin-top 0px
+			padding 10px
+			font-size: 16px
+		.butt-bar-colors 
+			margin-bottom 0px
+		.butt-bar-colors 
+			width 90%
+			.color-green, .color-s
+				width 80%
+				//height 20px
+	.block-qu#block-h
+		.qu-answ
+			//color red
+			//margin-top 500px
+			width 80%
+			//bord()
+
+
+
+
+
+
+@media (max-width: 400px)
+	.head-title
+		p
+			//color red
+			font-size: 21px
+	.hhid
+		font-size: 4.5vw
+
+
+@media (min-width: 400px) and (max-width: 650px)
+	html 
+		p, span 
+			//color: blue
+
+	.head-title
+		p
+			font-size: 30px;
