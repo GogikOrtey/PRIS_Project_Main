@@ -112,6 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementsByClassName('butt-final')[0].style.display = 'none';
     document.getElementsByClassName('block-request')[0].style.display = 'none';
     document.querySelector('.butt-final-2').style.display = 'none';
+    document.querySelector('.reauest-2-only-color').style.display = 'none';
 
     document.querySelector('.loadd').style.display = 'none';
     document.querySelector('.result-cards').style.display = 'none';
@@ -214,7 +215,7 @@ function UpdateDevelomMode() {
     }
 }
 
-let isDevelopModActive = false;
+let isDevelopModActive = true;
 
 let _mainCounter = 0;               // Счётчик состояний
 
@@ -927,20 +928,20 @@ function CreateSQLequest() {
         if(colors['yellow'] == true) {
             addStr1 += "plant_color_description LIKE '%ёлтый%' OR ";
         } 
-        if(colors['lightBlue'] === true) {
+        if(colors['lightBlue'] == true) {
             addStr1 += "plant_color_description LIKE '%олубой%' OR ";
         } 
         if(colors['blue'] == true) {
             addStr1 += "plant_color_description LIKE '%иний%' OR ";
         } 
         if(colors['violet'] == true) {
-            addStr1 += "plant_color_description LIKE '%илоетовый%' OR ";
+            addStr1 += "plant_color_description LIKE '%иолетовый%' OR ";
         } 
         if(colors['pink'] == true) {
             addStr1 += "plant_color_description LIKE '%озовый%' OR ";
         } 
         if(colors['silver'] == true) {
-            addStr1 += "plant_color_description LIKE '%еребрянный%' OR ";
+            addStr1 += "plant_color_description LIKE '%еребристый%' OR ";
         } 
         if(colors['multicolor'] == true) {
             addStr1 += "plant_color_description LIKE '%азноцветный%' OR ";
@@ -1025,6 +1026,8 @@ function CreateSQLequest() {
     console.log();
     console.log("Запрос:" + outputRequare);
     console.log();    
+
+    allCountOfRequ = 1;
 
     return(outputRequare)
 }
@@ -1112,9 +1115,74 @@ str_SortMainReq = ''; // Пока что, для тестов
 
 // return "Неверный запрос";
 
+let allCountOfRequ = 0;
+
+function Requ_2_OnlyGettingColor() {
+    if(allCountOfRequ < 2) {    
+        console.log("Запрос с цветами пустой");
+        allCountOfRequ = 2;
+        document.querySelector('.loadd').style.display = 'grid';
+
+        let addStr1 = "";
+    
+        //addStr1 += " AND (";
+        if(colors['red'] == true) {
+            addStr1 += "plant_color_description LIKE '%расный%' OR ";
+        } 
+        if(colors['orange'] == true) {
+            addStr1 += "plant_color_description LIKE '%ранжевый%' OR ";
+        } 
+        if(colors['yellow'] == true) {
+            addStr1 += "plant_color_description LIKE '%ёлтый%' OR ";
+        } 
+        if(colors['lightBlue'] == true) {
+            addStr1 += "plant_color_description LIKE '%олубой%' OR ";
+        } 
+        if(colors['blue'] == true) {
+            addStr1 += "plant_color_description LIKE '%иний%' OR ";
+        } 
+        if(colors['violet'] == true) {
+            addStr1 += "plant_color_description LIKE '%иолетовый%' OR ";
+        } 
+        if(colors['pink'] == true) {
+            addStr1 += "plant_color_description LIKE '%озовый%' OR ";
+        } 
+        if(colors['silver'] == true) {
+            addStr1 += "plant_color_description LIKE '%еребристый%' OR ";
+        } 
+        if(colors['multicolor'] == true) {
+            addStr1 += "plant_color_description LIKE '%азноцветный%' OR ";
+        } 
+        if(colors['green'] == true) {
+            addStr1 += "plant_color_description LIKE '%елёный%' OR ";
+        } 
+        
+    
+        addStr1 = addStr1.trim(); // Удаляю пробелы в конце строки
+    
+        if (addStr1.endsWith(' OR')) {
+            addStr1 = addStr1.slice(0, -3); // Удаляю AND, если он вылез в коне запроса
+        }
+    
+        //addStr1 += ")";
+        //strRequare += addStr1;      
+
+        let strRequare = "SELECT plant_name FROM MainTable WHERE ";
+        strRequare += addStr1;
+        
+        //let SQL_Rq = CreateSQLequest();
+        document.querySelector('.block-request .req p').textContent = strRequare;
+
+        document.querySelector('.reauest-2-only-color').style.display = 'block';
+        document.querySelector('.result-cards .spsp').style.display = 'none';
+
+        SQL_RQ_FromSwever(strRequare);        
+    }
+}
+
 //var sql_2 = "SELECT plant_name FROM MainTable WHERE plant_type_description = 'Уличное' AND (allelopathy_description = 'Нейтральная' OR allelopathy_description = 'Положительная') AND (care_instructions >= 6) ORDER BY is_famous DESC, CASE allelopathy_description WHEN 'Положительная' THEN 1 WHEN 'Нейтральная' THEN 2 ELSE 3 END, CASE plant_color_description WHEN 'разноцветный' THEN 1 WHEN 'белый' THEN 2 WHEN 'жёлтый' THEN 3 WHEN 'голубой' THEN 4 WHEN 'серебристый' THEN 5 WHEN 'бордовый' THEN 6 WHEN 'красный' THEN 7 WHEN 'оранжевый' THEN 8 WHEN 'пёстрый' THEN 9 WHEN 'пурпурный' THEN 10 WHEN 'розовый' THEN 11 WHEN 'синий' THEN 12 WHEN 'фиолетовый' THEN 13 WHEN 'Зелёный с белой каймой' THEN 14 WHEN 'Зелёный с белыми или розовыми разводами' THEN 15 WHEN 'Зелёный с красными прицветниками' THEN 16 WHEN 'Зелёный с пятнами' THEN 17 WHEN 'Зелёный с разноцветными прожилками' THEN 18 WHEN 'Зелёный с серебристым оттенком' THEN 19 ELSE 20 END, area_covered ASC, oxygen_production DESC;";
 var sql_2 = "";
-let isNotEmptyBDAnswer = false; // Мы получили непустой ответ от БД?
+let isEmptyBDAnswer = false; // Мы получили непустой ответ от БД?
 
 function SQL_RQ_FromSwever(sql_2) {
     // Запрос к БД ратсений:
@@ -1127,9 +1195,15 @@ function SQL_RQ_FromSwever(sql_2) {
                 console.log("Пустой ответ");
                 docWrite_01("Пустой ответ");
                 isEmptyBDAnswer = false;
-                //.zero-reauest 
-                document.querySelector('.zero-reauest').style.display = 'grid';
-                document.querySelector('.result-cards').style.display = 'none';
+                if(colors['green'] == false) {
+                    Requ_2_OnlyGettingColor();
+                } else {
+                    document.querySelector('.zero-reauest').style.display = 'grid';
+                    document.querySelector('.result-cards').style.display = 'none';
+                }
+                
+                // document.querySelector('.zero-reauest').style.display = 'grid';
+                // document.querySelector('.result-cards').style.display = 'none';
             } else if(data_inp.startsWith("Неверный запрос")) { //if(data_inp == "Неверный запрос") {
                 console.log(data_inp);
                 docWrite_01(data_inp);
@@ -1137,6 +1211,7 @@ function SQL_RQ_FromSwever(sql_2) {
                 document.querySelector('.zero-reauest').style.display = 'grid';
                 document.querySelector('.result-cards').style.display = 'none';
             } else {
+                allCountOfRequ = 3;
                 isNotEmptyBDAnswer = true;
                 var data = JSON.parse(data_inp);
                 JSON_Parser_OnConsole(data);
@@ -1163,17 +1238,6 @@ function SQL_RQ_FromSwever(sql_2) {
         });        
 
         plantNames = OnPageWeu_02(data);
-
-        // for (var i = 0; i < data.length; i++) {     
-
-        //     //console.log(data[i]); // выводим каждую строку в консоль
-
-        //     plantNames += data[i].plant_name; // добавляем имя растения в строку            
-            
-        //     // if (i < data.length - 1) { // если это не последнее растение, добавляем запятую и пробел
-        //     //     plantNames += ", ";
-        //     // }
-        // }
         
         //document.getElementById("your-p-tag-id").innerText = plantNames; // устанавливаем текст для вашего тега <p>
         docWrite_01(plantNames);
@@ -1184,7 +1248,9 @@ function docWrite_01(text) {
     document.querySelector('.block-request .answ p').innerText = text;
     
     document.querySelector('.loadd').style.display = 'none';
-    document.querySelector('.result-cards').style.display = 'grid';
+    if(isEmptyBDAnswer == true) {
+        document.querySelector('.result-cards').style.display = 'grid';    
+    }
 
     window.plantCards_plantNames = text;
     window.setCards();

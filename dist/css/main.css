@@ -605,7 +605,8 @@ body {
 }
 @media (min-width: 950px) {
   .result-cards,
-  .zero-reauest {
+  .zero-reauest,
+  .reauest-2-only-color {
     width: 870px;
   }
 }
@@ -619,6 +620,23 @@ body {
   .spsp span {
     font-size: 2.3vw;
   }
+  .reauest-2-only-color span {
+    font-size: 2.3vw;
+  }
+}
+.reauest-2-only-color {
+  border-radius: 15px;
+  background: #fff;
+  width: 100%;
+  height: auto;
+  padding: 20px;
+  margin-bottom: 15px;
+}
+.reauest-2-only-color span {
+  height: auto;
+  display: block;
+  font-size: 23px;
+  padding: 10px;
 }
 .upper-block-3 {
   display: grid;
