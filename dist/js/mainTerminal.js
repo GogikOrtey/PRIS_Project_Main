@@ -1362,7 +1362,7 @@ function docWrite_01(text, data) {
 
     console.log("Отправляем вот такую строку:" + text); 
 
-    randomImgPlantsCard();  // Устанавливаем случайные картинки из набора, на все карточки
+    //randomImgPlantsCard();  // Устанавливаем случайные картинки из набора, на все карточки
     SetNamePlants(data);    // Устанавливаем нужные названия для карточек, из массива
 }
 
@@ -1383,6 +1383,19 @@ function randomImgPlantsCard() {
     });
 }
 
+function ErrorImageCon(img) {
+    // Обработка ошибки
+    // Создаем массив с именами файлов изображений
+    let imageNames = Array.from({length: 13}, (_, i) => `img/plant-image/P_${String(i+1).padStart(2, '0')}.png`);
+
+    // Перемешиваем массив
+    imageNames.sort(() => Math.random() - 0.5);
+
+    img.src = imageNames[0];
+
+    console.log('Ошибка при загрузке изображения "' + item.plant_name + '"');
+}
+
 // Устанавливает нужные названия для карточек, из массива
 function SetNamePlants(plantNames_mass) {
     // Пример входной строки:
@@ -1391,24 +1404,68 @@ function SetNamePlants(plantNames_mass) {
     // Получаем все карточки
     let spans = document.querySelectorAll('.card span');
 
-    // Присваиваем каждой карточке название растения из массива
-    spans.forEach((span, index) => {
-        if (index < plantNames_mass.length) {
-            span.textContent = plantNames_mass[index].plant_name;
-            span.parentElement.style.display = 'grid';
-        } else {
-            span.parentElement.style.display = 'none'; // Скрываем лишние карточки
-        }
-    });
+    console.log("b_OncePlant = " + b_OncePlant);
 
+    if(b_OncePlant != 1) { // Несколько растений
+
+        // Присваиваем каждой карточке название растения из массива
+        spans.forEach((span, index) => {
+            
+            if (index < plantNames_mass.length) {
+                let namePl = plantNames_mass[index].plant_name;
+                span.textContent = namePl
+                console.log("Обрабатываем название карточки: " + namePl);
+                let crad = span.parentElement;
+                let img_loc = crad.querySelectorAll('img');
+                
+                // Если вы хотите установить src для первого изображения
+                let img = img_loc[0];           
+        
+                img.src = `img/all-plants-photo/Растение ${namePl}.jpg`;
+    
+                img.onerror = function() { ErrorImageCon(img) }; // Если картинки с нужным именем не нашлось
+    
+                span.parentElement.style.display = 'grid';
+            } else {
+                span.parentElement.style.display = 'none'; // Скрываем лишние карточки
+            }            
+    
+        });
+    
+    } else { // Только одно растение // if(b_OncePlant == 0 || 1)
+        spans.forEach((span, index) => {     
+            if(index != 1) span.parentElement.style.display = 'none';
+        });
+
+        document.querySelector('.upper-block-3').style.setProperty("grid-template-columns", "1fr");
+
+        span = spans[1];
+
+        let namePl = plantNames_mass[0].plant_name;
+        span.textContent = namePl
+        console.log("Обрабатываем название карточки: " + namePl);
+        let crad = span.parentElement;
+        let img_loc = crad.querySelectorAll('img');
+        
+        // Если вы хотите установить src для первого изображения
+        let img = img_loc[0];           
+    
+        img.src = `img/all-plants-photo/Растение ${namePl}.jpg`;
+    
+        img.onerror = function() { ErrorImageCon(img) }; // Если картинки с нужным именем не нашлось
+
+        let textSpan1 = document.querySelectorAll('.result-cards .spsp span')[0];
+        textSpan1.textContent = "Вот такое растение подойдёт тебе лучше всего:";        
+    
+        span.parentElement.style.display = 'grid';
+    }
+    
     // Если названий растений меньше 7, но больше 3, показываем только первые 3 карточки
     if (plantNames_mass.length < 7 && plantNames_mass.length > 3) {
         for (let i = 3; i < spans.length; i++) {
             spans[i].parentElement.style.display = 'none';
         }
     }
-
-    // Вот тут добавить логику, что если выбрано "Подобрать 1 растение", то он показывает только 1 карточку --------------------------------------< ВАЖНО
 }
 
 // Перезагружаю страницу, если нажата кнопка "Пройти ещё раз"

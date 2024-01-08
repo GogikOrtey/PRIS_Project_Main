@@ -328,7 +328,6 @@ function showCards(data) {
                 img.src = imageNames[0];
 
                 console.log('Ошибка при загрузке изображения "' + item.plant_name + '"');
-
             };
             span.textContent = item.plant_name;
     

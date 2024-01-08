@@ -191,13 +191,9 @@ body {
 }
 .butt-start:hover span {
   font-style: italic;
-  letter-spacing: 0.04em;
 }
 .butt-start:active {
   background: #20f00d;
-}
-.butt-start:active span {
-  font-weight: bold;
 }
 .block-qu {
   height: auto;
@@ -405,11 +401,6 @@ body {
 .butt-final-2:hover {
   background: #00a3ff;
   font-style: italic;
-}
-.butt-final:active,
-.butt-final-2:active {
-  border: solid 3px #000;
-  letter-spacing: -0.05em;
 }
 .butt-final-2 {
   margin-top: 15px;
@@ -653,6 +644,11 @@ body {
   justify-items: center;
   align-items: center;
   width: 77%;
+  padding-left: 10px;
+}
+.upper-block-3 .card {
+  width: 190px;
+  margin-left: 5px;
 }
 .down-block-4 {
   display: grid;
@@ -676,8 +672,9 @@ body {
   align-items: center;
 }
 .card img {
+  margin-top: 20px;
   box-shadow: none;
-  width: 85%;
+  width: 95%;
   height: 100%;
 }
 .card span {
