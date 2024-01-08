@@ -454,7 +454,47 @@ function CheckCorrectInput1() {
     });
 }
 
+function CheckCorrectInput2() {
+    document.querySelector('.my-input-2').addEventListener('input', function(e) {
+        var value = e.target.value;
+        var errorElement = document.querySelector('.err-inp-2');
+        
+        if (value == "" || isNaN(value) || value < 15 || value > 30) {
+            errorElement.style.display = 'block';
+            isTempCorrect = false;
+            a_1_input_MinTempInHome = 0;
+            a_1_MinTempInHome = 0
+        } else {
+            errorElement.style.display = 'none';
+            isTempCorrect = true;
+            a_1_input_MinTempInHome = parseInt(value);
+            a_1_MinTempInHome = 1
+        }
 
+        CheckAllBlocks();
+    });
+}
+
+function CheckCorrectInput3() {
+    document.querySelector('.my-input-3').addEventListener('input', function(e) {
+        var value = e.target.value;
+        var errorElement = document.querySelector('.err-inp-3');
+        
+        if (value == "" || isNaN(value) || value < 10 || value > 90) {
+            errorElement.style.display = 'block';
+            isHumCorrect = false;
+            a_2_1_input_AVGHum = 0;
+            a_2_1_AVGHum = 0
+        } else {
+            errorElement.style.display = 'none';
+            isHumCorrect = true;
+            a_2_1_input_AVGHum = parseInt(value);
+            a_2_1_AVGHum = 1
+        }
+
+        CheckAllBlocks();
+    });
+}
 
 //let isTempCorrect = false;
 //let isHumCorrect = false;
@@ -488,13 +528,14 @@ function SetButtonSelection() {
 
 
 
-    document.querySelector('#block-a .answ-block-1').addEventListener('click', function() {
+    document.query Selector('#block-a .answ-block-1').addEventListener('click', function() {
         a_InHome = 1
         //currentLetterButtonDown = "a";
 
         document.getElementById('block-b').style.display = 'none';
         removeActiveClass('block-b');
         b_OncePlant = 0;
+        isTempCorrect = false;
     });    
     document.querySelector('#block-a .answ-block-2').addEventListener('click', function() {
         a_InHome = 2
@@ -503,6 +544,9 @@ function SetButtonSelection() {
         document.getElementById('block-b').style.display = 'none';
         removeActiveClass('block-b');
         b_OncePlant = 0;
+        document.querySelector('.err-inp-2').style.display = 'none';
+        document.querySelector('.my-input-2').value = '';
+        isTempCorrect = false;
     });
 
     document.querySelector('#block-a-2 .answ-block-1').addEventListener('click', function() {
@@ -514,6 +558,18 @@ function SetButtonSelection() {
         
         //isTempCorrect = true
         //currentLetterButtonDown = "a-2";
+        document.querySelector('.err-inp-3').style.display = 'none';
+        document.querySelector('.my-input-3').value = '';
+        isHumCorrect = false;
+    });
+    document.querySelector('.my-input-2').addEventListener('input', function(e) {
+        //console.log('Значение поля ввода изменилось: ', e.target.value);
+        isTempCorrect = false;
+        CheckCorrectInput2();
+
+        document.querySelector('.err-inp-3').style.display = 'none';
+        document.querySelector('.my-input-3').value = '';
+        isHumCorrect = false;
     });
 
     document.querySelector('#block-a-1 .answ-block-1').addEventListener('click', function() {
@@ -521,7 +577,7 @@ function SetButtonSelection() {
         // Ввод из поля ввода
         //a_2_input_AVGTempInRegion = ...
         // Если корректно - то isTempCorrect = true
-        isTempCorrect = false
+        isTempCorrect = false;
         CheckCorrectInput1();
         //currentLetterButtonDown = "a-1";
     });    
@@ -543,20 +599,31 @@ function SetButtonSelection() {
         //a_2_1_input_AVGHum = ...
         isHumCorrect = false
         //currentLetterButtonDown = "a-2-1";
+        CheckCorrectInput3();
     });    
+    document.querySelector('.my-input-3').addEventListener('input', function(e) {
+        //console.log('Значение поля ввода изменилось: ', e.target.value);
+        CheckCorrectInput3();
+    });
     document.querySelector('#block-a-2-1 .answ-block-2-s').addEventListener('click', function() {
         a_2_1_AVGHum = 2
         isHumCorrect = true
+        document.querySelector('.err-inp-3').style.display = 'none';
+        document.querySelector('.my-input-3').value = '';
         //currentLetterButtonDown = "a-2-1";
     });    
     document.querySelector('#block-a-2-1 .answ-block-3-s').addEventListener('click', function() {
         a_2_1_AVGHum = 3
         isHumCorrect = true
+        document.querySelector('.err-inp-3').style.display = 'none';
+        document.querySelector('.my-input-3').value = '';
         //currentLetterButtonDown = "a-2-1";
     });    
     document.querySelector('#block-a-2-1 .answ-block-4-s').addEventListener('click', function() {
         a_2_1_AVGHum = 4
         isHumCorrect = true
+        document.querySelector('.err-inp-3').style.display = 'none';
+        document.querySelector('.my-input-3').value = '';
         //currentLetterButtonDown = "a-2-1";
     });    
 
@@ -662,42 +729,21 @@ function SetButtonSelection() {
 // Вставляем полученные значения переменных в форму запроса
 function debugPrint_2(){
     let output = "Текст запроса: [Тестовый]\n";
-    output += "Debug Print:\n";
     output += `a_InHome: ${a_InHome}\n`;
-    if (a_InHome == 1) {
-        output += `a_1_MinTempInHome: ${a_1_MinTempInHome}\n`;
-        if (a_1_MinTempInHome == 1) {
-            output += `a_1_input_MinTempInHome: ${a_1_input_MinTempInHome}\n`;
-        }
-    } else {
-        output += `a_2_AVGTempInRegion: ${a_2_AVGTempInRegion}\n`;
-        if (a_2_AVGTempInRegion == 1) {
-            output += `a_2_input_AVGTempInRegion: ${a_2_input_AVGTempInRegion}\n`;
-        }
-        output += `a_2_1_AVGHum: ${a_2_1_AVGHum}\n`;
-        if (a_2_1_AVGHum == 1) {
-            output += `a_2_1_input_AVGHum: ${a_2_1_input_AVGHum}\n`;
-        }
-    }
-    
+    output += `a_1_MinTempInHome: ${a_1_MinTempInHome}\n`;
+    output += `a_1_input_MinTempInHome: ${a_1_input_MinTempInHome}\n`;
+    output += `a_2_AVGTempInRegion: ${a_2_AVGTempInRegion}\n`;
+    output += `a_2_input_AVGTempInRegion: ${a_2_input_AVGTempInRegion}\n`;
+    output += `a_2_1_AVGHum: ${a_2_1_AVGHum}\n`;
+    output += `a_2_1_input_AVGHum: ${a_2_1_input_AVGHum}\n`;
     output += `b_OncePlant: ${b_OncePlant}\n`;
-    
     output += `c_AFlowers: ${c_AFlowers}\n`;
-    if (c_AFlowers == 3) {
-        output += `c_3_SelectAColor: ${c_3_SelectAColor}\n`;
-    }
-    
+    output += `c_3_SelectAColor: ${c_3_SelectAColor}\n`;
     output += `d_IsPlod: ${d_IsPlod}\n`;
-    
     output += `e_StandOnWindow: ${e_StandOnWindow}\n`;
-    if (e_StandOnWindow == 1) {
-        output += `e_1_ASunLight: ${e_1_ASunLight}\n`;
-    }
-    
+    output += `e_1_ASunLight: ${e_1_ASunLight}\n`;
     output += `f_GenerateAOxugen: ${f_GenerateAOxugen}\n`;
-    
     output += `g_AFreeProstr: ${g_AFreeProstr}\n`;
-    
     output += `h_NoControl: ${h_NoControl}\n`;    
 
     document.querySelector('.block-request .req p').textContent = output;

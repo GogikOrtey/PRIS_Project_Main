@@ -204,6 +204,7 @@ body {
   align-items: center;
   position: relative;
   margin-bottom: 25px;
+  position: relative;
 }
 #block-a-2-butt {
   display: grid;
@@ -239,8 +240,7 @@ body {
   letter-spacing: -0.05em;
 }
 .butt-answ.active {
-  font-weight: bold;
-  border: solid 3px #202020;
+  border: solid 4px #202020;
   letter-spacing: -0.05em;
 }
 .butt-answ input {
@@ -439,4 +439,36 @@ body {
   font-weight: bold;
   margin-bottom: 3px;
   display: none;
+}
+.add-info {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+  border-radius: 5px;
+  background: #f0f0f0;
+}
+.add-info span {
+  font-size: 16px;
+}
+.add-info:hover {
+  background: #e6e6e6;
+}
+.add-info::after {
+  content: 'Сколько дней растения можно не поливать:';
+  display: none;
+}
+.add-info:hover::after,
+.add-info:active::after {
+  display: block;
+  position: absolute;
+  top: -45px;
+  right: 15px;
+  background: #fff;
+  border-radius: 7px;
+  padding: 5px;
+  width: 200px;
+  border: solid 2px #afafaf;
 }
