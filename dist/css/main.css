@@ -988,26 +988,3 @@ body {
 .go-back-to-main span {
   font-size: 23px;
 }
-@media (max-width: 650px) {
-  html p,
-  html span {
-    color: #f00;
-  }
-  .header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-  }
-  .header .head-title {
-    margin: 35px;
-    padding-bottom: 20px;
-  }
-  .header .head-title p {
-    font-size: 30px;
-  }
-  .header .head-bottom-line {
-    position: absolute;
-    bottom: 0px;
-  }
-}

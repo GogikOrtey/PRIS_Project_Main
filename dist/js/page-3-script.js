@@ -30,12 +30,6 @@ document.addEventListener('DOMContentLoaded', function() {
         window.location.href = 'index.html';
     });
 
-    let GoToMainPage2 = document.querySelector('#main-1 ');
-    
-    GoToMainPage2.addEventListener('click', function() {
-        window.location.href = 'index.html';
-    });
-
     let span = document.querySelector('.please-wait span');
     let colors = ['darkgray', 'lightgray'];
     let i = 0;
