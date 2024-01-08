@@ -16,5 +16,5 @@ git push origin main
 echo commitMessage = "%commitMessage%"
 echo.
 echo Коммит успешно создан и отправлен
-timeout /t 2 >nul
+timeout /t 1 >nul
 exit
