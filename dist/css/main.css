@@ -190,10 +190,13 @@ body {
   border: solid 5px #20f00d;
 }
 .butt-start:hover span {
+  font-style: italic;
   letter-spacing: 0.04em;
 }
 .butt-start:active {
   background: #20f00d;
+}
+.butt-start:active span {
   font-weight: bold;
 }
 .block-qu {
@@ -398,14 +401,16 @@ body {
 .butt-final:hover,
 .butt-final-2:hover {
   background: #00a3ff;
+  font-style: italic;
 }
 .butt-final:active,
 .butt-final-2:active {
-  font-weight: bold;
-  background: #001aff;
+  border: solid 3px #000;
+  letter-spacing: -0.05em;
 }
 .butt-final-2 {
-  margin-top: 35px;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 .block-request {
   width: 90%;
@@ -574,13 +579,14 @@ body {
 .result-cards,
 .zero-reauest {
   border-radius: 15px;
-  width: 90%;
+  width: 80%;
   margin: auto;
   display: grid;
   grid-template-rows: auto auto;
   justify-items: center;
   align-items: center;
-  margin-bottom: 35px;
+  margin-bottom: 20px;
+  margin-top: 0px;
   padding: 20px;
 }
 .result-cards .spsp,
@@ -592,7 +598,7 @@ body {
   justify-items: center;
   align-items: center;
   grid-template-rows: 90%;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 }
 .result-cards .spsp span,
 .zero-reauest .spsp span {
@@ -654,8 +660,9 @@ body {
 }
 .card {
   width: 90%;
-  height: 335px;
+  height: 270px;
   margin: 15px;
+  margin-bottom: 5px;
   padding: 10px;
   border-radius: 13px;
   box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.25);
@@ -667,11 +674,11 @@ body {
 }
 .card img {
   box-shadow: none;
-  width: 100%;
+  width: 85%;
   height: 100%;
 }
 .card span {
-  font-size: 22.5px;
+  font-size: 21px;
   width: 95%;
   height: 90%;
   padding: auto 5px;
@@ -683,7 +690,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 15px;
 }
 .card:hover {
   box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.5);

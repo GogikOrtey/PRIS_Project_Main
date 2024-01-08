@@ -346,73 +346,27 @@ body
 	background-position: 0 0; /* Добавлено */
 
 	
-//     animation: moving-dashes 2s linear infinite;
-// 	-webkit-animation: moving-dashes 2s linear infinite; /* Для Safari и Chrome */
-// 	-moz-animation: moving-dashes 2s linear infinite; /* Для Firefox */
-// 	-o-animation: moving-dashes 2s linear infinite; /* Для Opera */
-// }
-
-// @keyframes moving-dashes {
-//     to {
-//         background-position: 100% 0;
-//     }
-// }
-
-// .butt-start {
-// 	position: relative;
-// 	background: linear-gradient(60deg, #f0f 6%, transparent 6%) 0 0, 
-// 	            linear-gradient(240deg, #f0f 6%, transparent 6%) 0 0, 
-// 	            linear-gradient(60deg, transparent 94%, #f0f 94%) 14px 0, 
-// 	            linear-gradient(240deg, transparent 94%, #f0f 94%) 14px 0;
-// 	background-size: 28px 50px;
-// 	background-color: #333;
-// 	animation: gradient 5s linear infinite;
-// 	padding: 10px;
-// 	color: white;
-// }
-
-// .butt-start:before {
-// 	content: "";
-// 	position: absolute;
-// 	top: -3px;
-// 	bottom: -3px;
-// 	left: -3px;
-// 	right: -3px;
-// 	background: inherit;
-// 	z-index: -1;
-// }
-
-// @keyframes gradient {
-// 	0% {
-// 	  background-position: 0 0, 0 0, 0 0, 0 0;
-// 	}
-// 	100% {
-// 	  background-position: 28px 50px, 28px 50px, 28px 50px, 28px 50px;
-// 	}
-// }
-
-
-
-// .butt-start:hover
-// 	filter: brightness(135%);
-// 	border solid 3px rgb(32, 32, 32)
-
-// .butt-start:active
-// 	//filter: invert(100%);
-// 	//bord()
-// 	font-weight: bold
-// 	//font-style: italic	
-// 	//letter-spacing: -0.05em 
-
 .butt-start:hover
 	border solid 5px #20f00d
 	span
-		//font-style: italic
+		font-style: italic
 		letter-spacing: 0.04em
 
 .butt-start:active
 	background #20f00d
-	font-weight: bold
+	//font-weight: bold
+	span
+		//letter-spacing: -0.05em
+		font-weight: bold
+
+// .butt-final:hover, .butt-final-2:hover
+// 	background bg-blue
+// 	font-style: italic 
+// .butt-final:active, .butt-final-2:active
+// 	//font-weight: bold
+// 	border solid 3px black
+// 	letter-spacing: -0.05em 
+
 
 // .butt-start:hover
 // 	//border none
@@ -683,12 +637,22 @@ body
 
 .butt-final:hover, .butt-final-2:hover
 	background bg-blue
+	font-style: italic 
 .butt-final:active, .butt-final-2:active
-	font-weight: bold
-	background #001aff
+	//font-weight: bold
+	border solid 3px black
+	letter-spacing: -0.05em 
+
+// .butt-final:hover, .butt-final-2:hover
+// 	border solid 6px bg-blue
+// .butt-final:active, .butt-final-2:active
+// 	font-weight: bold	
+// 	background bg-blue
+// 	letter-spacing: -0.05em 
 
 .butt-final-2
-	margin-top: 35px
+	margin-top: 15px
+	margin-bottom: 15px
 
 .block-request  
 	width 90%
@@ -878,13 +842,14 @@ body
 .result-cards, .zero-reauest
 	//background rgb(255, 255, 255)
 	border-radius: 15px
-	width 90%
+	width 80%
 	margin: auto
 	display: grid;
 	grid-template-rows: auto auto
 	justify-items: center;
 	align-items: center;
-	margin-bottom: 35px
+	margin-bottom: 20px
+	margin-top 0px
 	padding 20px
 	.spsp		
 		width 105%
@@ -895,7 +860,7 @@ body
 		justify-items: center;
 		align-items: center;
 		grid-template-rows: 90%
-		margin-bottom: 30px
+		margin-bottom: 15px
 		span
 			//bord()
 			height 80%
@@ -960,8 +925,9 @@ body
 	//bord()
 	// width 200px
 	width 90%
-	height 335px
+	height 270px
 	margin 15px
+	margin-bottom 5px
 	padding 10px
 	border-radius: 13px
 	box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.25)
@@ -972,10 +938,10 @@ body
 	align-items: center;
 	img	
 		box-shadow: none
-		width: 100%
+		width: 85%
 		height 100%
 	span
-		font-size: 22.5px
+		font-size: 21px
 		//bord()
 		width 95%
 		height 90%
@@ -990,7 +956,7 @@ body
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		margin-top 20px
+		margin-top 15px
 		//bord()
 
 .card:hover

@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             document.getElementsByClassName('butt-final')[0].style.display = 'none';
-            document.querySelector('.butt-final-2').style.display = 'flex';
+            //document.querySelector('.butt-final-2').style.display = 'flex';
             document.querySelector('.loadd').style.display = 'grid';
             document.querySelector('.loadd').scrollIntoView({behavior: "smooth"});
 
@@ -215,7 +215,7 @@ function UpdateDevelomMode() {
     }
 }
 
-let isDevelopModActive = true;
+let isDevelopModActive = false;
 
 let _mainCounter = 0;               // Счётчик состояний
 
@@ -548,6 +548,8 @@ function SetColorAction() {
         button.addEventListener('click', function() {
             // Получение id кнопки (цвета)
             let color = this.id;
+
+            console.log("Нажата кнопка цвета: " + color);
       
             // Изменение значения булевой переменной на противоположное
             colors[color] = !colors[color];
@@ -571,6 +573,8 @@ function ColorZeroing() {
     for (let color in colors) {
         colors[color] = false;
     }
+
+    //console.log("Сбрасываем все кнопки цвета");
 
     // Получение всех элементов .color-s внутри .color-other
     let colorButtons = document.querySelectorAll('.color-other .color-s');
@@ -1118,7 +1122,11 @@ str_SortMainReq = ''; // Пока что, для тестов
 let allCountOfRequ = 0;
 
 function Requ_2_OnlyGettingColor() {
-    if(allCountOfRequ < 2) {    
+    if(colors['green'] == true) {
+        isGreenZeroRequest = true;
+        document.querySelector('.zero-reauest').style.display = 'grid';
+        document.querySelector('.result-cards').style.display = 'none';
+    } else if(allCountOfRequ < 2) {    
         console.log("Запрос с цветами пустой");
         allCountOfRequ = 2;
         document.querySelector('.loadd').style.display = 'grid';
@@ -1153,9 +1161,7 @@ function Requ_2_OnlyGettingColor() {
         if(colors['multicolor'] == true) {
             addStr1 += "plant_color_description LIKE '%азноцветный%' OR ";
         } 
-        if(colors['green'] == true) {
-            addStr1 += "plant_color_description LIKE '%елёный%' OR ";
-        } 
+
         
     
         addStr1 = addStr1.trim(); // Удаляю пробелы в конце строки
@@ -1183,6 +1189,7 @@ function Requ_2_OnlyGettingColor() {
 //var sql_2 = "SELECT plant_name FROM MainTable WHERE plant_type_description = 'Уличное' AND (allelopathy_description = 'Нейтральная' OR allelopathy_description = 'Положительная') AND (care_instructions >= 6) ORDER BY is_famous DESC, CASE allelopathy_description WHEN 'Положительная' THEN 1 WHEN 'Нейтральная' THEN 2 ELSE 3 END, CASE plant_color_description WHEN 'разноцветный' THEN 1 WHEN 'белый' THEN 2 WHEN 'жёлтый' THEN 3 WHEN 'голубой' THEN 4 WHEN 'серебристый' THEN 5 WHEN 'бордовый' THEN 6 WHEN 'красный' THEN 7 WHEN 'оранжевый' THEN 8 WHEN 'пёстрый' THEN 9 WHEN 'пурпурный' THEN 10 WHEN 'розовый' THEN 11 WHEN 'синий' THEN 12 WHEN 'фиолетовый' THEN 13 WHEN 'Зелёный с белой каймой' THEN 14 WHEN 'Зелёный с белыми или розовыми разводами' THEN 15 WHEN 'Зелёный с красными прицветниками' THEN 16 WHEN 'Зелёный с пятнами' THEN 17 WHEN 'Зелёный с разноцветными прожилками' THEN 18 WHEN 'Зелёный с серебристым оттенком' THEN 19 ELSE 20 END, area_covered ASC, oxygen_production DESC;";
 var sql_2 = "";
 let isEmptyBDAnswer = false; // Мы получили непустой ответ от БД?
+let isGreenZeroRequest = false;
 
 function SQL_RQ_FromSwever(sql_2) {
     // Запрос к БД ратсений:
@@ -1198,6 +1205,7 @@ function SQL_RQ_FromSwever(sql_2) {
                 if(colors['green'] == false) {
                     Requ_2_OnlyGettingColor();
                 } else {
+                    isGreenZeroRequest = true;
                     document.querySelector('.zero-reauest').style.display = 'grid';
                     document.querySelector('.result-cards').style.display = 'none';
                 }
@@ -1212,7 +1220,7 @@ function SQL_RQ_FromSwever(sql_2) {
                 document.querySelector('.result-cards').style.display = 'none';
             } else {
                 allCountOfRequ = 3;
-                isNotEmptyBDAnswer = true;
+                isEmptyBDAnswer = true;
                 var data = JSON.parse(data_inp);
                 JSON_Parser_OnConsole(data);
                 JSON_Parser_OnHTMLPage(data);
@@ -1252,6 +1260,16 @@ function docWrite_01(text) {
         document.querySelector('.result-cards').style.display = 'grid';    
     }
 
+    document.querySelector('.butt-final-2').style.display = 'flex';
+    document.querySelector('.butt-final-2').scrollIntoView({behavior: "smooth"});
+
+    if(isGreenZeroRequest === true) {
+        document.querySelector('.zero-reauest').style.display = 'grid';
+        document.querySelector('.result-cards').style.display = 'none';
+        document.querySelector('.reauest-2-only-color').style.display = 'none';
+    }
+
+    console.log("Отправляем вот такую строку:" + text);
     window.plantCards_plantNames = text;
     window.setCards();
 }
@@ -1260,8 +1278,10 @@ function OnPageWeu_02(data) {
     let plantNames = "";
     let plantNames_top3 = "";
     let plantNames_next3 = "";
+
+    console.log("Обрабатываем такую строку:" + data);
     
-    if (isNotEmptyBDAnswer) {
+    if (isEmptyBDAnswer) {
         if (data.length > 7) {
             for (let i = 0; i < 3; i++) {
                 plantNames_top3 += data[i].plant_name;
@@ -1287,6 +1307,8 @@ function OnPageWeu_02(data) {
     } else {
         plantNames = "Пустой ответ";
     }
+
+    console.log("На выходе получили такую:" + plantNames);
 
     return plantNames;
 }

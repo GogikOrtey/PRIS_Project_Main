@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 window.setCards = function() {
+    console.log("Получили такую строку: " + plantCards_plantNames);
     randomImgPlantsCard();
     SetNamePlants(plantCards_plantNames);
 }
@@ -39,19 +40,23 @@ function SetNamePlants(plantNames) {
     // Получаем строку с названиями растений
 
     // Преобразуем строку в массив
-    plantNames = plantNames.split(', ');
+    plantNames_mass = plantNames.split(', ');
+
+    console.log("Разбили на такой массив: " + plantNames_mass);
+    console.log("Его длинна: " + plantNames_mass.length);
 
     // Присваиваем каждому элементу span название растения из массива
     spans.forEach((span, index) => {
-        if (index < plantNames.length) {
-            span.textContent = plantNames[index];
+        if (index < plantNames_mass.length) {
+            span.textContent = plantNames_mass[index];
+            span.parentElement.style.display = 'grid';
         } else {
             span.parentElement.style.display = 'none'; // скрываем лишние карточки
         }
     });
 
     // Если названий растений меньше 7, но больше 3, показываем только первые 3 карточки
-    if (plantNames.length < 7 && plantNames.length > 3) {
+    if (plantNames_mass.length < 7 && plantNames_mass.length > 3) {
         for (let i = 3; i < spans.length; i++) {
             spans[i].parentElement.style.display = 'none';
         }
