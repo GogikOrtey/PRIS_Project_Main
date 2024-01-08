@@ -139,7 +139,8 @@ document.addEventListener('DOMContentLoaded', function() {
             let SQL_Rq = CreateSQLequest();
             document.querySelector('.block-request .req p').textContent = SQL_Rq;
 
-            let BD_Answer = SQL_RQ_FromSwever(SQL_Rq);
+            //let BD_Answer = 
+            SQL_RQ_FromSwever(SQL_Rq);
             //document.querySelector('.block-request .answ p').textContent = BD_Answer;            
 
             elements.forEach(element => {
@@ -147,8 +148,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             console.log("Final*");
-
-
         }
     });
 
@@ -1171,9 +1170,6 @@ function SQL_RQ_FromSwever(sql_2) {
 
 function docWrite_01(text) {
     document.querySelector('.block-request .answ p').innerText = text;
-
-    window.plantCards_plantNames = text;
-    window.setCards();
 }
 
 function OnPageWeu_02(data) {
