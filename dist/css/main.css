@@ -1,4 +1,4 @@
-* {
+*:not(a) {
   cursor: default;
 }
 html {

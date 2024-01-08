@@ -1087,9 +1087,9 @@ function CreateSQLequest() {
     strRequare += " AND ";
 
     if (d_IsPlod === 1) {
-        strRequare += "is_fruitful = 'true'";
+        strRequare += "is_fruitful = 1";
     } else if (d_IsPlod === 3) {
-        strRequare += "is_fruitful = 'false'";
+        strRequare += "is_fruitful = 0";
     }
 
     strRequare += " AND ";
@@ -1445,11 +1445,12 @@ function SetNamePlants(plantNames_mass) {
         
                 //img.src = `img/all-plants-photo/Растение ${namePl}.jpg`;
 
-                if(window.innerWidth > 650) {
-                    img.src = `img/all-plants-photo/Растение ${item.plant_name}.jpg`;
-                } else {
-                    img.src = `img/all-plants-photo-small/Растение ${item.plant_name}.jpg`;
-                }
+                img.src = `img/all-plants-photo/Растение ${namePl}.jpg`;
+                // if(window.innerWidth > 650) {
+                //     img.src = `img/all-plants-photo/Растение ${namePl}.jpg`;
+                // } else {
+                //     img.src = `img/all-plants-photo-small/Растение ${namePl}.jpg`;
+                // }
     
                 img.onerror = function() { ErrorImageCon(img) }; // Если картинки с нужным именем не нашлось
     
@@ -1480,11 +1481,12 @@ function SetNamePlants(plantNames_mass) {
     
         //img.src = `img/all-plants-photo/Растение ${namePl}.jpg`;
 
-        if(window.innerWidth > 650) {
-            img.src = `img/all-plants-photo/Растение ${item.plant_name}.jpg`;
-        } else {
-            img.src = `img/all-plants-photo-small/Растение ${item.plant_name}.jpg`;
-        }
+        img.src = `img/all-plants-photo/Растение ${namePl}.jpg`;
+        // if(window.innerWidth > 650) {
+        //     img.src = `img/all-plants-photo/Растение ${namePl}.jpg`;
+        // } else {
+        //     img.src = `img/all-plants-photo-small/Растение ${namePl}.jpg`;
+        // }
     
         img.onerror = function() { ErrorImageCon(img) }; // Если картинки с нужным именем не нашлось
 
