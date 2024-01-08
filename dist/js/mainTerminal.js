@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
         a_2_AVGTempInRegion = 2
         isTempCorrect = true
     });    
-    
+
     document.querySelector('#block-a-2-1 .answ-block-1-s').addEventListener('click', function() {
         a_2_1_AVGHum = 1
         // Ввод из поля ввода
@@ -258,33 +258,98 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 let isTempCorrect = false;
+let isColorCucsSelected = false;
+let mainCounter = 0;
 
 // Перераспределение блоков
 // Процедура вызывается после нажатия на кнопку в любом блоке
 function CheckAllBlocks(){
     if(isStart == true) {
-        console.log("Update all blocks")
+        mainCounter = 1;
+    }
+    console.log("Update all blocks")
 
-        if (a_InHome == 2) {
-            document.getElementById('block-a-1').style.display = 'grid';
-            document.getElementById('block-a-2').style.display = 'none';
-            //document.getElementsByClassName('descr-qu-1-grad')[0].style.display = 'none';
-        } else if(a_InHome == 1) {
-            document.getElementById('block-a-1').style.display = 'none';
-            document.getElementById('block-a-2').style.display = 'grid';
-        }
+    if (a_InHome == 2) {
+        document.getElementById('block-a-1').style.display = 'grid';
+        document.getElementById('block-a-2').style.display = 'none';
+        //document.getElementsByClassName('descr-qu-1-grad')[0].style.display = 'none';
+    } else if(a_InHome == 1) {
+        document.getElementById('block-a-1').style.display = 'none';
+        document.getElementById('block-a-2').style.display = 'grid';
+    }
 
+    // Влажность
 
+    if((a_2_AVGTempInRegion != 0 || a_2_1_AVGHum != 0) && (isTempCorrect == true)){
+        document.getElementById('block-b').style.display = 'grid';
+    } else {
+        document.getElementById('block-b').style.display = 'none';
+    }
 
-        if((a_2_AVGTempInRegion != 0 || a_2_1_AVGHum != 0) && (isTempCorrect == true)){
-            document.getElementById('block-b').style.display = 'grid';
+    if(b_OncePlant != 0) {
+        document.getElementById('block-c').style.display = 'grid';
+    } else {
+        document.getElementById('block-c').style.display = 'none';
+    }
+
+    if(c_AFlowers == 3) { ////// ЦВЕТА!!!
+        document.getElementById('block-c-3').style.display = 'grid';
+        isColorCucsSelected = false
+        // Здесь нужно будет верно обработать ввод цветов
+    } else {
+        document.getElementById('block-c-3').style.display = 'none';
+    }
+
+    if(c_AFlowers == 1 || c_AFlowers == 2 || isColorCucsSelected == true) {
+        document.getElementById('block-d').style.display = 'grid';
+    } else {
+        document.getElementById('block-d').style.display = 'none';
+    }
+
+    if(a_InHome == 2) {
+        if(d_IsPlod != 0) {
+            document.getElementById('block-e').style.display = 'grid';
         } else {
-            document.getElementById('block-b').style.display = 'none';
+            document.getElementById('block-e').style.display = 'none';
         }
+
+        if(e_StandOnWindow == 1) {
+            document.getElementById('block-e-1').style.display = 'grid';
+        } else {
+            document.getElementById('block-e-1').style.display = 'none';
+        }
+
+        if(e_StandOnWindow == 2 || e_1_ASunLight != 0) {
+            document.getElementById('block-f').style.display = 'grid';
+        } else {
+            document.getElementById('block-f').style.display = 'none';
+        }
+
+        if(f_GenerateAOxugen != 0) {
+            document.getElementById('block-g').style.display = 'grid';
+        } else {
+            document.getElementById('block-g').style.display = 'none';
+        }
+    }
+
+    if(g_AFreeProstr != 0 || (a_InHome == 2 && d_IsPlod != 0)) {
+        document.getElementById('block-h').style.display = 'grid';
+    } else {
+        document.getElementById('block-h').style.display = 'none';
+    }
+    
+    if(h_NoControl != 0) {
+        //document.getElementById('block-h').style.display = 'grid';
+        console.log("I'ts Final!!!");
+        debugPrint();
+    } else {
+        //document.getElementById('block-h').style.display = 'none';
     }
 }
 
 function debugPrint(){
+    console.log("----------");
+    console.log("Debug Print:");
     console.log(`a_InHome: ${a_InHome}`);
     if (a_InHome == 1) {
         console.log(`a_1_MinTempInHome: ${a_1_MinTempInHome}`);
