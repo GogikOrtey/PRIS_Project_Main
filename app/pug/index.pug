@@ -70,7 +70,7 @@ html
         .butt-bar
           .butt-answ.answ-block-1.input-butt.good-button
             p Введите, в ℃
-            input(type='text', placeholder='от -20 до 35').my-input-1
+            input(type='text', placeholder='от -20 до 35', inputmode="numeric").my-input-1
           .butt-answ.answ-block-2.gerat-button
             p Не имеет значения, так как я планирую выращивать растения летом
         p.err-inp-1 Нужно ввести число, от -20 до 35
@@ -81,7 +81,7 @@ html
         .butt-bar
           .butt-answ.answ-block-1#block-a-2-butt.good-button
             p.very-long-01 Введите, в ℃
-            input(type='text', placeholder='от 15 до 30').my-input-2
+            input(type='text', placeholder='от 15 до 30', inputmode="numeric").my-input-2
         p.err-inp-2 Нужно ввести число, от 15 до 30
 
       .block-qu#block-a-2-1
@@ -90,7 +90,7 @@ html
         .butt-bar
           .butt-answ.answ-block-1-s.input-butt.gerat-button
             p Введите (от 20 до 90)
-            input(type='text').my-input-3
+            input(type='text', inputmode="numeric").my-input-3
           .butt-answ.answ-block-2-s.bad-batton
             p Сухо
           .butt-answ.answ-block-3-s.bad-batton
@@ -259,6 +259,6 @@ html
 
   footer 
     .version 
-      p 1.04
+      p 1.05
     p 
       a(href = 'page_2.html') Кто автор проекта?

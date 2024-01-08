@@ -298,6 +298,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Перезагружаю страницу, если нажата кнопка "Пройти ещё раз"
     ReloadPageButtonProc();
+
+    // ------------------------------------------------------------------- //
+    // 	        Обработчик событий для нажатия на кнопки ввода             //
+    // ------------------------------------------------------------------- // 
+    
+    document.querySelectorAll('.butt-answ').forEach(function(button) {
+        button.addEventListener('click', function() {
+          this.querySelector('input').focus();
+        });
+      });      
 });
 
 // ------------------------------------------------------------------- //

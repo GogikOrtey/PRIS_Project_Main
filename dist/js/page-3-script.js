@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         let downOffsetSet = 150;
     
-        if(window.innerWidth < 650) { downOffsetSet = 250; } else { downOffsetSet = 150; }
+        if(window.innerWidth < 650) { downOffsetSet = 500; } else { downOffsetSet = 150; }
 
         if (offset >= height - downOffsetSet) {
             console.log('Вы достигли 150 пикселей от низа страницы или ниже');
