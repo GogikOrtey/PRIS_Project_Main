@@ -198,20 +198,36 @@ function AddClickEventFromCards() {
     });
 }
 
+// function RemoveAllModals() {
+//     document.querySelectorAll('.card').forEach((card) => {
+//         let clone = card.cloneNode(true);
+//         card.parentNode.replaceChild(clone, card);
+//     });
+// }
+
 function RemoveAllModals() {
     document.querySelectorAll('.card').forEach((card) => {
         let clone = card.cloneNode(true);
         card.parentNode.replaceChild(clone, card);
+
+        // Находим все изображения в клонированной карточке
+        clone.querySelectorAll('img').forEach((img) => {
+            img.onerror = function() {
+                // Обработка ошибки
+                // Создаем массив с именами файлов изображений
+                let imageNames = Array.from({length: 13}, (_, i) => `img/plant-image/P_${String(i+1).padStart(2, '0')}.png`);
+
+                // Перемешиваем массив
+                imageNames.sort(() => Math.random() - 0.5);
+
+                img.src = imageNames[0];
+
+                console.log('Ошибка при загрузке изображения. Заменили его на изображение ' + imageNames[0]);
+            };
+        });
     });
 }
 
-function RemoveAllModalsOld() {
-    document.querySelectorAll('.new-window-1').forEach((modal) => {
-        document.body.removeChild(modal);
-    });
-
-    console.log("Удалили все модальные окна");
-}
 
 let isOwerDownLoad = 0;
 
@@ -424,7 +440,7 @@ function showCards(data) {
 
                 img.src = imageNames[0];
 
-                console.log('Ошибка при загрузке изображения "' + item.plant_name + '"');
+                console.log('Ошибка при загрузке изображения "' + item.plant_name + '". Заменили его на изображение ' + imageNames[0]);
             };
             span.textContent = item.plant_name;
     

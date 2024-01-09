@@ -124,6 +124,12 @@ h_NoControl = 0
 // ------------------------------------------------------------------- // 
 
 document.addEventListener('DOMContentLoaded', function() { 
+    // Устанавливаю версию
+    let versionElement = document.querySelector('.version p');
+    if(versionElement) {
+        versionElement.textContent = '1.16';
+    }
+    
     let header = document.querySelector('header');
     let width = window.innerWidth;
     if (width < 650) {
@@ -1367,11 +1373,11 @@ function SQL_RQ_FromSwever(sql_2) {
                 isEmptyBDAnswer = false;
                 docWrite_01(data_inp);
                 
+                ShowSQL_InjectionError();
                 ZeroReauest_Show();
 
             // Если мы получили нужный ответ от БД:
             } else {                
-
                 allCountOfRequ = 3; // Устанавливаем, что бы 2й запрос точно не прошёл
                 isEmptyBDAnswer = true;
 
@@ -1445,6 +1451,7 @@ function OnPageWeu_02(data) {
 
     return plantNames;
 }
+
 
 // ------------------------------------------ //
 // 	         Отображение карточек:            //
