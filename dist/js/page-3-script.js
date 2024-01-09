@@ -132,7 +132,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (offset >= height - downOffsetSet) {
             console.log('Вы достигли 150 пикселей от низа страницы или ниже');
-            // Ваш код здесь
+            
+            
+            //AddClickEventFromCards(); // Добавляю на все карточки код, который по нажанию показывет модальные окна, с переходом на страницу поиска в Яндексе
 
             if(boolIsFinalLoad !== true) {
                 if(isOwerDownLoad <= 0) {
@@ -140,10 +142,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     LoadMoreFn();
                 }
             }
+
+            //RemoveAllModals(); // Сначала удаляю все модельные окна с карточек
         }
     };
     
-    AddClickEventFromCards() 
+    //RemoveAllModals(); // Сначала удаляю все модельные окна с карточек
+    // Т.к. это вызывает проблемы, когда мои карточки автоматически загружаются
+    //AddClickEventFromCards(); // Добавляю на все карточки код, который по нажанию показывет модальные окна, с переходом на страницу поиска в Яндексе
 });
 
 function AddClickEventFromCards() {
@@ -161,6 +167,7 @@ function AddClickEventFromCards() {
             let plantName = this.querySelector('span').innerText;
             let modal = document.createElement('div');
             modal.class = 'new-window-1';
+            modal.className = 'new-window-1';
             modal.style.position = 'fixed';
             modal.style.top = '0';
             modal.style.left = '0';
@@ -189,6 +196,21 @@ function AddClickEventFromCards() {
             document.body.appendChild(modal);
         });
     });
+}
+
+function RemoveAllModals() {
+    document.querySelectorAll('.card').forEach((card) => {
+        let clone = card.cloneNode(true);
+        card.parentNode.replaceChild(clone, card);
+    });
+}
+
+function RemoveAllModalsOld() {
+    document.querySelectorAll('.new-window-1').forEach((modal) => {
+        document.body.removeChild(modal);
+    });
+
+    console.log("Удалили все модальные окна");
 }
 
 let isOwerDownLoad = 0;
@@ -427,6 +449,7 @@ function showCards(data) {
 
     loadedCards += limitter;    
 
+    RemoveAllModals();
     AddClickEventFromCards(); // Обновляю события для нажатий на карты
 }
 
