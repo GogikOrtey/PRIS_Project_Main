@@ -86,17 +86,19 @@ html
 
       .block-qu#block-a-2-1
         p.qu-answ Какая примерная влажность в вашем доме?
+        .add-info.add-info-2
+          span i
         p.letter-abbr a-2-1
         .butt-bar
-          .butt-answ.answ-block-1-s.input-butt.gerat-button
-            p Введите (от 20 до 90)
-            input(type='text', inputmode="numeric").my-input-3
           .butt-answ.answ-block-2-s.bad-batton
             p Сухо
           .butt-answ.answ-block-3-s.bad-batton
             p Влажно
           .butt-answ.answ-block-4-s.good-button
             p Умеренная влажность
+          .butt-answ.answ-block-1-s.input-butt.gerat-button
+            p Введите (от 20 до 90)
+            input(type='text', inputmode="numeric").my-input-3
         p.err-inp-3 Нужно ввести число, от 20 до 90
 
       .block-qu#block-b
@@ -262,6 +264,6 @@ html
 
   footer 
     .version 
-      p 1.12
+      p 1.14
     p 
       a(href = 'page_2.html') Кто автор проекта?

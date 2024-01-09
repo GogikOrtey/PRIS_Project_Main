@@ -243,9 +243,6 @@ body {
   margin: 10px;
   padding: 0px;
 }
-.butt-answ:hover {
-  filter: brightness(135%);
-}
 .butt-answ:active {
   font-weight: bold;
   border: solid 3px #202020;
@@ -283,7 +280,7 @@ body {
 .answ-block-3 {
   grid-column: 3;
 }
-.answ-block-1-s {
+.answ-block-4-s {
   grid-column: 1;
   grid-row: 1;
 }
@@ -295,7 +292,7 @@ body {
   grid-column: 2;
   grid-row: 1;
 }
-.answ-block-4-s {
+.answ-block-1-s {
   grid-column: 2;
   grid-row: 2;
 }
@@ -475,6 +472,10 @@ body {
   content: 'Сколько дней растения можно не поливать:';
   display: none;
 }
+.add-info-2::after {
+  content: 'Введите относительную влажность. Варианты ответов: Влажно - 80%, Умеренно - 50%, сухо - 30%, либо ввдеите своё значение';
+  display: none;
+}
 .add-info:hover::after,
 .add-info:active::after {
   display: block;
@@ -484,7 +485,7 @@ body {
   background: #fff;
   border-radius: 7px;
   padding: 5px;
-  width: 200px;
+  width: 300px;
   border: solid 2px #afafaf;
 }
 .butt-bar-colors {
@@ -1305,5 +1306,10 @@ body {
     padding: 0px;
     font-size: 28px;
     text-align: center;
+  }
+}
+@media (max-width: 535px) {
+  p#nhh2 {
+    display: block;
   }
 }

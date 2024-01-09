@@ -446,8 +446,8 @@ body
 		margin: 10px
 		padding: 0px
 
-.butt-answ:hover
-	filter: brightness(135%);
+//.butt-answ:hover
+	//filter: brightness(135%);
 
 .butt-answ:active
 	font-weight: bold
@@ -494,7 +494,7 @@ body
 
 
 // Расположение блоков, если ответов 4
-.answ-block-1-s
+.answ-block-4-s
 	grid-column: 1;
 	grid-row: 1
 
@@ -506,7 +506,7 @@ body
 	grid-column: 2;
 	grid-row: 1
 
-.answ-block-4-s
+.answ-block-1-s
 	grid-column: 2;
 	grid-row: 2
 
@@ -532,44 +532,12 @@ body
 .very-long-01
 	width 95%
 
-// Тестово устанавливаю цвета для кнопочек:
-
-// #block-a
-// 	.butt-answ
-// 		background color4
-
-// #block-a-1
-// 	.butt-answ
-// 		background color5
-
-// #block-a-2
-// 	.butt-answ
-// 		background color6
-
-// #block-a-2-1
-// 	.butt-answ
-// 		background color7
-
-// #block-a-2-1
-// 	display none
-
-// #block-a-2
-// 	display none
-
-// #block-a-1
-// 	display none
-
-// #block-a
-// 	display none
-
 // ----------------------------- //
 // 		 Кнопки навигации:	     //
 // ----------------------------- // 
 
 .nav-button
 	width 100%
-
-// Обязательно прописать стили для узких экранов
 
 // Широкие экраны (десктоп)
 @media (min-width: 950px) 
@@ -759,6 +727,10 @@ body
 	content: 'Сколько дней растения можно не поливать:';
 	display: none;
 
+.add-info-2::after 
+	content: 'Введите относительную влажность. Варианты ответов: Влажно - 80%, Умеренно - 50%, сухо - 30%, либо ввдеите своё значение';
+	display: none;
+
 .add-info:hover::after, .add-info:active::after
 	display: block
 	//color red
@@ -769,7 +741,7 @@ body
 	background white
 	border-radius: 7px
 	padding 5px
-	width 200px
+	width 300px
 	border solid 2px rgb(175, 175, 175)
 
 // ----------------------------- //
@@ -1739,3 +1711,7 @@ body
 			font-size: 28px
 			text-align: center;
 
+@media (max-width: 535px)
+	p#nhh2
+		display: block
+		//color red
