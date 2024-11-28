@@ -7,7 +7,7 @@
 
 🟩 Сервис доступен, можете протестировать его прямо сейчас! 
 
-https://gogortey.ru/MyLibrary/SelectionPlants/index.html
+♾️ https://gogortey.ru/MyLibrary/SelectionPlants/index.html
 
 ---
 
